@@ -1,21 +1,21 @@
 package com.struninproject.onlinestore.service;
 
-import com.struninproject.onlinestore.repository.UserRepository;
+import com.struninproject.onlinestore.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * The {@code UserService} class
+ * The {@code OrderService} class
  *
  * @author Strunin Dmytro
  * @version 1.0
  */
 @Service
-public class UserService {
-    private final UserRepository repository;
+public class OrderService {
+    private final OrderRepository repository;
 
     @Autowired
-    public UserService(UserRepository repository) {
+    public OrderService(OrderRepository repository) {
         this.repository=repository;
     }
 }

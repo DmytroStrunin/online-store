@@ -1,9 +1,13 @@
-package com.struninproject.onlinestore.model;
+package com.struninproject.onlinestore.model.user;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -14,11 +18,13 @@ import javax.persistence.Table;
  * @author Strunin Dmytro
  * @version 1.0
  */
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "uzer")
+@Table(name = "users")
 public class User {
     @Id
+    @Column (name = "user_id")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
@@ -27,6 +33,8 @@ public class User {
     private String firstName;
     private String lastName;
     private int age;
-    private String gender;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
