@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Module#3</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="/css/table.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div class="parent">
+    <div>
+        <form style="width:400px" action="/party/p" method="post">
+            <div>
+                <input style="width:72%" type="text" name="name"
+                       placeholder="Find group by name">
+                <button style="width:25%; float: right">Find group</button>
+            </div>
+        </form>
+        <form action="/party/p1">
+            <div>
+                <button style="width:400px">Get number of students in each group
+                </button>
+            </div>
+        </form>
+        <form action="/party/p2">
+            <div>
+                <button style="width:400px">Get average score of each group
+                </button>
+            </div>
+        </form>
+        <form style="width:400px" action="/teacher/t" method="post">
+            <div>
+                <input style="width:72%" type="text" name="name"
+                       placeholder="Find teacher by name">
+                <button style="width:25%; float: right">Find teacher</button>
+            </div>
+        </form>
+        <form action="/subject/s">
+            <div>
+                <button style="width:400px">Get worst and best performing
+                    subject
+                </button>
+            </div>
+        </form>
+        <form style="width:400px" action="/student/s" method="post">
+            <div>
+                <input style="width:72%" type="text" name="averageMark"
+                       placeholder="Find students whose average mark amount than">
+                <button style="width:25%; float: right">Find student</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

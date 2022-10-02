@@ -36,12 +36,13 @@ public abstract class Product {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     protected String id;
+    protected String name;
+    protected BigDecimal price;
+    protected String image;
+    protected String description;
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
     protected Manufacturer manufacturer;
-    protected BigDecimal price;
-    private String image;
-    protected String description;
     @OneToMany(mappedBy = "product")
-    private Set<ProductCount> productCounts;
+    protected Set<ProductCount> productCounts;
 }
