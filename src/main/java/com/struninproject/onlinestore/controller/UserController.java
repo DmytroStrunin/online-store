@@ -79,20 +79,17 @@ public class UserController {
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("user", service.findById(id).get());// FIXME: 03.10.2022 
+        modelAndView.addObject("user", service.findById(id).get());// FIXME: 03.10.2022
         modelAndView.setViewName("user/edit");
         return modelAndView;
     }
 
-//    @GetMapping("/{id}/edit")
-//    public String edit(Model model, @PathVariable("id") String id) {
-//        model.addAttribute("user", service.findById(id));
-//        return "user/edit";
-//    }
-
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") String id) {
         service.findById(id);
+        if (service.existsById(id)){
+            service.save(user);
+        }
         return "redirect:/user/users";
     }
 

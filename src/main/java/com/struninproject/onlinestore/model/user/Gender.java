@@ -7,5 +7,17 @@ package com.struninproject.onlinestore.model.user;
  * @version 1.0
  */
 public enum Gender {
-    MALE, FEMALE, MIDDLE
+    MALE("Male"),
+    FEMALE("Female"),
+    MIDDLE("Middle");
+
+    private final String value;
+
+    private Gender(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 }

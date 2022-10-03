@@ -18,7 +18,7 @@
 
 <header th:insert="navbar.html :: header"> </header>
 
-<form action="#" th:action="@{/user/new}" th:object="${user}" method="post">
+<form action="#" th:action="@{/user/new}" th:object="${user}" method="POST">
     <label for="firstName">First name</label>
     <input type="text" th:field="*{firstName}" id="firstName" placeholder="firstName">
 <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->

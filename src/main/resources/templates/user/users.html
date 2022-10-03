@@ -17,50 +17,48 @@
 <body>
 
 <header th:insert="navbar.html :: header"></header>
-
-<table border="1">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Role</th>
-        <th>Email</th>
-        <th>Password</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user,iter : ${users}">
-        <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.user.User"*/-->
-        <td th:text="${user.getId()}"></td>
-        <td th:text="${user.getFirstName()}"></td>
-        <td th:text="${user.getLastName()}"></td>
-        <td th:text="${user.getAge()}"></td>
-        <td th:text="${user.getGender()}"></td>
-        <td th:text="${user.getRole()}"></td>
-        <td th:text="${user.getEmail()}"></td>
-        <td th:text="${user.getPassword()}"></td>
-        <td>
-<!--            <form th:method="GET"-->
-<!--                  th:action="@{/user/{id}/edit(id=${user.getId()})}"-->
-<!--                  th:object="${person}">-->
-<!--                <input type="submit" value="Edit"/>-->
-<!--            </form>-->
-            <a th:href="@{/user/{id}/edit(id=${user.getId()})}">Edit</a>
-        </td>
-        <td>
-            <form th:method="DELETE"
-                  th:action="@{/user/{id}(id=${user.getId()})}">
-                <input type="submit" value="Delete"/>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table class="table table-striped table-dark  w-auto">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user,iter : ${users}">
+            <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.user.User"*/-->
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getFirstName()}"></td>
+            <td th:text="${user.getLastName()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td th:text="${user.getGender().getValue()}"></td>
+            <td th:text="${user.getRole().getValue()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getPassword()}"></td>
+            <td>
+                <form th:method="GET"
+                      th:action="@{/user/{id}/edit(id=${user.getId()})}">
+                    <input type="submit" value="Edit"/>
+                </form>
+                <!--            <a th:href="@{/user/{id}/edit(id=${user.getId()})}">Edit</a>-->
+            </td>
+            <td>
+                <form th:method="DELETE"
+                      th:action="@{/user/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 <!-- jQuery -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
