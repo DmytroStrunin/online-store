@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet'
+          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel='stylesheet'
+          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Demo CSS -->
+    <link rel="stylesheet" href="/css/demo.css">
+
+    <title>User registration</title>
+</head>
+<body>
+
+<header th:insert="navbar.html :: header"> </header>
+
+<form action="#" th:action="@{/user/new}" th:object="${user}" method="post">
+    <label for="firstName">First name</label>
+    <input type="text" th:field="*{firstName}" id="firstName" placeholder="firstName">
+<!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <label for="lastName">Last name</label>
+    <input type="text" th:field="*{lastName}" id="lastName" placeholder="lastName">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <label for="Age">Age</label>
+    <input type="text" th:field="*{Age}" id="Age" placeholder="Age">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <label for="gender">Gender</label>
+    <input type="text" th:field="*{gender}" id="gender" placeholder="gender">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email" placeholder="Email">
+<!--    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
+    <br>
+    <label for="password">Password</label>
+    <input type="text" th:field="*{password}" id="password" placeholder="password">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <input type="submit" value="Add User">
+</form>
+
+<!-- jQuery -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- Bootstrap JS -->
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+
+</body>
+</html>
