@@ -44,5 +44,5 @@ public abstract class Product {
     @JoinColumn(name = "manufacturer_id")
     protected Manufacturer manufacturer;
     @OneToMany(mappedBy = "product")
-    protected Set<ProductCount> productCounts;
+    protected Set<ProductCount> orders;
 }
