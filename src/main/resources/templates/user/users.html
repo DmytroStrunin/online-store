@@ -39,8 +39,10 @@
             <td th:text="${user.getFirstName()}"></td>
             <td th:text="${user.getLastName()}"></td>
             <td th:text="${user.getAge()}"></td>
+<!--            <td th:text="${user.getGender()}"></td>-->
             <td th:text="${user.getGender().getValue()}"></td>
-            <td th:text="${user.getRole().getValue()}"></td>
+            <td th:text="${user.getRoles()}"></td>
+<!--            <td th:text="${user.getRole().getValue()}"></td>-->
             <td th:text="${user.getEmail()}"></td>
             <td th:text="${user.getPassword()}"></td>
             <td>
