@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
+import java.util.Map;
 
 /**
  * The {@code ProductController} class
@@ -52,15 +53,23 @@ public class ProductController {
     @GetMapping("/new")
     public ModelAndView showsRegistrationForm(ModelAndView modelAndView) {
         modelAndView.addObject("product", new Product());
-        modelAndView.addObject("manufacturers", manufacturerRepository.findAll());
+        modelAndView.addObject("manufacturers", manufacturerRepository.findAll());  // FIXME: 11.10.2022 
         modelAndView.addObject("categories", categoryRepository.findAll());
+
+        final Map<String, String> map = Map.of("1", "1", "2", "2");
+        modelAndView.addObject("map", map);
+
+
         modelAndView.setViewName("product/new");
         return modelAndView;
     }
 
     @PostMapping("/new")
     public ModelAndView addUser(Product product, ModelAndView modelAndView) {
-        repository.save(product);
+//        final Map<String, String> map = Map.of("1", "1", "2", "2");
+//        product.setSpecifications(map);
+
+            repository.save(product);
         modelAndView.setViewName("redirect:/product");
         return modelAndView;
     }
@@ -75,6 +84,7 @@ public class ProductController {
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
         modelAndView.addObject("product", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.addObject("manufacturers", manufacturerRepository.findAll());// FIXME: 03.10.2022
         modelAndView.setViewName("product/edit");
         return modelAndView;
     }

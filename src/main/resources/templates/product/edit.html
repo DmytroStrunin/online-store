@@ -16,23 +16,70 @@
 </head>
 <body>
 
-<header th:insert="navbar.html :: header"> </header>
+<header th:insert="navbar.html :: header"></header>
 
-<!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
-<form th:method="PATCH" th:action="@{/product/{id}(id=${product.getId()})}" th:object="${product}">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="name">
-    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+<!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+<form th:method="PATCH" th:action="@{/product/{id}(id=${product.getId()})}"
+      th:object="${product}">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" type="text" th:field="*{name}" id="name"
+               placeholder="name">
+        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    </div>
+    <div class="form-group">
+        <!--/*@thymesVar id="price" type="java.math.BigDecimal"*/-->
+        <label for="price">Price</label>
+        <input class="form-control" type="text" th:field="*{price}" id="price"
+               placeholder="price">
+        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    </div>
+    <div class="form-group">
+        <!--/*@thymesVar id="image" type="java.lang.String"*/-->
+        <label for="image">Image</label>
+        <input class="form-control" type="text" th:field="*{image}" id="image"
+               placeholder="image">
+        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    </div>
+    <div class="form-group">
+        <!--/*@thymesVar id="description" type="java.lang.String"*/-->
+        <label for="description">Description</label>
+        <input class="form-control" type="text" th:field="*{description}"
+               id="description"
+               placeholder="description">
+        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    </div>
+    <div class="form-group">
+        <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
+        <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+        <label for="manufacturer">Manufacturer</label>
+        <select class="form-control" th:field="*{manufacturer}"
+                id="manufacturer">
+            <option th:each="manufacturer : ${manufacturers}"
+                    th:value="${manufacturer.getId()}"
+                    th:text="${manufacturer.getName()}"></option>
+        </select>
+        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    </div>
+    <div id="out" class="form-group">
+        <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
+        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+        <label for="category">Category: <b th:text="*{category.getName()}"></b></label>
+        <input type="hidden" class="form-control" th:field="*{category}" id="category" placeholder="category">
+        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    </div>
+    <table>
+        <tr th:each="spec : *{specifications}">
+            <td><input type="text" name="value" th:value="${spec.key}"
+                       readonly="true"/></td>
+            <td><input type="text" name="value"
+                       th:field="*{specifications[__${spec.key}__]}"/></td>
+        </tr>
+    </table>
+
     <br>
-    <label for="country">Country</label>
-    <input type="text" th:field="*{country}" id="country" placeholder="country">
-    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    <br>
-    <label for="image">Image</label>
-    <input type="text" th:field="*{image}" id="image" placeholder="image">
-    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    <br>
-    <input type="submit" class="btn btn-primary" value="Edit Manufacturer">
+
+    <input type="submit" class="btn btn-primary" value="Edit Product">
 </form>
 
 <!-- jQuery -->
