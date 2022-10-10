@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * The {@code Item} class
+ * The {@code Product} class
  *
  * @author Strunin Dmytro
  * @version 1.0
@@ -54,7 +54,7 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "specifications",
             joinColumns = {@JoinColumn(name = "product_id"
-//                    , referencedColumnName = "id"
+//                    , referencedColumnName = "product_id"
             )})
     @MapKeyColumn(name = "feature")
     @Column(name = "value")

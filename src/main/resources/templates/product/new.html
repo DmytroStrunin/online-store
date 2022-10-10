@@ -24,25 +24,29 @@
 
     <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control" type="text" th:field="*{name}" id="name" placeholder="name">
+        <input class="form-control" type="text" th:field="*{name}" id="name"
+               placeholder="name">
         <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
     </div>
     <div class="form-group">
         <!--/*@thymesVar id="price" type="java.math.BigDecimal"*/-->
         <label for="price">Price</label>
-        <input class="form-control" type="text" th:field="*{price}" id="price" placeholder="price">
+        <input class="form-control" type="text" th:field="*{price}" id="price"
+               placeholder="price">
         <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
     </div>
     <div class="form-group">
         <!--/*@thymesVar id="image" type="java.lang.String"*/-->
         <label for="image">Image</label>
-        <input class="form-control" type="text" th:field="*{image}" id="image" placeholder="image">
+        <input class="form-control" type="text" th:field="*{image}" id="image"
+               placeholder="image">
         <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
     </div>
     <div class="form-group">
         <!--/*@thymesVar id="description" type="java.lang.String"*/-->
         <label for="description">Description</label>
-        <input class="form-control" type="text" th:field="*{description}" id="description"
+        <input class="form-control" type="text" th:field="*{description}"
+               id="description"
                placeholder="description">
         <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
     </div>
@@ -68,23 +72,23 @@
                     th:value="${category.getId()}"
                     th:text="${category.getName()}"></option>
         </select>
+        <br>
         <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
     </div>
-    <input type="submit" value="Add product">
+    <input class="btn btn-primary" type="submit" value="Add product">
 </form>
 
 <script th:inline="javascript">
     function myChangeFunction(value) {
         const categories = /*[[${categories}]]*/ {};
-        let elInput;
-        let elLabel;
-        let br;
         const elementById = document.getElementById('in');
         if (elementById) {
             elementById.remove();
         }
         const form = document.getElementById("out");
         const divIN = document.createElement('div');
+        let elInput;
+        let elLabel;
         divIN.setAttribute('id', 'in');
         for (let index in categories) {
             const category = categories[index];
@@ -99,15 +103,11 @@
                     elInput.setAttribute('type', 'hidden')
                     divIN.appendChild(elInput);
                     elInput = document.createElement('input');
-                    elInput.setAttribute('class','form-control');
+                    elInput.setAttribute('class', 'form-control');
                     elInput.setAttribute('id', category.features[i]);
                     elInput.setAttribute('name', 'specifications' + '[' + category.features[i] + ']');
                     divIN.appendChild(elLabel);
-                    // br = document.createElement('br');
-                    // divIN.appendChild(br);
                     divIN.appendChild(elInput);
-                    // br = document.createElement('br');
-                    // divIN.appendChild(br);
                 }
                 form.appendChild(divIN);
             }
