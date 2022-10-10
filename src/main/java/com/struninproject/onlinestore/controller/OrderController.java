@@ -1,18 +1,19 @@
 package com.struninproject.onlinestore.controller;
 
+import com.struninproject.onlinestore.model.Category;
+import com.struninproject.onlinestore.model.Manufacturer;
 import com.struninproject.onlinestore.model.Order;
-import com.struninproject.onlinestore.model.ProductCount;
+import com.struninproject.onlinestore.model.Product;
+import com.struninproject.onlinestore.model.ProductOrder;
+import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.model.enums.Gender;
-import com.struninproject.onlinestore.model.enums.Role;
-import com.struninproject.onlinestore.model.product.Product;
-import com.struninproject.onlinestore.model.product.electronics.Laptop;
-import com.struninproject.onlinestore.model.user.User;
+import com.struninproject.onlinestore.repository.CategoryRepository;
+import com.struninproject.onlinestore.repository.ManufacturerRepository;
 import com.struninproject.onlinestore.repository.OrderRepository;
 import com.struninproject.onlinestore.repository.ProductCountRepository;
 import com.struninproject.onlinestore.repository.ProductRepository;
 import com.struninproject.onlinestore.repository.UserRepository;
 import com.struninproject.onlinestore.service.OrderService;
-import com.struninproject.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,8 +27,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Set;
 
 /**
  * The {@code OrderController} class
@@ -47,23 +46,34 @@ public class OrderController {
     ProductCountRepository productCountRepository;
     @Autowired
     ProductRepository productRepository;
+    @Autowired
+    ManufacturerRepository manufacturerRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @PostConstruct
     public void addOrders() {
         final Order order = new Order();
         final User user = new User();
+        user.setFirstName("test");
         user.setGender(Gender.MALE);
         userRepository.save(user);
         order.setUser(user);
         order.setCreated(LocalDateTime.now());
-        final Product product = new Laptop();
+        final Product product = new Product();
+        repository.save(order);
+        final Manufacturer manufacturer = new Manufacturer();
+        manufacturerRepository.save(manufacturer);
+        final Category category = new Category();
+        categoryRepository.save(category);
+        product.setCategory(category);
+        product.setManufacturer(manufacturer);
         productRepository.save(product);
-        final ProductCount productCount = new ProductCount();
+        final ProductOrder productCount = new ProductOrder();
         productCount.setOrder(order);
         productCount.setProduct(product);
         productCountRepository.save(productCount);
-        order.setProducts(Set.of(productCount));
-        repository.save(order);
+//        order.setProducts(Set.of(productCount));
     }
 
     @Autowired
@@ -83,21 +93,21 @@ public class OrderController {
     public ModelAndView addUser(User user, ModelAndView modelAndView) {
 //        repository.save(user);
 //        service.createUser(user);
-        modelAndView.setViewName("redirect:/user/users");
+        modelAndView.setViewName("redirect:/order");
         return modelAndView;
     }
 
-    @GetMapping("/orders")
+    @GetMapping()
     public ModelAndView getAllUsers(ModelAndView modelAndView) {
         modelAndView.addObject("orders", repository.findAll());
-        modelAndView.setViewName("order/orders");
+        modelAndView.setViewName("order/all");
         return modelAndView;
     }
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("user", repository.findById(id).get());// FIXME: 03.10.2022
-        modelAndView.setViewName("user/edit");
+        modelAndView.addObject("orders", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.setViewName("order/edit");
         return modelAndView;
     }
 
@@ -107,12 +117,12 @@ public class OrderController {
         if (repository.existsById(id)) {
             repository.save(order);
         }
-        return "redirect:/user/users";
+        return "redirect:/order";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String id) {
         repository.deleteById(id);
-        return "redirect:/user/users";
+        return "redirect:/order";
     }
 }

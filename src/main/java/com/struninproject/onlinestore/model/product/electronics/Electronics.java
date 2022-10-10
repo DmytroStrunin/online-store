@@ -1,13 +1,7 @@
 package com.struninproject.onlinestore.model.product.electronics;
 
-import com.struninproject.onlinestore.model.product.Product;
-import lombok.Getter;
-import lombok.Setter;
+import com.struninproject.onlinestore.model.product.Produc;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
@@ -16,12 +10,12 @@ import java.math.BigDecimal;
  * @author Strunin Dmytro
  * @version 1.0
  */
-@Getter
-@Setter
-@Entity
-@Table(name = "electronics")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Electronics extends Product {
+//@Getter
+//@Setter
+//@Entity
+//@Table(name = "electronics")
+//@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Electronics extends Produc {
     private BigDecimal screenDiagonal;
     private String operatingSystem;
     private String processor;

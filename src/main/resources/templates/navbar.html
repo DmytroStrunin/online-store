@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,7 +29,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/user/users">
+                <a class="navbar-brand" href="/">
                     <!--                    <img th:src="@{/images/img.png}"-->
                     <!--                         src="../static/images/img.png" alt="" width="30"-->
                     <!--                         height="24"-->
@@ -41,10 +42,13 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li >
-<!--                            class="active">-->
+                    <li>
+                        <!--                            class="active">-->
                         <a href="#">Home</a></li>
-                    <li><a href="/order/orders">Orders</a></li>
+                    <li><a href="/order">Orders</a></li>
+                    <li><a href="/user">Users</a></li>
+                    <li><a href="/category">Categories</a></li>
+                    <li><a href="/manufacturer">Manufacturer</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle"
                            data-toggle="dropdown">Products<span
@@ -69,15 +73,18 @@
                     </button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text" th:inline="text">[[${#httpServletRequest.remoteUser}]]</p></li>
+                    <li><p class="navbar-text" th:inline="text">
+                        [[${#httpServletRequest.remoteUser}]]</p></li>
+
+<!--                    <li>-->
+<!--                    <form class="navbar-form navbar-left" sec:authorize="isAuthenticated()"-->
+<!--                          th:action="@{/logout}" method="post">-->
+<!--                        <input type="submit" class="btn btn-default" value="Sign Out"/>-->
+<!--                    </form>-->
+<!--                    </li>-->
 
 
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" value="Sign Out"/>
-                    </form>
-
-
-                    <li class="dropdown">
+                    <li sec:authorize="!isAuthenticated()" class="dropdown">
                         <a href="#" class="dropdown-toggle"
                            data-toggle="dropdown"><b>Login</b> <span
                                 class="caret"></span></a>
@@ -151,6 +158,10 @@
                             </li>
                         </ul>
                     </li>
+                   <form class="navbar-form navbar-right" sec:authorize="isAuthenticated()"
+                         th:action="@{/logout}" method="post">
+                       <input type="submit" class="btn" value="Sign Out"/>
+                   </form>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

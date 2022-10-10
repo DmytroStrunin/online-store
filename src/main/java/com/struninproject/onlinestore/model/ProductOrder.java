@@ -1,6 +1,5 @@
 package com.struninproject.onlinestore.model;
 
-import com.struninproject.onlinestore.model.product.Product;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -21,9 +20,10 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 @Entity
-public class ProductCount {
+//@ToString // FIXME: 05.10.2022
+public class ProductOrder {
     @Id
-    @Column(name = "product_count_id")
+    @Column(name = "product_order_id")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;

@@ -1,4 +1,4 @@
-package com.struninproject.onlinestore.model.user;
+package com.struninproject.onlinestore.model;
 
 import com.struninproject.onlinestore.model.enums.Gender;
 import com.struninproject.onlinestore.model.enums.Role;

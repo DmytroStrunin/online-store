@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet'
+          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel='stylesheet'
+          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Demo CSS -->
+    <link rel="stylesheet" href="/css/demo.css">
+
+    <title>Add manufacturer</title>
+</head>
+<body>
+
+<header th:insert="navbar.html :: header"></header>
+
+<!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+<form action="#" th:action="@{/manufacturer/new}" th:object="${manufacturer}" method="POST">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name">
+<!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <label for="country">Country</label>
+    <input type="text" th:field="*{country}" id="country" placeholder="country">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <label for="image">Image</label>
+    <input type="text" th:field="*{image}" id="image" placeholder="image">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <input type="submit" value="Add manufacturer">
+</form>
+
+<!-- jQuery -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- Bootstrap JS -->
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+
+</body>
+</html>

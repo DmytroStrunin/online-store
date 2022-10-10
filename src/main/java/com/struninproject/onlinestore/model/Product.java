@@ -1,12 +1,12 @@
-package com.struninproject.onlinestore.model.product;
+package com.struninproject.onlinestore.model;
 
-import com.struninproject.onlinestore.model.Manufacturer;
-import com.struninproject.onlinestore.model.ProductCount;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -14,13 +14,15 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Set;
 
 /**
- * The {@code Product} class
+ * The {@code Item} class
  *
  * @author Strunin Dmytro
  * @version 1.0
@@ -29,20 +31,32 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "products")
+//@ToString // FIXME: 05.10.2022
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Product {
+public class Product {
     @Id
     @Column(name = "product_id")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    protected String id;
-    protected String name;
-    protected BigDecimal price;
-    protected String image;
-    protected String description;
+    private String id;
+    private String name;
+    private BigDecimal price;
+    private String image;
+    private String description;
     @ManyToOne
     @JoinColumn(name = "manufacturer_id")
-    protected Manufacturer manufacturer;
+    private Manufacturer manufacturer;
     @OneToMany(mappedBy = "product")
-    protected Set<ProductCount> orders;
+    private Set<ProductOrder> productOrders;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    @ElementCollection
+    @CollectionTable(name = "specifications",
+            joinColumns = {@JoinColumn(name = "product_id"
+//                    , referencedColumnName = "id"
+            )})
+    @MapKeyColumn(name = "feature")
+    @Column(name = "value")
+    private Map<String, String> specifications;
 }

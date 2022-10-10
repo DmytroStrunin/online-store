@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet'
+          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
+    <link rel='stylesheet'
+          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Demo CSS -->
+    <link rel="stylesheet" href="/css/demo.css">
+
+    <title>User edit</title>
+</head>
+<body>
+
+<header th:insert="navbar.html :: header"></header>
+
+<!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+<form th:method="PATCH" th:action="@{/category/{id}(id=${category.getId()})}"
+      th:object="${category}">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="name">
+    <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+    <br>
+    <div id="in">
+    <label>Features</label>
+    <ul>
+        <li th:each="feature, iter : ${category.getFeatures}">
+            <input th:name="|features|" th:value="${feature}"/>
+        </li>
+    </ul>
+    </div>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Edit Category">
+</form>
+
+<script th:inline="javascript">
+    myChangeFunction();
+
+    function myChangeFunction() {
+        const form = document.getElementById("in");
+        const el = document.createElement('input');
+        const br = document.createElement('br');
+        el.setAttribute('placeholder', 'Add new feature');
+        el.setAttribute('name', 'features');
+        el.addEventListener('input',
+            (e) => {
+                myChangeFunction(e.target)
+            }, {once: true});
+        form.append(el);
+        form.append(br);
+    }
+</script>
+
+<!-- jQuery -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<!-- Bootstrap JS -->
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+
+</body>
+</html>

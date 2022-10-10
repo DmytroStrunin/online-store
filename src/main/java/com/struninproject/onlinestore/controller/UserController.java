@@ -1,8 +1,8 @@
 package com.struninproject.onlinestore.controller;
 
+import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.model.enums.Gender;
 import com.struninproject.onlinestore.model.enums.Role;
-import com.struninproject.onlinestore.model.user.User;
 import com.struninproject.onlinestore.repository.UserRepository;
 import com.struninproject.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,13 +70,13 @@ public class UserController {
     public ModelAndView addUser(User user, ModelAndView modelAndView){
 //        repository.save(user);
         service.createUser(user);
-        modelAndView.setViewName("redirect:/user/users");
+        modelAndView.setViewName("redirect:/user");
         return modelAndView;
     }
-    @GetMapping("/users")
+    @GetMapping()
     public ModelAndView getAllUsers(ModelAndView modelAndView){
         modelAndView.addObject("users", repository.findAll());
-        modelAndView.setViewName("user/users");
+        modelAndView.setViewName("user/all");
         return modelAndView;
     }
 
@@ -93,19 +93,12 @@ public class UserController {
         if (repository.existsById(id)){
             repository.save(user);
         }
-        return "redirect:/user/users";
+        return "redirect:/user";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String id) {
         repository.deleteById(id);
-        return "redirect:/user/users";
-    }
-
-
-    @GetMapping("/")
-    public ModelAndView testNavbar(ModelAndView modelAndView){
-        modelAndView.setViewName("navbar");
-        return modelAndView;
+        return "redirect:/user";
     }
 }

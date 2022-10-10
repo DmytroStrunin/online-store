@@ -12,49 +12,42 @@
     <!-- Demo CSS -->
     <link rel="stylesheet" href="/css/demo.css">
 
-    <title>Users</title>
+    <title>Manufacturers</title>
 </head>
 <body>
 
 <header th:insert="navbar.html :: header"></header>
+
+<button class="btn btn-primary" onclick="document.location='manufacturer/new'">Add manufacturer</button>
+
     <table class="table table-striped table-dark  w-auto">
         <thead>
         <tr>
             <th>Id</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Password</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Image</th>
             <th></th>
             <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user,iter : ${users}">
-            <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.user.User"*/-->
-            <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getFirstName()}"></td>
-            <td th:text="${user.getLastName()}"></td>
-            <td th:text="${user.getAge()}"></td>
-<!--            <td th:text="${user.getGender()}"></td>-->
-            <td th:text="${user.getGender().getValue()}"></td>
-            <td th:text="${user.getRoles()}"></td>
-<!--            <td th:text="${user.getRole().getValue()}"></td>-->
-            <td th:text="${user.getEmail()}"></td>
-            <td th:text="${user.getPassword()}"></td>
+        <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
+        <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+        <tr th:each="manufacturer,iter : ${manufacturers}">
+            <td th:text="${manufacturer.getId()}"></td>
+            <td th:text="${manufacturer.getName()}"></td>
+            <td th:text="${manufacturer.getCountry()}"></td>
+            <td th:text="${manufacturer.getImage()}"></td>
             <td>
                 <form th:method="GET"
-                      th:action="@{/user/{id}/edit(id=${user.getId()})}">
+                      th:action="@{/manufacturer/{id}/edit(id=${manufacturer.getId()})}">
                     <input type="submit" value="Edit"/>
                 </form>
-                <!--            <a th:href="@{/user/{id}/edit(id=${user.getId()})}">Edit</a>-->
             </td>
             <td>
                 <form th:method="DELETE"
-                      th:action="@{/user/{id}(id=${user.getId()})}">
+                      th:action="@{/manufacturer/{id}(id=${manufacturer.getId()})}">
                     <input type="submit" value="Delete"/>
                 </form>
             </td>

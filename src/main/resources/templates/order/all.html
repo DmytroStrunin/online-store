@@ -24,41 +24,30 @@
         <th>User</th>
         <th>Created</th>
         <th>Products</th>
-<!--        <th>Age</th>-->
-<!--        <th>Gender</th>-->
-<!--        <th>Role</th>-->
-<!--        <th>Email</th>-->
-<!--        <th>Password</th>-->
         <th></th>
         <th></th>
     </tr>
     </thead>
     <tbody>
+    <!--/*@thymesVar id="orders" type="java.lang.Iterable"*/-->
+    <!--/*@thymesVar id="order" type="com.struninproject.onlinestore.model.Order"*/-->
     <tr th:each="order,iter : ${orders}">
-        <!--/*@thymesVar id="order" type="com.struninproject.onlinestore.model.Order"*/-->
         <td th:text="${order.getId()}"></td>
         <td th:text="${order.getUser().getId()}"></td>
         <td th:text="${order.getCreated()}"></td>
-        <td th:text="${order.getProducts()}"></td>
-<!--        <td th:text="${user.getFirstName()}"></td>-->
-<!--        <td th:text="${user.getLastName()}"></td>-->
-<!--        <td th:text="${user.getAge()}"></td>-->
-<!--        <td th:text="${user.getGender().getValue()}"></td>-->
-<!--        <td th:text="${user.getRoles()}"></td>-->
-<!--        <td th:text="${user.getEmail()}"></td>-->
-<!--        <td th:text="${user.getPassword()}"></td>-->
-<!--        <td>-->
-<!--            <form th:method="GET"-->
-<!--                  th:action="@{/user/{id}/edit(id=${user.getId()})}">-->
-<!--                <input type="submit" value="Edit"/>-->
-<!--            </form>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <form th:method="DELETE"-->
-<!--                  th:action="@{/user/{id}(id=${user.getId()})}">-->
-<!--                <input type="submit" value="Delete"/>-->
-<!--            </form>-->
-<!--        </td>-->
+        <td th:text="${order.getProductOrders()}"></td>
+        <td>
+            <form th:method="GET"
+                  th:action="@{/order/{id}/edit(id=${order.getId()})}">
+                <input type="submit" value="Edit"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE"
+                  th:action="@{/order/{id}(id=${order.getId()})}">
+                <input type="submit" value="Delete"/>
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

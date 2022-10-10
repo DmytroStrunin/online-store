@@ -1,7 +1,6 @@
 package com.struninproject.onlinestore.repository;
 
-import com.struninproject.onlinestore.model.ProductCount;
-import com.struninproject.onlinestore.model.product.Product;
+import com.struninproject.onlinestore.model.ProductOrder;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -10,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Strunin Dmytro
  * @version 1.0
  */
-public interface ProductCountRepository extends CrudRepository<ProductCount,String> {
+public interface ProductCountRepository extends CrudRepository<ProductOrder,String> {
 }

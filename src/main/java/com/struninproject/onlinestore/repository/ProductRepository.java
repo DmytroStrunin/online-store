@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.repository;
 
-import com.struninproject.onlinestore.model.product.Product;
+import com.struninproject.onlinestore.model.Product;
 import org.springframework.data.repository.CrudRepository;
 
 /**

@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.service;
 
+import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.model.enums.Role;
-import com.struninproject.onlinestore.model.user.User;
 import com.struninproject.onlinestore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
