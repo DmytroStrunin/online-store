@@ -54,7 +54,7 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "specifications",
             joinColumns = {@JoinColumn(name = "product_id"
-//                    , referencedColumnName = "product_id"
+                    , referencedColumnName = "product_id"
             )})
     @MapKeyColumn(name = "feature")
     @Column(name = "value")
