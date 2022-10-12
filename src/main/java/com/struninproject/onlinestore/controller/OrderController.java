@@ -1,12 +1,7 @@
 package com.struninproject.onlinestore.controller;
 
-import com.struninproject.onlinestore.model.Category;
-import com.struninproject.onlinestore.model.Manufacturer;
 import com.struninproject.onlinestore.model.Order;
-import com.struninproject.onlinestore.model.Product;
-import com.struninproject.onlinestore.model.ProductOrder;
 import com.struninproject.onlinestore.model.User;
-import com.struninproject.onlinestore.model.enums.Gender;
 import com.struninproject.onlinestore.repository.CategoryRepository;
 import com.struninproject.onlinestore.repository.ManufacturerRepository;
 import com.struninproject.onlinestore.repository.OrderRepository;
@@ -24,9 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.PostConstruct;
-import java.time.LocalDateTime;
 
 /**
  * The {@code OrderController} class
@@ -51,30 +43,29 @@ public class OrderController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @PostConstruct
-    public void addOrders() {
-        final Order order = new Order();
-        final User user = new User();
-        user.setFirstName("test");
-        user.setGender(Gender.MALE);
-        userRepository.save(user);
-        order.setUser(user);
-        order.setCreated(LocalDateTime.now());
-        final Product product = new Product();
-        repository.save(order);
-        final Manufacturer manufacturer = new Manufacturer();
-        manufacturerRepository.save(manufacturer);
-        final Category category = new Category();
-        categoryRepository.save(category);
-        product.setCategory(category);
-        product.setManufacturer(manufacturer);
-        productRepository.save(product);
-        final ProductOrder productCount = new ProductOrder();
-        productCount.setOrder(order);
-        productCount.setProduct(product);
-        productCountRepository.save(productCount);
-//        order.setProducts(Set.of(productCount));
-    }
+//    @PostConstruct
+//    public void addOrders() {
+//        final Order order = new Order();
+//        final User user = new User();
+//        user.setFirstName("test");
+//        user.setGender(Gender.MALE);
+//        userRepository.save(user);
+//        order.setUser(user);
+//        order.setCreated(LocalDateTime.now());
+//        final Product product = new Product();
+//        repository.save(order);
+//        final Manufacturer manufacturer = new Manufacturer();
+//        manufacturerRepository.save(manufacturer);
+//        final Category category = new Category();
+//        categoryRepository.save(category);
+//        product.setCategory(category);
+//        product.setManufacturer(manufacturer);
+//        productRepository.save(product);
+//        final ProductOrder productCount = new ProductOrder();
+//        productCount.setOrder(order);
+//        productCount.setProduct(product);
+//        productCountRepository.save(productCount);
+//    }
 
     @Autowired
     public OrderController(OrderRepository repository, OrderService service) {

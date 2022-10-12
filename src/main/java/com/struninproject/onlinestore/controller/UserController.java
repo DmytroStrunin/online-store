@@ -1,8 +1,6 @@
 package com.struninproject.onlinestore.controller;
 
 import com.struninproject.onlinestore.model.User;
-import com.struninproject.onlinestore.model.enums.Gender;
-import com.struninproject.onlinestore.model.enums.Role;
 import com.struninproject.onlinestore.repository.UserRepository;
 import com.struninproject.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.PostConstruct;
-import java.util.Set;
 
 /**
  * The {@code UserController} class
@@ -37,27 +32,27 @@ public class UserController {
         this.service = service;
     }
 
-    @PostConstruct
-    public void addUsers(){
-        User user = new User();
-        user.setAge(2);
-        user.setEmail("admin@bla.com");
-        user.setGender(Gender.FEMALE);
-        user.setFirstName("First");
-        user.setLastName("Last");
-        user.setRoles(Set.of(Role.ADMIN));
-        user.setPassword("admin");
-        repository.save(user);
-        User user1 = new User();
-        user1.setAge(2);
-        user1.setEmail("user@bla.com");
-        user1.setGender(Gender.FEMALE);
-        user1.setFirstName("First");
-        user1.setLastName("Last");
-        user1.setRoles(Set.of(Role.USER));
-        user1.setPassword("user");
-        repository.save(user1);
-    }
+//    @PostConstruct
+//    public void addUsers(){
+//        User user = new User();
+//        user.setAge(2);
+//        user.setEmail("admin@bla.com");
+//        user.setGender(Gender.FEMALE);
+//        user.setFirstName("First");
+//        user.setLastName("Last");
+//        user.setRoles(Set.of(Role.ADMIN));
+//        user.setPassword("admin");
+//        repository.save(user);
+//        User user1 = new User();
+//        user1.setAge(2);
+//        user1.setEmail("user@bla.com");
+//        user1.setGender(Gender.FEMALE);
+//        user1.setFirstName("First");
+//        user1.setLastName("Last");
+//        user1.setRoles(Set.of(Role.USER));
+//        user1.setPassword("user");
+//        repository.save(user1);
+//    }
 
     @GetMapping("/new")
     public ModelAndView showsRegistrationForm(ModelAndView modelAndView){

@@ -10,4 +10,5 @@ import org.springframework.data.repository.CrudRepository;
  * @version 1.0
  */
 public interface ProductRepository extends CrudRepository<Product,String> {
+
 }
