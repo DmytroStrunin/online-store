@@ -16,7 +16,7 @@
 </head>
 <body>
 
-<header th:insert="navbar.html :: header"> </header>
+<header th:insert="navbar_old.html :: header"> </header>
 
 <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
 <form th:method="PATCH" th:action="@{/manufacturer/{id}(id=${manufacturer.getId()})}" th:object="${manufacturer}">
