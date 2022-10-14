@@ -1,72 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet'
-          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
-    <link rel='stylesheet'
-          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Demo CSS -->
-    <link rel="stylesheet" href="/css/demo.css">
-
-    <title>Users</title>
+<head th:include="navbar.html :: head">
+    <title id="title">All Products</title>
 </head>
-<body>
+<body th:include="navbar.html :: body">
+<div id="body">
 
-<header th:insert="navbar_old.html :: header"></header>
+    <button class="btn btn-primary" onclick="document.location='/product/new'">
+        Add product
+    </button>
 
-<button class="btn btn-primary" onclick="document.location='/product/new'">Add product</button>
+    <table class="table table-striped table-dark  w-auto">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Manufacturer</th>
+            <th>Category</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="products" type="java.lang.Iterable"*/-->
+        <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+        <tr th:each="product : ${products}">
+            <td th:text="${product.getId()}"></td>
+            <td th:text="${product.getName()}"></td>
+            <td th:text="${product.getPrice()}"></td>
+            <td th:text="${product.getImage()}"></td>
+            <td th:text="${product.getDescription()}"></td>
+            <td th:text="${product.getManufacturer().getName()}"></td>
+            <td th:text="${product.getCategory().getName()}"></td>
+            <td>
+                <form th:method="GET"
+                      th:action="@{/product/{id}/edit(id=${product.getId()})}">
+                    <input type="submit" value="Edit"/>
+                </form>
+            </td>
+            <td>
+                <form th:method="DELETE"
+                      th:action="@{/product/{id}(id=${product.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
-<table class="table table-striped table-dark  w-auto">
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Image</th>
-        <th>Description</th>
-        <th>Manufacturer</th>
-        <th>Category</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <!--/*@thymesVar id="products" type="java.lang.Iterable"*/-->
-    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
-    <tr th:each="product : ${products}">
-        <td th:text="${product.getId()}"></td>
-        <td th:text="${product.getName()}"></td>
-        <td th:text="${product.getPrice()}"></td>
-        <td th:text="${product.getImage()}"></td>
-        <td th:text="${product.getDescription()}"></td>
-<!--        <td th:text="${product.getManufacturer()}"></td>-->
-        <td th:text="${product.getManufacturer().getName()}"></td>
-<!--        <td th:text="${product.getCategory()}"></td>-->
-        <td th:text="${product.getCategory().getName()}"></td>
-
-        <td>
-            <form th:method="GET"
-                  th:action="@{/product/{id}/edit(id=${product.getId()})}">
-                <input type="submit" value="Edit"/>
-            </form>
-        </td>
-        <td>
-            <form th:method="DELETE"
-                  th:action="@{/product/{id}(id=${product.getId()})}">
-                <input type="submit" value="Delete"/>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
-
-<!-- jQuery -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<!-- Bootstrap JS -->
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+</div>
 </body>
 </html>

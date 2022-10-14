@@ -75,9 +75,16 @@ public class ProductController {
     }
 
     @GetMapping
-    public ModelAndView getAllProducts(ModelAndView modelAndView) {
+    public ModelAndView getAllProduct(ModelAndView modelAndView) {
         modelAndView.addObject("products", repository.findAll());
         modelAndView.setViewName("product/all");
+        return modelAndView;
+    }
+
+    @GetMapping("/p")
+    public ModelAndView getAllProducts(ModelAndView modelAndView) {
+        modelAndView.addObject("products", repository.findAll());
+        modelAndView.setViewName("product/products");
         return modelAndView;
     }
 

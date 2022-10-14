@@ -1,66 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet'
-          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
-    <link rel='stylesheet'
-          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Demo CSS -->
-    <link rel="stylesheet" href="/css/demo.css">
-
-    <title>User registration</title>
+<head th:include="navbar.html :: head">
+    <title id="title">Add user</title>
 </head>
-<body>
+<body th:include="navbar.html :: body">
+<div id="body">
 
-<header th:insert="navbar_old.html :: header"> </header>
+    <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
+    <form action="#" th:action="@{/user/new}" th:object="${user}" method="POST">
+        <div class="form-group">
+            <label for="firstName">First name</label>
+            <input class="form-control" type="text" th:field="*{firstName}"
+                   id="firstName" placeholder="firstName">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <label for="lastName">Last name</label>
+            <input class="form-control" type="text" th:field="*{lastName}"
+                   id="lastName" placeholder="lastName">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input class="form-control" type="text" th:field="*{age}" id="age"
+                   placeholder="age">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select class="form-control" th:field="*{gender}" id="gender">
+                <!--/*@thymesVar id="gender" type="com.struninproject.onlinestore.model.Gender"*/-->
+                <option th:each="gender : ${T(com.struninproject.onlinestore.model.enums.Gender).values()}"
+                        th:value="${gender}"
+                        th:text="${gender.getValue()}"></option>
+            </select>
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control" type="text" th:field="*{email}"
+                   id="email" placeholder="Email">
+            <!--    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" type="text" th:field="*{password}"
+                   id="password" placeholder="password">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <input type="submit" class="btn btn-primary" value="Registration">
+    </form>
 
-<!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
-<form action="#" th:action="@{/user/new}" th:object="${user}" method="POST">
-    <div class="form-group">
-        <label for="firstName">First name</label>
-        <input class="form-control" type="text" th:field="*{firstName}" id="firstName" placeholder="firstName">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last name</label>
-        <input class="form-control" type="text" th:field="*{lastName}" id="lastName" placeholder="lastName">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <label for="age">Age</label>
-        <input class="form-control" type="text" th:field="*{age}" id="age" placeholder="age">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <label for="gender">Gender</label>
-        <select class="form-control" th:field="*{gender}" id="gender">
-            <!--/*@thymesVar id="gender" type="com.struninproject.onlinestore.model.Gender"*/-->
-            <option th:each="gender : ${T(com.struninproject.onlinestore.model.enums.Gender).values()}"
-                    th:value="${gender}" th:text="${gender.getValue()}"></option>
-        </select>
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input class="form-control" type="text" th:field="*{email}" id="email" placeholder="Email">
-        <!--    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input class="form-control" type="text" th:field="*{password}" id="password" placeholder="password">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <input type="submit" class="btn btn-primary" value="Registration">
-</form>
-
-<!-- jQuery -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<!-- Bootstrap JS -->
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-
+</div>
 </body>
 </html>

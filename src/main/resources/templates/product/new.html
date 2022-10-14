@@ -1,124 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet'
-          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css'>
-    <link rel='stylesheet'
-          href='https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="/css/style.css">
-
-    <!-- Demo CSS -->
-    <link rel="stylesheet" href="/css/demo.css">
-
-    <title>Add product</title>
+<head th:include="navbar.html :: head">
+    <title id="title">Add product</title>
 </head>
-<body>
+<body th:include="navbar.html :: body">
+<div id="body">
 
-<header th:insert="navbar_old.html :: header"></header>
+    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+    <form action="#" th:action="@{/product/new}" th:object="${product}"
+          method="POST">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" type="text" th:field="*{name}" id="name"
+                   placeholder="name">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <!--/*@thymesVar id="price" type="java.math.BigDecimal"*/-->
+            <label for="price">Price</label>
+            <input class="form-control" type="text" th:field="*{price}"
+                   id="price"
+                   placeholder="price">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <!--/*@thymesVar id="image" type="java.lang.String"*/-->
+            <label for="image">Image</label>
+            <input class="form-control" type="text" th:field="*{image}"
+                   id="image"
+                   placeholder="image">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <!--/*@thymesVar id="description" type="java.lang.String"*/-->
+            <label for="description">Description</label>
+            <input class="form-control" type="text" th:field="*{description}"
+                   id="description"
+                   placeholder="description">
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div class="form-group">
+            <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
+            <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+            <label for="manufacturer">Manufacturer</label>
+            <select class="form-control" th:field="*{manufacturer}"
+                    id="manufacturer">
+                <option th:each="manufacturer : ${manufacturers}"
+                        th:value="${manufacturer.getId()}"
+                        th:text="${manufacturer.getName()}"></option>
+            </select>
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <div id="out" class="form-group">
+            <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
+            <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+            <label for="category">Category</label>
+            <select onchange="myChangeFunction(this.value)" class="form-control"
+                    th:field="*{category}" id="category">
+                <option th:each="category : ${categories}"
+                        th:value="${category.getId()}"
+                        th:text="${category.getName()}"></option>
+            </select>
+            <br>
+            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+        </div>
+        <input class="btn btn-primary" type="submit" value="Add product">
+    </form>
 
-<!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
-<form action="#" th:action="@{/product/new}" th:object="${product}"
-      method="POST">
-
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input class="form-control" type="text" th:field="*{name}" id="name"
-               placeholder="name">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <!--/*@thymesVar id="price" type="java.math.BigDecimal"*/-->
-        <label for="price">Price</label>
-        <input class="form-control" type="text" th:field="*{price}" id="price"
-               placeholder="price">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <!--/*@thymesVar id="image" type="java.lang.String"*/-->
-        <label for="image">Image</label>
-        <input class="form-control" type="text" th:field="*{image}" id="image"
-               placeholder="image">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <!--/*@thymesVar id="description" type="java.lang.String"*/-->
-        <label for="description">Description</label>
-        <input class="form-control" type="text" th:field="*{description}"
-               id="description"
-               placeholder="description">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div class="form-group">
-        <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
-        <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
-        <label for="manufacturer">Manufacturer</label>
-        <select class="form-control" th:field="*{manufacturer}"
-                id="manufacturer">
-            <option th:each="manufacturer : ${manufacturers}"
-                    th:value="${manufacturer.getId()}"
-                    th:text="${manufacturer.getName()}"></option>
-        </select>
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <div id="out" class="form-group">
-        <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
-        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-        <label for="category">Category</label>
-        <select onchange="myChangeFunction(this.value)" class="form-control"
-                th:field="*{category}" id="category">
-            <option th:each="category : ${categories}"
-                    th:value="${category.getId()}"
-                    th:text="${category.getName()}"></option>
-        </select>
-        <br>
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-    </div>
-    <input class="btn btn-primary" type="submit" value="Add product">
-</form>
-
-<script th:inline="javascript">
-    function myChangeFunction(value) {
-        const categories = /*[[${categories}]]*/ {};
-        const elementById = document.getElementById('in');
-        if (elementById) {
-            elementById.remove();
-        }
-        const form = document.getElementById("out");
-        const divIN = document.createElement('div');
-        let elInput;
-        let elLabel;
-        divIN.setAttribute('id', 'in');
-        for (let index in categories) {
-            const category = categories[index];
-            if (category.id === value) {
-                for (let i in category.features) {
-                    elLabel = document.createElement('label');
-                    elLabel.setAttribute('for', category.features[i])
-                    elLabel.innerText = category.features[i];
-                    elInput = document.createElement('input');
-                    elInput.setAttribute('name', 'value')
-                    elInput.setAttribute('value', category.features[i]);
-                    elInput.setAttribute('type', 'hidden')
-                    divIN.appendChild(elInput);
-                    elInput = document.createElement('input');
-                    elInput.setAttribute('class', 'form-control');
-                    elInput.setAttribute('id', category.features[i]);
-                    elInput.setAttribute('name', 'specifications' + '[' + category.features[i] + ']');
-                    divIN.appendChild(elLabel);
-                    divIN.appendChild(elInput);
+    <script th:inline="javascript">
+        function myChangeFunction(value) {
+            const categories = /*[[${categories}]]*/ {};
+            const elementById = document.getElementById('in');
+            if (elementById) {
+                elementById.remove();
+            }
+            const form = document.getElementById("out");
+            const divIN = document.createElement('div');
+            let elInput;
+            let elLabel;
+            divIN.setAttribute('id', 'in');
+            for (let index in categories) {
+                const category = categories[index];
+                if (category.id === value) {
+                    for (let i in category.features) {
+                        elLabel = document.createElement('label');
+                        elLabel.setAttribute('for', category.features[i])
+                        elLabel.innerText = category.features[i];
+                        elInput = document.createElement('input');
+                        elInput.setAttribute('name', 'value')
+                        elInput.setAttribute('value', category.features[i]);
+                        elInput.setAttribute('type', 'hidden')
+                        divIN.appendChild(elInput);
+                        elInput = document.createElement('input');
+                        elInput.setAttribute('class', 'form-control');
+                        elInput.setAttribute('id', category.features[i]);
+                        elInput.setAttribute('name', 'specifications' + '[' + category.features[i] + ']');
+                        divIN.appendChild(elLabel);
+                        divIN.appendChild(elInput);
+                    }
+                    form.appendChild(divIN);
                 }
-                form.appendChild(divIN);
             }
         }
-    }
-</script>
+    </script>
 
-<!-- jQuery -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<!-- Bootstrap JS -->
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
-
+</div>
 </body>
 </html>
