@@ -6,40 +6,42 @@
 <body th:include="navbar.html :: body">
 <div id="body">
 
-    <table class="table table-striped table-dark  w-auto">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>User</th>
-            <th>Created</th>
-            <th>Products</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--/*@thymesVar id="orders" type="java.lang.Iterable"*/-->
-        <!--/*@thymesVar id="order" type="com.struninproject.onlinestore.model.Order"*/-->
-        <tr th:each="order,iter : ${orders}">
-            <td th:text="${order.getId()}"></td>
-            <td th:text="${order.getUser().getId()}"></td>
-            <td th:text="${order.getCreated()}"></td>
-            <td th:text="${order.getProductOrders()}"></td>
-            <td>
-                <form th:method="GET"
-                      th:action="@{/order/{id}/edit(id=${order.getId()})}">
-                    <input type="submit" value="Edit"/>
-                </form>
-            </td>
-            <td>
-                <form th:method="DELETE"
-                      th:action="@{/order/{id}(id=${order.getId()})}">
-                    <input type="submit" value="Delete"/>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <table class="table table-striped table-dark  w-auto">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>User</th>
+                <th>Created</th>
+                <th>Products</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="orders" type="java.lang.Iterable"*/-->
+            <!--/*@thymesVar id="order" type="com.struninproject.onlinestore.model.Order"*/-->
+            <tr th:each="order,iter : ${orders}">
+                <td th:text="${order.getId()}"></td>
+                <td th:text="${order.getUser().getId()}"></td>
+                <td th:text="${order.getCreated()}"></td>
+                <td th:text="${order.getProductOrders()}"></td>
+                <td>
+                    <form th:method="GET"
+                          th:action="@{/order/{id}/edit(id=${order.getId()})}">
+                        <input type="submit" value="Edit"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="DELETE"
+                          th:action="@{/order/{id}(id=${order.getId()})}">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </div>
 </body>

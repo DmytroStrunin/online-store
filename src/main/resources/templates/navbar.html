@@ -57,19 +57,19 @@
                     <a class="nav-link" href="#">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/order">Orders</a>
+                    <a class="nav-link" th:href="@{/order}">Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/user">Users</a>
+                    <a class="nav-link" th:href="@{/user}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/category">Categories</a>
+                    <a class="nav-link" th:href="@{/category}">Categories</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/manufacturer">Manufacturers</a>
+                    <a class="nav-link" th:href="@{/manufacturer}">Manufacturers</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/product">Products</a>
+                    <a class="nav-link" th:href="@{/product}">Products</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -99,8 +99,8 @@
                     <p class="navbar-text" th:inline="text">
                         [[${#httpServletRequest.remoteUser}]]</p>
                 </li>
-                <ul class="nav navbar-nav navbar-right">
-                    <li sec:authorize="!isAuthenticated()" class="dropdown">
+                <li class="nav-item">
+                    <div sec:authorize="!isAuthenticated()" class="dropdown">
                         <button type="button"
                                 class="btn btn-dark dropdown-toggle dropdown-toggle-split"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -174,15 +174,15 @@
                                 </div>
                             </li>
                         </ul>
-                    </li>
-                    <li sec:authorize="isAuthenticated()"
+                    </div>
+                    <div sec:authorize="isAuthenticated()"
                         class="navbar-form navbar-right">
                         <form th:action="@{/logout}" id="logout-form" method="POST">
                             <input type="submit" class="btn btn-dark"
                                    value="Sign Out"/>
                         </form>
-                    </li>
-                </ul>
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
@@ -250,12 +250,8 @@
 <!-- jQuery -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <!-- Bootstrap JS -->
-
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-
-<!--<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>-->
 </body>
 </html>

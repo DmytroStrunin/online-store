@@ -11,24 +11,28 @@
           th:object="${user}">
         <div class="form-group">
             <label for="firstName">First name</label>
+            <!--/*@thymesVar id="firstName" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{firstName}"
                    id="firstName" placeholder="firstName">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <div class="form-group">
             <label for="lastName">Last name</label>
+            <!--/*@thymesVar id="lastName" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{lastName}"
                    id="lastName" placeholder="lastName">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <div class="form-group">
             <label for="age">Age</label>
+            <!--/*@thymesVar id="age" type="java.math.BigDecimal"*/-->
             <input class="form-control" type="text" th:field="*{age}" id="age"
                    placeholder="age">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <div class="form-group">
             <label for="gender">Gender</label>
+            <!--/*@thymesVar id="gender" type="com.struninproject.onlinestore.model.enums.Gender"*/-->
             <select class="form-control" th:field="*{gender}" id="gender">
                 <option th:each="gender : ${T(com.struninproject.onlinestore.model.enums.Gender).values()}"
                         th:value="${gender}"
@@ -38,6 +42,8 @@
         </div>
         <div class="form-group">
             <label for="role">Role</label>
+            <!--/*@thymesVar id="roles" type="java.util.Set"*/-->
+            <!--/*@thymesVar id="role" type="com.struninproject.onlinestore.model.enums.Role"*/-->
             <select class="form-control" th:field="*{roles}" id="role">
                 <option th:each="role : ${T(com.struninproject.onlinestore.model.enums.Role).values()}"
                         th:value="${role}"
@@ -46,15 +52,17 @@
         </div>
         <div class="form-group">
             <label for="email">Email</label>
+            <!--/*@thymesVar id="email" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{email}"
                    id="email" placeholder="Email">
-            <!--    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
+            <!--<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
         </div>
         <div class="form-group">
             <label for="password">Password</label>
+            <!--/*@thymesVar id="password" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{password}"
                    id="password" placeholder="password">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
+            <!--<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <input type="submit" class="btn btn-primary" value="Edit User">
     </form>

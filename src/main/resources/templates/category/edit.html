@@ -18,6 +18,7 @@
             <label>Features</label>
             <ul>
                 <li th:each="feature, iter : ${category.getFeatures}">
+                    <!--/*@thymesVar id="feature" type=""*/-->
                     <input th:name="|features|" th:value="${feature}"/>
                 </li>
             </ul>

@@ -10,26 +10,29 @@
     <form action="#" th:action="@{/user/new}" th:object="${user}" method="POST">
         <div class="form-group">
             <label for="firstName">First name</label>
+            <!--/*@thymesVar id="firstName" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{firstName}"
                    id="firstName" placeholder="firstName">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <div class="form-group">
             <label for="lastName">Last name</label>
+            <!--/*@thymesVar id="lastName" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{lastName}"
                    id="lastName" placeholder="lastName">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <div class="form-group">
             <label for="age">Age</label>
+            <!--/*@thymesVar id="age" type="java.math.BigDecimal"*/-->
             <input class="form-control" type="text" th:field="*{age}" id="age"
                    placeholder="age">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <div class="form-group">
             <label for="gender">Gender</label>
+            <!--/*@thymesVar id="gender" type="com.struninproject.onlinestore.model.enums.Gender"*/-->
             <select class="form-control" th:field="*{gender}" id="gender">
-                <!--/*@thymesVar id="gender" type="com.struninproject.onlinestore.model.Gender"*/-->
                 <option th:each="gender : ${T(com.struninproject.onlinestore.model.enums.Gender).values()}"
                         th:value="${gender}"
                         th:text="${gender.getValue()}"></option>
@@ -38,12 +41,14 @@
         </div>
         <div class="form-group">
             <label for="email">Email</label>
+            <!--/*@thymesVar id="email" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{email}"
                    id="email" placeholder="Email">
             <!--    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>-->
         </div>
         <div class="form-group">
             <label for="password">Password</label>
+            <!--/*@thymesVar id="password" type="java.lang.String"*/-->
             <input class="form-control" type="text" th:field="*{password}"
                    id="password" placeholder="password">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->

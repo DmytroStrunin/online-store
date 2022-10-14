@@ -28,6 +28,7 @@
             <td th:text="${category.getName()}"></td>
             <td>
                 <ul>
+                    <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
                     <li th:each="feature: ${category.getFeatures()}"
                         th:text="${feature}"></li>
                 </ul>
