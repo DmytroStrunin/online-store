@@ -31,7 +31,10 @@
                 <td th:text="${manufacturer.getId()}"></td>
                 <td th:text="${manufacturer.getName()}"></td>
                 <td th:text="${manufacturer.getCountry()}"></td>
-                <td><img th:src="${manufacturer.getImage()}" style="width: 100px; height: 100%; object-fit: contain;" src="" alt="" >
+                <td>
+                    <img th:src="${(manufacturer.getImage() != null && !#strings.isEmpty(manufacturer.getImage())) ? manufacturer.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                         src="" alt="" id="output"
+                         style="width: 100px; height: 100%; object-fit: contain;">
                 </td>
                 <td>
                     <form th:method="GET"

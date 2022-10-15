@@ -52,27 +52,22 @@
                    id="category" placeholder="category">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
-        <div class="form-group">
-            <table class="table table-striped table-dark  w-auto">
-                <!--/*@thymesVar id="specifications" type="java.util.Map"*/-->
-                <!--/*@thymesVar id="spec" type="java.util.Map.Entry"*/-->
-                <tr th:each="spec : *{specifications}">
-                    <td th:text="${spec.key}">
-                        <input type="hidden" name="value"
-                               th:value="${spec.key}"/>
-                    </td>
-                    <td>
-                        <input class="form-control" type="text" name="value"
-                               th:field="*{specifications[__${spec.key}__]}"/>
-                    </td>
-                </tr>
-            </table>
+        <!--/*@thymesVar id="specifications" type="java.util.Map"*/-->
+        <!--/*@thymesVar id="spec" type="java.util.Map.Entry"*/-->
+        <div th:each="spec : *{specifications}" class="form-group">
+            <input type="hidden" name="value"
+                   th:value="${spec.key}"/>
+            <label for="key" th:text="${spec.key}"></label>
+            <input id="key" class="form-control" type="text"
+                   name="value"
+                   th:field="*{specifications[__${spec.key}__]}"/>
         </div>
         <div class="form-group">
             <label for="input_img">Image</label>
             <div>
-                <img th:src="${product.getImage()}" src="" alt="" height="100"
-                     width="auto" id="output"/>
+                <img th:src="${(product.getImage() != null && !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                     src="" alt="" id="output"
+                     style="width: 300px; height: 100%; object-fit: contain;">
             </div>
             <input type="file" id="input_img"
                    onchange="fileChange()" accept="image/*">
