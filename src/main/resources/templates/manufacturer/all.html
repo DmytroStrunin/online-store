@@ -31,8 +31,7 @@
                 <td th:text="${manufacturer.getId()}"></td>
                 <td th:text="${manufacturer.getName()}"></td>
                 <td th:text="${manufacturer.getCountry()}"></td>
-                <td><img th:src="${manufacturer.getImage()}" src=""  height="100"
-                         width="auto" alt="" >
+                <td><img th:src="${manufacturer.getImage()}" style="width: 100px; height: 100%; object-fit: contain;" src="" alt="" >
                 </td>
                 <td>
                     <form th:method="GET"

@@ -31,7 +31,7 @@
             <td th:text="${product.getId()}"></td>
             <td th:text="${product.getName()}"></td>
             <td th:text="${product.getPrice()}"></td>
-            <td th:text="${product.getImage()}"></td>
+            <td><img th:src="${product.getImage()}" style="width: 100%; height: 5vw; object-fit: contain;" src="" alt="" ></td>
             <td th:text="${product.getDescription()}"></td>
             <td th:text="${product.getManufacturer().getName()}"></td>
             <td th:text="${product.getCategory().getName()}"></td>
