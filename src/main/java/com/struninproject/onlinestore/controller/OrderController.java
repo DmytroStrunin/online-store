@@ -1,15 +1,22 @@
 package com.struninproject.onlinestore.controller;
 
+import com.struninproject.onlinestore.dto.OrderDTO;
+import com.struninproject.onlinestore.dto.ProductDTO;
 import com.struninproject.onlinestore.model.Order;
+import com.struninproject.onlinestore.model.Product;
+import com.struninproject.onlinestore.model.ProductOrder;
 import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.enums.Status;
 import com.struninproject.onlinestore.repository.CategoryRepository;
 import com.struninproject.onlinestore.repository.ManufacturerRepository;
 import com.struninproject.onlinestore.repository.OrderRepository;
-import com.struninproject.onlinestore.repository.ProductCountRepository;
+import com.struninproject.onlinestore.repository.ProductOrderRepository;
 import com.struninproject.onlinestore.repository.ProductRepository;
 import com.struninproject.onlinestore.repository.UserRepository;
 import com.struninproject.onlinestore.service.OrderService;
+import com.struninproject.onlinestore.service.ProductOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +25,13 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The {@code OrderController} class
@@ -29,47 +42,29 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(path = "/order")
 public class OrderController {
-    private final OrderRepository repository;
+    private final OrderRepository orderRepository;
     private final OrderService service;
 
     @Autowired
     UserRepository userRepository;
     @Autowired
-    ProductCountRepository productCountRepository;
+    ProductOrderRepository productOrderRepository;
     @Autowired
     ProductRepository productRepository;
     @Autowired
     ManufacturerRepository manufacturerRepository;
     @Autowired
     CategoryRepository categoryRepository;
-
+    @Autowired
+    ProductOrderService productOrderService;
+    @Autowired
+    OrderService orderService;
 //    @PostConstruct
-//    public void addOrders() {
-//        final Order order = new Order();
-//        final User user = new User();
-//        user.setFirstName("test");
-//        user.setGender(Gender.MALE);
-//        userRepository.save(user);
-//        order.setUser(user);
-//        order.setCreated(LocalDateTime.now());
-//        final Product product = new Product();
-//        repository.save(order);
-//        final Manufacturer manufacturer = new Manufacturer();
-//        manufacturerRepository.save(manufacturer);
-//        final Category category = new Category();
-//        categoryRepository.save(category);
-//        product.setCategory(category);
-//        product.setManufacturer(manufacturer);
-//        productRepository.save(product);
-//        final ProductOrder productCount = new ProductOrder();
-//        productCount.setOrder(order);
-//        productCount.setProduct(product);
-//        productCountRepository.save(productCount);
 //    }
 
     @Autowired
-    public OrderController(OrderRepository repository, OrderService service) {
-        this.repository = repository;
+    public OrderController(OrderRepository orderRepository, OrderService service) {
+        this.orderRepository = orderRepository;
         this.service = service;
     }
 
@@ -88,32 +83,75 @@ public class OrderController {
         return modelAndView;
     }
 
+
+    @PostMapping("/add")
+    public @ResponseBody
+    OrderDTO addCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
+        final Product product = productRepository
+                .findById(productId)
+                .orElseThrow(IllegalArgumentException::new);  // FIXME: 15.10.2022
+
+        final Order order = orderRepository
+                .findOrderByUserAndStatus(user, Status.CART)
+                .orElseGet(() -> orderService.createAndSave(user));
+
+        final ProductOrder productOrder = productOrderRepository
+                .findProductOrderByOrderAndProduct(order, product)
+                .orElseGet(productOrderService::createAndSave);
+
+        productOrder.setOrder(order);
+        productOrder.setProduct(product);
+
+        final Set<ProductOrder> productOrders = order.getProductOrders();
+
+        int quantity = productOrder.getQuantity();
+        productOrder.setQuantity(++quantity);
+        productOrders.add(productOrder);
+
+        productOrderRepository.save(productOrder);
+
+        Set<ProductDTO> products = new HashSet<>();
+
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        for (ProductOrder prOrder : order.getProductOrders()) {
+            final Product pr = prOrder.getProduct();
+
+            totalPrice = totalPrice.add(pr.getPrice().multiply(new BigDecimal(prOrder.getQuantity())));
+
+            products.add(new ProductDTO(pr.getName(), pr.getPrice(), pr.getImage(), prOrder.getQuantity()));
+        }
+        return new OrderDTO(totalPrice, products);
+    }
+
+
     @GetMapping()
     public ModelAndView getAllUsers(ModelAndView modelAndView) {
-        modelAndView.addObject("orders", repository.findAll());
+        modelAndView.addObject("orders", orderRepository.findAll());
         modelAndView.setViewName("order/all");
         return modelAndView;
     }
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("orders", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.addObject("orders", orderRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new));
         modelAndView.setViewName("order/edit");
         return modelAndView;
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") Order order, @PathVariable("id") String id) {
-        repository.findById(id);
-        if (repository.existsById(id)) {
-            repository.save(order);
+        orderRepository.findById(id);
+        if (orderRepository.existsById(id)) {
+            orderRepository.save(order);
         }
         return "redirect:/order";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String id) {
-        repository.deleteById(id);
+        orderRepository.deleteById(id);
         return "redirect:/order";
     }
 }

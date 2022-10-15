@@ -67,7 +67,8 @@ public class CategoryController {
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("category", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.addObject("category", repository.findById(id)
+                .orElseThrow(IllegalArgumentException::new));
         modelAndView.setViewName("category/edit");
         return modelAndView;
     }

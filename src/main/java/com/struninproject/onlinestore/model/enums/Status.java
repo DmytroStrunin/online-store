@@ -1,19 +1,20 @@
 package com.struninproject.onlinestore.model.enums;
 
 /**
- * The {@code Gender} class
+ * The {@code Status} class
  *
  * @author Strunin Dmytro
  * @version 1.0
  */
-public enum Gender {
-    MALE("Male"),
-    FEMALE("Female"),
-    MIDDLE("Middle");
+public enum Status {
+    CART("Cart"),
+    IN_PROGRESS("In progress"),
+    PAID("Paid"),
+    COMPLETED("Completed");
 
     private final String value;
 
-    Gender(String value) {
+    Status(String value) {
         this.value = value;
     }
 

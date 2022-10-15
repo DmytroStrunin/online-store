@@ -66,10 +66,7 @@ public class ProductController {
 
     @PostMapping("/new")
     public ModelAndView addUser(Product product, ModelAndView modelAndView) {
-//        final Map<String, String> map = Map.of("1", "1", "2", "2");
-//        product.setSpecifications(map);
-
-            repository.save(product);
+        repository.save(product);
         modelAndView.setViewName("redirect:/product");
         return modelAndView;
     }
@@ -90,7 +87,8 @@ public class ProductController {
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("product", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.addObject("product", repository.findById(id)
+                .orElseThrow(IllegalArgumentException::new));
         modelAndView.addObject("manufacturers", manufacturerRepository.findAll());// FIXME: 03.10.2022
         modelAndView.setViewName("product/edit");
         return modelAndView;

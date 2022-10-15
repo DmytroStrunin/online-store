@@ -77,7 +77,8 @@ public class UserController {
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("user", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.addObject("user", repository.findById(id)
+                .orElseThrow(IllegalArgumentException::new));
         modelAndView.setViewName("user/edit");
         return modelAndView;
     }

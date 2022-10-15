@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 @Getter
 @Setter
 @Entity
-//@ToString // FIXME: 05.10.2022
 public class ProductOrder {
     @Id
     @Column(name = "product_order_id")
@@ -33,5 +32,5 @@ public class ProductOrder {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    private int count;
+    private int quantity;
 }

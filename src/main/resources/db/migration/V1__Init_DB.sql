@@ -24,6 +24,7 @@ create table orders
 (
     order_id    varchar(255) not null,
     created     timestamp,
+    status varchar(255),
     total_price numeric(19, 2),
     user_id     varchar(255),
     primary key (order_id)
@@ -32,7 +33,7 @@ create table orders
 create table product_order
 (
     product_order_id varchar(255) not null,
-    count            int4         not null,
+    quantity            int4         not null,
     order_id         varchar(255),
     product_id       varchar(255),
     primary key (product_order_id)

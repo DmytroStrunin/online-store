@@ -1,5 +1,6 @@
 package com.struninproject.onlinestore.model;
 
+import com.struninproject.onlinestore.model.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
@@ -7,6 +8,8 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,9 +40,11 @@ public class Order {
     private LocalDateTime created;
     private BigDecimal totalPrice;
 //    @ManyToOne
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER) // FIXME: 08.10.2022
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)// FIXME: 08.10.2022
     @JoinColumn(name = "user_id")
     private User user;
+    @Enumerated(EnumType.STRING)
+    Status status;
 //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval= true)
 //    @JoinColumn(name = "order_id")
 //    private List<Product> products;

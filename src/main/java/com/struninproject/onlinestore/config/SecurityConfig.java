@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()// FIXME: 15.10.2022 
                 .authorizeRequests()
 //                .antMatchers("/", "/product/**", "/images/**", "/registration")
                 .antMatchers("/", "/home", "/css/**", "/index", "/user/new").permitAll()
