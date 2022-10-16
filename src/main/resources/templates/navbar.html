@@ -54,7 +54,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 top-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" th:href="@{/product/p}">Store</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/order}">Orders</a>
@@ -309,18 +309,20 @@
             img.setAttribute('src', product.image)
             tdIm.appendChild(img)
             tdName.innerText = product.name
-            tdPrice.innerText = product.price
+            tdPrice.innerText = '$' + product.price
             tdQuantity.innerHTML =
                 '<div class="product-links">\n' +
-                '<i onclick="addCart(this.id)" id="1" class="fa fa-plus"></i><b>'
-                + $ + product.quantity + '</b><i onclick="removeCart(this.id)" id="1" class="fa fa-minus"></i>'
+                '<i onclick="addCart(this.id)" id="1" class="fa fa-plus"></i><b> ' +
+                product.quantity + ' </b><i onclick="removeCart(this.id)" id="1" class="fa fa-minus"></i>'
             tr.appendChild(tdIm)
             tr.appendChild(tdName)
             tr.appendChild(tdPrice)
             tr.appendChild(tdQuantity)
             cart.appendChild(tr)
         }
-        cart.innerText = data.totalPrice
+        let p = document.createElement('p')
+        p.innerText = 'Total: $' + data.totalPrice
+        cart.appendChild(p)
     }
 </script>
 <!-- Bootstrap JS -->
