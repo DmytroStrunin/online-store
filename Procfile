@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar -Dserver.port=$PORT target/module3web-0.0.1-SNAPSHOT.jar

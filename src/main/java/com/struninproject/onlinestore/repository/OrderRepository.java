@@ -15,4 +15,6 @@ import java.util.Optional;
  */
 public interface OrderRepository extends CrudRepository<Order,String> {
     Optional<Order> findOrderByUserAndStatus(User user, Status status);
+
+    Optional<Order> findOrderByUserAndStatusAndProductOrdersNotNull(User user, Status status);
 }

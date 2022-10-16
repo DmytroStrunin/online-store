@@ -124,6 +124,84 @@ public class OrderController {
         return new OrderDTO(totalPrice, products);
     }
 
+    @GetMapping("/load")
+    public @ResponseBody
+    OrderDTO loadCart(@AuthenticationPrincipal User user) {
+
+        final Order order = orderRepository
+                .findOrderByUserAndStatus(user, Status.CART)
+                .orElseGet(() -> orderService.createAndSave(user));
+
+        Set<ProductDTO> products = new HashSet<>();
+
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        for (ProductOrder prOrder : order.getProductOrders()) {
+            final Product pr = prOrder.getProduct();
+
+            totalPrice = totalPrice.add(pr.getPrice().multiply(new BigDecimal(prOrder.getQuantity())));
+
+            products.add(new ProductDTO(pr.getName(), pr.getPrice(), pr.getImage(), prOrder.getQuantity()));
+        }
+        return new OrderDTO(totalPrice, products);
+    }
+
+    @PostMapping("/del")
+    public @ResponseBody
+    OrderDTO delCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
+        final Product product = productRepository
+                .findById(productId)
+                .orElseThrow(IllegalArgumentException::new);  // FIXME: 15.10.2022
+
+        Order order = orderRepository
+                .findOrderByUserAndStatus(user, Status.CART)
+                .orElseThrow(IllegalArgumentException::new);
+
+        final ProductOrder productOrder = productOrderRepository
+                .findProductOrderByOrderAndProduct(order, product)
+                .orElseThrow(IllegalArgumentException::new);
+
+        if (productOrder.getQuantity() > 1) {
+            productOrder.setQuantity(productOrder.getQuantity() - 1);
+            order.getProductOrders().add(productOrder);
+        } else {
+            order.getProductOrders().remove(productOrder);
+        }
+
+        orderRepository.save(order);
+
+
+        Set<ProductDTO> products = new HashSet<>();
+
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        for (ProductOrder prOrder : order.getProductOrders()) {
+            final Product pr = prOrder.getProduct();
+
+            totalPrice = totalPrice.add(pr.getPrice().multiply(new BigDecimal(prOrder.getQuantity())));
+
+            products.add(new ProductDTO(pr.getName(), pr.getPrice(), pr.getImage(), prOrder.getQuantity()));
+        }
+        return new OrderDTO(totalPrice, products);
+    }
+
+    @GetMapping("/buy")
+    public @ResponseBody
+    OrderDTO buyCart(@AuthenticationPrincipal User user) {
+        orderRepository
+                .findOrderByUserAndStatusAndProductOrdersNotNull(user, Status.CART)
+                .ifPresent((o) -> {
+                    o.setStatus(Status.IN_PROGRESS);
+                    orderRepository.save(o);
+                });
+
+
+        Set<ProductDTO> products = new HashSet<>();
+
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        return new OrderDTO(totalPrice, products);
+    }
 
     @GetMapping()
     public ModelAndView getAllUsers(ModelAndView modelAndView) {
