@@ -74,18 +74,6 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       data-bs-toggle="dropdown" href="#"><i
-                            class="far fa-user"></i></a>
-                    <ul class="dropdown-menu"
-                        aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item"
-                               href="#">Регистрация</a></li>
-                        <li><a class="dropdown-item"
-                               href="#">Авторизация</a></li>
-                    </ul>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#" data-bs-toggle="modal"
                        data-bs-target="#modal-cart">
@@ -96,94 +84,98 @@
                     <a class="nav-link" href="#"><i
                             class="fas fa-search"></i></a>
                 </li>
-                <li class="nav-item">
-                    <p class="navbar-text" th:inline="text">
-                        [[${#httpServletRequest.remoteUser}]]</p>
+                <li class="nav-item ms-1 me-1 mt-2">
+                    <span class="nav-fill m-auto" th:inline="text">
+                        [[${#httpServletRequest.remoteUser}]]</span>
                 </li>
-                <li class="nav-item">
-                    <div sec:authorize="!isAuthenticated()" class="dropdown">
-                        <button type="button"
-                                class="btn btn-dark dropdown-toggle dropdown-toggle-split"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            Login
-                        </button>
-                        <ul id="login-dp" class="dropdown-menu">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="social-buttons">
-                                            <a href="#" class="btn btn-fb">
-                                                Login with Google <i
-                                                    class="fa fa-google-plus"></i>
-                                            </a>
-                                        </div>
-                                        or
-                                        <div th:if="${param.error}">
-                                            Invalid username and password.
-                                        </div>
-                                        <div th:if="${param.logout}">
-                                            You have been logged out.
-                                        </div>
-                                        <form class="form" role="form"
-                                              method="post"
-                                              th:action="@{/login}"
-                                              accept-charset="UTF-8"
-                                              id="login-nav">
-                                            <div class="form-group">
-                                                <label class="sr-only"
-                                                       for="exampleInputEmail2">Email
-                                                    address</label>
-                                                <input type="email"
-                                                       name="username"
-                                                       class="form-control"
-                                                       id="exampleInputEmail2"
-                                                       placeholder="Email address"
-                                                       required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only"
-                                                       for="exampleInputPassword2">Password</label>
-                                                <input type="password"
-                                                       name="password"
-                                                       class="form-control"
-                                                       id="exampleInputPassword2"
-                                                       placeholder="Password"
-                                                       required>
-                                                <div class="help-block text-right">
-                                                    <a href="">Forget the
-                                                        password ?</a></div>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit"
-                                                        class="btn btn-primary btn-block">
-                                                    Sign in
-                                                </button>
-                                            </div>
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    keep
-                                                    me logged-in
-                                                </label>
-                                            </div>
-                                        </form>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle"
+                       data-bs-toggle="dropdown" href="#"><i
+                            class="far fa-user"></i></a>
+                    <ul sec:authorize="isAuthenticated()"
+                        class="dropdown-menu"
+                        aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item"
+                               href="#">Регистрация</a></li>
+                        <li><a class="dropdown-item"
+                               href="#">Авторизация</a></li>
+                        <li class="navbar-form navbar-right">
+                            <form th:action="@{/logout}" id="logout-form"
+                                  method="POST">
+                                <input type="submit" class="dropdown-item"
+                                       value="Sign Out"/>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul sec:authorize="!isAuthenticated()"
+                        id="login-dp" class="dropdown-menu">
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="social-buttons">
+                                        <a href="#" class="btn btn-fb">
+                                            Login with Google <i
+                                                class="fa fa-google-plus"></i>
+                                        </a>
                                     </div>
-                                    <div class="bottom text-center">
-                                        New here? <a href="/user/new"><b>Join
-                                        Us</b></a>
+                                    or
+                                    <div th:if="${param.error}">
+                                        Invalid username and password.
                                     </div>
+                                    <div th:if="${param.logout}">
+                                        You have been logged out.
+                                    </div>
+                                    <form class="form" role="form"
+                                          method="post"
+                                          th:action="@{/login}"
+                                          accept-charset="UTF-8"
+                                          id="login-nav">
+                                        <div class="form-group">
+                                            <label class="sr-only"
+                                                   for="exampleInputEmail2">Email
+                                                address</label>
+                                            <input type="email"
+                                                   name="username"
+                                                   class="form-control"
+                                                   id="exampleInputEmail2"
+                                                   placeholder="Email address"
+                                                   required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only"
+                                                   for="exampleInputPassword2">Password</label>
+                                            <input type="password"
+                                                   name="password"
+                                                   class="form-control"
+                                                   id="exampleInputPassword2"
+                                                   placeholder="Password"
+                                                   required>
+                                            <div class="help-block text-right">
+                                                <a href="">Forget the
+                                                    password ?</a></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit"
+                                                    class="btn btn-primary btn-block">
+                                                Sign in
+                                            </button>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">
+                                                keep
+                                                me logged-in
+                                            </label>
+                                        </div>
+                                    </form>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div sec:authorize="isAuthenticated()"
-                         class="navbar-form navbar-right">
-                        <form th:action="@{/logout}" id="logout-form"
-                              method="POST">
-                            <input type="submit" class="btn btn-dark"
-                                   value="Sign Out"/>
-                        </form>
-                    </div>
+                                <div class="bottom text-center">
+                                    New here? <a href="/user/new"><b>Join
+                                    Us</b></a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -194,13 +186,13 @@
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <!--            <div class="modal-header bg-secondary text-white">-->
-            <!--                <h5 class="modal-title"-->
-            <!--                    id="exampleModalLabel">Корзина</h5>-->
-            <!--                <button type="button" class="btn-close"-->
-            <!--                        data-bs-dismiss="modal"-->
-            <!--                        aria-label="Close"></button>-->
-            <!--            </div>-->
+            <!--                        <div class="modal-header bg-secondary text-white">-->
+            <!--                            <h5 class="modal-title"-->
+            <!--                                id="exampleModalLabel">Корзина</h5>-->
+            <!--                            <button type="button" class="btn-close"-->
+            <!--                                    data-bs-dismiss="modal"-->
+            <!--                                    aria-label="Close"></button>-->
+            <!--                        </div>-->
             <div class="modal-body">
                 <table class="table">
                     <tbody id="cart">
@@ -310,10 +302,26 @@
             tdIm.appendChild(img)
             tdName.innerText = product.name
             tdPrice.innerText = '$' + product.price
-            tdQuantity.innerHTML =
-                '<div class="product-links">\n' +
-                '<i onclick="addCart(this.id)" id="1" class="fa fa-plus"></i><b> ' +
-                product.quantity + ' </b><i onclick="removeCart(this.id)" id="1" class="fa fa-minus"></i>'
+            const div = document.createElement('div')
+            div.setAttribute('class', 'product-links')
+            let i = document.createElement('i')
+            i.setAttribute('class', 'fa fa-plus')
+            i.setAttribute('id', product.id)
+            i.onclick = function () {
+                addCart(product.id)
+            }
+            div.appendChild(i)
+            const b = document.createElement('b')
+            b.innerText = product.quantity
+            div.appendChild(b)
+            i = document.createElement('i')
+            i.setAttribute('class', 'fa fa-minus')
+            i.setAttribute('id', product.id)
+            i.onclick = function () {
+                removeCart(product.id)
+            }
+            div.appendChild(i)
+            tdQuantity.appendChild(div)
             tr.appendChild(tdIm)
             tr.appendChild(tdName)
             tr.appendChild(tdPrice)

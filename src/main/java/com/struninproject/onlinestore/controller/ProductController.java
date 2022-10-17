@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
-import java.util.Map;
-
 /**
  * The {@code ProductController} class
  *
@@ -41,10 +38,6 @@ public class ProductController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @PostConstruct
-    public void addProducts() {
-    }
-
     @Autowired
     public ProductController(ProductRepository repository) {
         this.repository = repository;
@@ -55,10 +48,6 @@ public class ProductController {
         modelAndView.addObject("product", new Product());
         modelAndView.addObject("manufacturers", manufacturerRepository.findAll());  // FIXME: 11.10.2022 
         modelAndView.addObject("categories", categoryRepository.findAll());
-
-        final Map<String, String> map = Map.of("1", "1", "2", "2");
-        modelAndView.addObject("map", map);
-
 
         modelAndView.setViewName("product/new");
         return modelAndView;

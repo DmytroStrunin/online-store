@@ -32,27 +32,6 @@ public class UserController {
         this.service = service;
     }
 
-//    @PostConstruct
-//    public void addUsers(){
-//        User user = new User();
-//        user.setAge(2);
-//        user.setEmail("admin@bla.com");
-//        user.setGender(Gender.FEMALE);
-//        user.setFirstName("First");
-//        user.setLastName("Last");
-//        user.setRoles(Set.of(Role.ADMIN));
-//        user.setPassword("admin");
-//        repository.save(user);
-//        User user1 = new User();
-//        user1.setAge(2);
-//        user1.setEmail("user@bla.com");
-//        user1.setGender(Gender.FEMALE);
-//        user1.setFirstName("First");
-//        user1.setLastName("Last");
-//        user1.setRoles(Set.of(Role.USER));
-//        user1.setPassword("user");
-//        repository.save(user1);
-//    }
 
     @GetMapping("/new")
     public ModelAndView showsRegistrationForm(ModelAndView modelAndView){

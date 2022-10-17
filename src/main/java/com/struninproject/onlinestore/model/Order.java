@@ -48,6 +48,6 @@ public class Order {
 //    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval= true)
 //    @JoinColumn(name = "order_id")
 //    private List<Product> products;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ProductOrder> productOrders;
 }
