@@ -1,6 +1,5 @@
 package com.struninproject.onlinestore.service;
 
-import com.struninproject.onlinestore.dto.OrderDTO;
 import com.struninproject.onlinestore.dto.ProductDTO;
 import com.struninproject.onlinestore.model.Order;
 import com.struninproject.onlinestore.model.Product;
@@ -12,7 +11,6 @@ import com.struninproject.onlinestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -47,13 +45,12 @@ public class OrderService {
         return orderRepository.save(order);
     }
 
-    public OrderDTO getUserCart(User user) {
-        final Set<ProductDTO> products = productRepository.findAllProductsInUserCart(user, Status.CART);
-        final BigDecimal totalPrice = products.stream()
-                .map(ProductDTO::getPrice)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-        return new OrderDTO(totalPrice, products);
+    public Set<ProductDTO> getUserCart(User user) {
+        return productRepository.findAllProductsInUserCart(user, Status.CART);
     }
+
+
+
 
     public void updateUserCartStatus(User user) {
         orderRepository

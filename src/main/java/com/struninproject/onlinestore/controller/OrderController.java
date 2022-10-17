@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.controller;
 
-import com.struninproject.onlinestore.dto.OrderDTO;
+import com.struninproject.onlinestore.dto.ProductDTO;
 import com.struninproject.onlinestore.model.Order;
 import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.service.OrderService;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Set;
 
 /**
  * The {@code OrderController} class
@@ -52,28 +54,28 @@ public class OrderController {
 
     @PostMapping("/add")
     public @ResponseBody
-    OrderDTO addCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
+    Set<ProductDTO> addCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
         orderService.addProductInCart(user, productId);
         return orderService.getUserCart(user);
     }
 
     @PostMapping("/del")
     public @ResponseBody
-    OrderDTO delCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
+    Set<ProductDTO> delCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
         orderService.removeProductInCart(user, productId);
         return orderService.getUserCart(user);
     }
 
     @GetMapping("/buy")
     public @ResponseBody
-    OrderDTO buyCart(@AuthenticationPrincipal User user) {
+    Set<ProductDTO> buyCart(@AuthenticationPrincipal User user) {
         orderService.updateUserCartStatus(user);
         return orderService.getUserCart(user);
     }
 
     @GetMapping("/load")
     public @ResponseBody
-    OrderDTO loadCart(@AuthenticationPrincipal User user) {
+    Set<ProductDTO> loadCart(@AuthenticationPrincipal User user) {
         return orderService.getUserCart(user);
     }
 

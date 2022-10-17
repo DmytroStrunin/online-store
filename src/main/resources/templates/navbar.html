@@ -78,6 +78,8 @@
                     <a class="nav-link" href="#" data-bs-toggle="modal"
                        data-bs-target="#modal-cart">
                         <i class="fas fa-shopping-cart"></i>
+                        <span class='badge badge-warning'
+                              id='lblCartCount'></span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -170,7 +172,7 @@
                                     </form>
                                 </div>
                                 <div class="bottom text-center">
-                                    New here? <a href="/user/new"><b>Join
+                                    New here? <a th:href="@{/user/new}"><b>Join
                                     Us</b></a>
                                 </div>
                             </div>
@@ -288,9 +290,11 @@
         let tdQuantity
 
         let img = document.createElement('img')
-
-        let products = data.products;
-        for (let product of products) {
+        let totalPrice = 0
+        let cartItems = 0
+        for (let product of data) {
+            cartItems += product.quantity
+            totalPrice += product.price
             console.log(product)
             tr = document.createElement('tr')
             tdIm = document.createElement('td')
@@ -328,9 +332,18 @@
             tr.appendChild(tdQuantity)
             cart.appendChild(tr)
         }
+        updateCartIcon(cartItems)
         let p = document.createElement('p')
-        p.innerText = 'Total: $' + data.totalPrice
+        p.innerText = 'Total: $' + totalPrice
         cart.appendChild(p)
+
+        function updateCartIcon(count) {
+            const iconCart = document.getElementById('lblCartCount')
+            if (count === 0)
+                iconCart.innerText = ''
+            else
+                iconCart.innerText = count
+        }
     }
 </script>
 <!-- Bootstrap JS -->

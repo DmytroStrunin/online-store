@@ -39,15 +39,11 @@ public class Order {
     private String id;
     private LocalDateTime created;
     private BigDecimal totalPrice;
-//    @ManyToOne
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)// FIXME: 08.10.2022
     @JoinColumn(name = "user_id")
     private User user;
     @Enumerated(EnumType.STRING)
     Status status;
-//    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval= true)
-//    @JoinColumn(name = "order_id")
-//    private List<Product> products;
     @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ProductOrder> productOrders;
 }
