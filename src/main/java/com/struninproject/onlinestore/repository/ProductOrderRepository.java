@@ -17,10 +17,4 @@ import java.util.Optional;
 @Repository
 public interface ProductOrderRepository extends CrudRepository<ProductOrder,String> {
     Optional<ProductOrder> findProductOrderByOrderAndProduct(Order order, Product product);
-
-//    @Query("SELECT ProductOrder AS p FROM product_order" +
-//            "LEFT JOIN Order o ON p.id = o " +
-//            "GROUP BY p ORDER BY count ")
-//    Optional<ProductOrder> bla();
-
 }

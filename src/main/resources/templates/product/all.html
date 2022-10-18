@@ -41,8 +41,9 @@
                              style="width: 300px; height: 100%; object-fit: contain;">
                     </td>
                     <td th:text="${product.getDescription()}"></td>
-                    <td th:text="${product.getManufacturer().getName()}"></td>
-                    <td th:text="${product.getCategory().getName()}"></td>
+
+                    <td th:text="${product.getManufacturer()}?${product.getManufacturer().getName()}"></td>
+                    <td th:text="${product.getCategory()}?${product.getCategory().getName()}"></td>
                     <td>
                         <form th:method="GET"
                               th:action="@{/product/{id}/edit(id=${product.getId()})}">

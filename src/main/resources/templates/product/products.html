@@ -3,10 +3,9 @@
 <head th:include="navbar.html :: head">
     <title id="title">Products</title>
 </head>
-<body th:include="navbar.html :: body">
+<body class="fix-" th:include="navbar.html :: body">
 <div id="body">
 
-    <section class="main-content">
         <div class="container">
             <div class="row">
                 <!--/*@thymesVar id="products" type="java.lang.Iterable"*/-->
@@ -23,7 +22,7 @@
                             <span th:text="${product.getDescription()}"></span>
                             <div class="product-bottom-details d-flex justify-content-between">
                                 <div class="product-price">
-                                    <small>$<span th:text="${product.getPrice()}"></span></small> $99
+                                    <small><span th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
                                 </div>
                                 <div class="product-links">
                                     <a href="#"><i onclick="addCart(this.id)" th:id="${product.getId()}" class="fas fa-shopping-cart"></i></a>
@@ -35,7 +34,6 @@
                 </div>
             </div>
         </div>
-    </section>
 
 
     <script>

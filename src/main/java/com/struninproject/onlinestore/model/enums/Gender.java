@@ -9,7 +9,7 @@ package com.struninproject.onlinestore.model.enums;
 public enum Gender {
     MALE("Male"),
     FEMALE("Female"),
-    MIDDLE("Middle");
+    OTHER("Other");
 
     private final String value;
 

@@ -35,6 +35,21 @@ a:hover {
     text-transform: uppercase;
 }
 
+body.modal-open {
+    overflow: auto !important;
+}
+
+   body.modal-open[style] {
+       padding-right: 0 !important;
+   }
+
+
+
+.navbar-custom {
+    background-color: #eee;
+    height: 50px;
+}
+
 .navbar-nav .dropdown-menu {
     right: 0;
     left: auto;

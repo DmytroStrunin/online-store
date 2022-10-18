@@ -58,6 +58,7 @@ public class OrderService {
                 .ifPresent((o) -> {
                     o.setCreated(LocalDateTime.now());
                     o.setStatus(Status.IN_PROGRESS);
+                    o.setTotalPrice(orderRepository.getOrderTotalPrice(o));
                     orderRepository.save(o);
                 });
     }

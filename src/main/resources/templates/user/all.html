@@ -15,52 +15,57 @@
         </div>
         <div class="col-md-12">
             <table class="table table-striped table-dark">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <!--/*@thymesVar id="users" type="java.lang.Iterable"*/-->
-        <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
-        <tr th:each="user,iter : ${users}">
-            <td th:text="${user.getId()}"></td>
-            <td th:text="${user.getFirstName()}"></td>
-            <td th:text="${user.getLastName()}"></td>
-            <td th:text="${user.getAge()}"></td>
-            <td th:text="${user.getGender().getValue()}"></td>
-            <td>
-                    <!--/*@thymesVar id="role" type="com.struninproject.onlinestore.model.enums.Role"*/-->
-                    <li class="list-group-item" th:each="role: ${user.getRoles()}"
-                        th:text="${role}"></li>
-            </td>
-            <td th:text="${user.getEmail()}"></td>
-            <td th:text="${user.getPassword()}"></td>
-            <td>
-                <form th:method="GET"
-                      th:action="@{/user/{id}/edit(id=${user.getId()})}">
-                    <input class="btn btn-secondary btn-sm" type="submit" value="Edit"/>
-                </form>
-            </td>
-            <td>
-                <form th:method="DELETE"
-                      th:action="@{/user/{id}(id=${user.getId()})}">
-                    <input class="btn btn-secondary btn-sm" type="submit" value="Delete"/>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Role</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*@thymesVar id="users" type="java.lang.Iterable"*/-->
+                <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
+                <tr th:each="user,iter : ${users}">
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getFirstName()}"></td>
+                    <td th:text="${user.getLastName()}"></td>
+                    <td th:text="${user.getAge()}"></td>
+                    <td th:text="${user.getGender().getValue()}"></td>
+                    <td>
+                        <!--/*@thymesVar id="role" type="com.struninproject.onlinestore.model.enums.Role"*/-->
+                        <li class="list-group-item"
+                            th:each="role: ${user.getRoles()}"
+                            th:text="${role}?${role.getValue()}"></li>
+                    </td>
+                    <td th:text="${user.getEmail()}"></td>
+                    <td th:text="${user.getPassword()}"></td>
+                    <td>
+                        <form th:method="GET"
+                              th:action="@{/user/{id}/edit(id=${user.getId()})}">
+                            <input class="btn btn-secondary btn-sm"
+                                   type="submit" value="Edit"/>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:method="DELETE"
+                              th:action="@{/user/{id}(id=${user.getId()})}">
+                            <input class="btn btn-secondary btn-sm"
+                                   type="submit" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
+        </div>
+    </div>
 </div>
 </body>
 </html>
