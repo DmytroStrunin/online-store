@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="navbar.html :: head">
+    <title id="title">User registration</title>
+</head>
+<body th:include="navbar.html :: body">
+<div id="body">
+    <div class="container">
+        <div class="row">
+            <table hidden class="table">
+                <thead>
+                <tr>
+                    <th th:text="#{msg.id}"/>
+                    <th th:text="#{msg.name}"/>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book, iStat : ${bookPage.content}"
+                    th:style="${iStat.odd}? 'font-weight: bold;'"
+                    th:alt-title="${iStat.even}? 'even' : 'odd'">
+                    <td th:text="${book.id}"/>
+                    <td th:text="${book.name}"/>
+                </tr>
+                </tbody>
+            </table>
+            <div class="col-lg-4 col-sm-6 mb-3" th:each="product, iStat : ${bookPage.content}">
+                <div class="product-card">
+                    <div class="product-thumb">
+                        <img th:src="${(product.getImage() != null && !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                             src="" alt="" id="output"
+                             style="width: 100%; height: 15vw; object-fit: contain;">
+                    </div>
+                    <div class="product-details">
+                        <h4><a href="#"><span th:text="${product.getName()}"></span></a></h4>
+                        <span th:text="${product.getDescription()}"></span>
+                        <div class="product-bottom-details d-flex justify-content-between">
+                            <div class="product-price">
+                                <small><span th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
+                            </div>
+                            <div class="product-links">
+                                <a href="#"><i onclick="addCart(this.id)" th:id="${product.getId()}" class="fas fa-shopping-cart"></i></a>
+                                <a href="#"><i class="far fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item"
+                    th:if="${bookPage.totalPages > 0}"
+                    th:each="pageNumber : ${pageNumbers}">
+                    <a th:href="@{/product/p1(size=${bookPage.size}, page=${pageNumber})}"
+                       th:text="${pageNumber}"
+                       th:class="${pageNumber==bookPage.number + 1} ? 'active page-link':'page-link'"></a>
+                </li>
+            </ul>
+        </nav>
+        <input th:field="*{bookPage.size}">
+    </div>
+</div>
+</body>
+</html>

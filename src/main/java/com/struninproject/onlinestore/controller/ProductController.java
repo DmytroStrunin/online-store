@@ -4,7 +4,13 @@ import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.repository.CategoryRepository;
 import com.struninproject.onlinestore.repository.ManufacturerRepository;
 import com.struninproject.onlinestore.repository.ProductRepository;
+import com.struninproject.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +19,13 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * The {@code ProductController} class
@@ -26,12 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class ProductController {
     private final ProductRepository repository;
 
-    //    @Autowired
-//    UserRepository userRepository;
-//    @Autowired
-//    ProductCountRepository productCountRepository;
-//    @Autowired
-//    ProductRepository productRepository;
+    private final ProductService productService;
+
     @Autowired
     ManufacturerRepository manufacturerRepository;
 
@@ -39,8 +47,9 @@ public class ProductController {
     CategoryRepository categoryRepository;
 
     @Autowired
-    public ProductController(ProductRepository repository) {
+    public ProductController(ProductRepository repository, ProductService productService) {
         this.repository = repository;
+        this.productService = productService;
     }
 
     @GetMapping("/new")
@@ -71,6 +80,54 @@ public class ProductController {
     public ModelAndView getAllProducts(ModelAndView modelAndView) {
         modelAndView.addObject("products", repository.findAll());
         modelAndView.setViewName("product/products");
+        return modelAndView;
+    }
+
+    @GetMapping("/p1")
+    public ModelAndView getAllProducts1(
+            ModelAndView modelAndView,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(3);
+        Page<Product> bookPage = productService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+
+        modelAndView.addObject("bookPage", bookPage);
+
+        int totalPages = bookPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelAndView.addObject("pageNumbers", pageNumbers);
+        }
+//        Page<Product> productPage = productService.findAll(pageable);
+        modelAndView.setViewName("product/p1");
+        return modelAndView;
+    }
+
+    @GetMapping("/p2")
+    public ModelAndView getAllProducts2(
+            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC)
+                    Pageable pageable,
+            ModelAndView modelAndView,
+            @RequestParam("page") Optional<Integer> page,
+            @RequestParam("size") Optional<Integer> size) {
+        int currentPage = page.orElse(1);
+        int pageSize = size.orElse(5);
+        Page<Product> bookPage = productService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+
+        modelAndView.addObject("bookPage", bookPage);
+
+        int totalPages = bookPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                    .boxed()
+                    .collect(Collectors.toList());
+            modelAndView.addObject("pageNumbers", pageNumbers);
+        }
+//        Page<Product> productPage = productService.findAll(pageable);
+        modelAndView.setViewName("product/p1");
         return modelAndView;
     }
 

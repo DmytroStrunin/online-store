@@ -1,4 +1,4 @@
-package com.struninproject.onlinestore.config;
+package com.struninproject.onlinestore.config.security;
 
 import com.struninproject.onlinestore.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()// FIXME: 15.10.2022 
+                .csrf().disable()// FIXME: 15.10.2022
                 .authorizeRequests()
 //                .antMatchers("/", "/product/**", "/images/**", "/registration")
-                .antMatchers("/", "/home", "/css/**", "/index", "/user/new", "/product/p").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/", "/css/**", "/user/new", "/product/p", "/product/p1").permitAll()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
+                .successHandler(new RefererRedirectionAuthenticationSuccessHandler())
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .logoutSuccessHandler(new RefererRedirectionLogoutSuccessHandler())
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 
     @Override
