@@ -81,7 +81,7 @@
                     <a class="nav-link" href="#" data-bs-toggle="modal"
                        data-bs-target="#modal-cart">
                         <i class="fas fa-shopping-cart"></i>
-                        <span class='badge badge-warning'
+                        <span class='mb-lg-0 badge badge-warning'
                               id='lblCartCount'></span>
                     </a>
                 </li>
@@ -93,19 +93,18 @@
                     <span class="nav-fill m-auto" th:inline="text">
                         [[${#httpServletRequest.remoteUser}]]</span>
                 </li>
-                <li>
+                <li sec:authorize="!isAuthenticated()">
                     <a id="loginMod" class="nav-link" href="#"
                        data-bs-toggle="modal"
                        data-bs-target="#exampleModal">
                         <i class="far fa-user"></i>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
                        data-bs-toggle="dropdown" href="#"><i
                             class="far fa-user"></i></a>
-                    <ul sec:authorize="isAuthenticated()"
-                        class="dropdown-menu"
+                    <ul class="dropdown-menu"
                         aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item"
                                href="#">Регистрация</a></li>
@@ -360,7 +359,6 @@
 
 
     <div class="mt-2" th:include=":: #body"></div>
-
 
 
 </section>
