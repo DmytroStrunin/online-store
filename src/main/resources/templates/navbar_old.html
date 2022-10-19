@@ -43,7 +43,8 @@
 
 <nav class="container navbar fixed-top navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}" href="/">ON-Store</a>
+        <a class="navbar-brand h1 mt-3 me-4" th:href="@{/}"
+           href="/">ON-Store</a>
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -94,14 +95,14 @@
                         [[${#httpServletRequest.remoteUser}]]</span>
                 </li>
                 <li>
-                    <a id="loginMod" class="nav-link" href="#"
+                    <a class="nav-link" href="#"
                        data-bs-toggle="modal"
                        data-bs-target="#exampleModal">
                         <i class="far fa-user"></i>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
+                    <a id="loginForm" class="nav-link dropdown-toggle"
                        data-bs-toggle="dropdown" href="#"><i
                             class="far fa-user"></i></a>
                     <ul sec:authorize="isAuthenticated()"
@@ -117,6 +118,76 @@
                                 <input type="submit" class="dropdown-item"
                                        value="Sign Out"/>
                             </form>
+                        </li>
+                    </ul>
+                    <ul sec:authorize="!isAuthenticated()" class="dropdown-menu">
+<!--                        id="login-dp"-->
+
+                        <li>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="social-buttons">
+                                        <a href="#" class="btn btn-fb">
+                                            Login with Google <i
+                                                class="fa fa-google-plus"></i>
+                                        </a>
+                                    </div>
+                                    or
+                                    <div th:if="${param.error}">
+                                        Invalid username and password.
+                                    </div>
+                                    <div th:if="${param.logout}">
+                                        You have been logged out.
+                                    </div>
+                                    <form class="form" role="form"
+                                          method="post"
+                                          th:action="@{/login}"
+                                          accept-charset="UTF-8"
+                                          id="login-nav">
+                                        <div class="form-group">
+                                            <label class="sr-only"
+                                                   for="exampleInputEmail2">Email
+                                                address</label>
+                                            <input type="email"
+                                                   name="username"
+                                                   class="form-control"
+                                                   id="exampleInputEmail2"
+                                                   placeholder="Email address"
+                                                   required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only"
+                                                   for="exampleInputPassword2">Password</label>
+                                            <input type="password"
+                                                   name="password"
+                                                   class="form-control"
+                                                   id="exampleInputPassword2"
+                                                   placeholder="Password"
+                                                   required>
+                                            <div class="help-block text-right">
+                                                <a href="">Forget the
+                                                    password ?</a></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit"
+                                                    class="btn btn-primary btn-block">
+                                                Sign in
+                                            </button>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">
+                                                keep
+                                                me logged-in
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="bottom text-center">
+                                    New here? <a th:href="@{/user/new}"><b>Join
+                                    Us</b></a>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </li>
@@ -148,13 +219,13 @@
     </div>
 </div>
 
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div id="login-dp" class="modal-content">
             <div class="modal-body">
-                <!-- Pills navs -->
                 <!-- Pills navs -->
                 <ul class="nav nav-pills nav-justified mb-3" id="ex1"
                     role="tablist">
@@ -176,11 +247,7 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login"
                          role="tabpanel" aria-labelledby="tab-login">
-                        <form class="form" role="form"
-                              method="post"
-                              th:action="@{/login}"
-                              accept-charset="UTF-8"
-                              id="login-nav">
+                        <form>
                             <div class="text-center mb-3">
                                 <p>Sign in with:</p>
                                 <button type="button"
@@ -206,16 +273,9 @@
 
                             <p class="text-center">or:</p>
 
-                            <div th:if="${param.error}">
-                                Invalid username and password.
-                            </div>
-                            <div th:if="${param.logout}">
-                                You have been logged out.
-                            </div>
                             <!-- Email input -->
                             <div class="form-outline mb-4">
                                 <input type="email" id="loginName"
-                                       name="username"
                                        class="form-control"/>
                                 <label class="form-label" for="loginName">Email
                                     or username</label>
@@ -224,7 +284,6 @@
                             <!-- Password input -->
                             <div class="form-outline mb-4">
                                 <input type="password" id="loginPassword"
-                                       name="password"
                                        class="form-control"/>
                                 <label class="form-label" for="loginPassword">Password</label>
                             </div>
@@ -355,12 +414,10 @@
     </div>
 </div>
 
+
 <section class="main-content">
 
-
     <div class="mt-2" th:include=":: #body"></div>
-
-
 
 </section>
 <!-- jQuery -->

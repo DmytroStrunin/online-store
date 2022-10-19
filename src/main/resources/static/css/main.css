@@ -43,6 +43,9 @@ body.modal-open {
        padding-right: 0 !important;
    }
 
+::-webkit-scrollbar {
+    display: none;
+}
 
 
 .navbar-custom {

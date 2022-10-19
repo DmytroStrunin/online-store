@@ -25,6 +25,7 @@ public class RefererRedirectionLogoutSuccessHandler extends
             HttpServletResponse response,
             Authentication authentication)
             throws IOException, ServletException {
+
         final String refererUrl = request.getHeader("Referer");
         response.sendRedirect(refererUrl);
         super.onLogoutSuccess(request, response, authentication);

@@ -43,7 +43,8 @@
 
 <nav class="container navbar fixed-top navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}" href="/">ON-Store</a>
+        <a class="navbar-brand h1 mt-3 me-4" th:href="@{/}"
+           href="/">ON-Store</a>
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -101,7 +102,7 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
+                    <a id="loginForm" class="nav-link dropdown-toggle"
                        data-bs-toggle="dropdown" href="#"><i
                             class="far fa-user"></i></a>
                     <ul sec:authorize="isAuthenticated()"
@@ -119,6 +120,7 @@
                             </form>
                         </li>
                     </ul>
+
                 </li>
             </ul>
         </div>
@@ -147,6 +149,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -355,16 +358,15 @@
     </div>
 </div>
 
+
 <section class="main-content">
 
-
     <div class="mt-2" th:include=":: #body"></div>
-
-
 
 </section>
 <!-- jQuery -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
 
 <script>
     loadCart()

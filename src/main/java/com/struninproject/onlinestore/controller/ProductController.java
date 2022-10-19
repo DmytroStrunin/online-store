@@ -8,9 +8,6 @@ import com.struninproject.onlinestore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,46 +87,50 @@ public class ProductController {
             @RequestParam("size") Optional<Integer> size) {
         int currentPage = page.orElse(1);
         int pageSize = size.orElse(3);
-        Page<Product> bookPage = productService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+        Page<Product> productPage = productService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
 
-        modelAndView.addObject("bookPage", bookPage);
+        modelAndView.addObject("productPage", productPage);
 
-        int totalPages = bookPage.getTotalPages();
+        int totalPages = productPage.getTotalPages();
+
         if (totalPages > 0) {
+
             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
                     .boxed()
                     .collect(Collectors.toList());
+
             modelAndView.addObject("pageNumbers", pageNumbers);
+
         }
-//        Page<Product> productPage = productService.findAll(pageable);
+
         modelAndView.setViewName("product/p1");
         return modelAndView;
     }
 
-    @GetMapping("/p2")
-    public ModelAndView getAllProducts2(
-            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC)
-                    Pageable pageable,
-            ModelAndView modelAndView,
-            @RequestParam("page") Optional<Integer> page,
-            @RequestParam("size") Optional<Integer> size) {
-        int currentPage = page.orElse(1);
-        int pageSize = size.orElse(5);
-        Page<Product> bookPage = productService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
-
-        modelAndView.addObject("bookPage", bookPage);
-
-        int totalPages = bookPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
-                    .boxed()
-                    .collect(Collectors.toList());
-            modelAndView.addObject("pageNumbers", pageNumbers);
-        }
-//        Page<Product> productPage = productService.findAll(pageable);
-        modelAndView.setViewName("product/p1");
-        return modelAndView;
-    }
+//    @GetMapping("/p2")
+//    public ModelAndView getAllProducts2(
+//            @PageableDefault(sort = {"id"}, direction = Sort.Direction.DESC)
+//                    Pageable pageable,
+//            ModelAndView modelAndView,
+//            @RequestParam("page") Optional<Integer> page,
+//            @RequestParam("size") Optional<Integer> size) {
+//        int currentPage = page.orElse(1);
+//        int pageSize = size.orElse(5);
+//        Page<Product> bookPage = productService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+//
+//        modelAndView.addObject("bookPage", bookPage);
+//
+//        int totalPages = bookPage.getTotalPages();
+//        if (totalPages > 0) {
+//            List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+//                    .boxed()
+//                    .collect(Collectors.toList());
+//            modelAndView.addObject("pageNumbers", pageNumbers);
+//        }
+////        Page<Product> productPage = productService.findAll(pageable);
+//        modelAndView.setViewName("product/p1");
+//        return modelAndView;
+//    }
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
