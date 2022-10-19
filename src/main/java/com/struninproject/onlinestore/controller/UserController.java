@@ -32,7 +32,6 @@ public class UserController {
         this.service = service;
     }
 
-
     @GetMapping("/new")
     public ModelAndView showsRegistrationForm(ModelAndView modelAndView){
         modelAndView.addObject("user", new User());

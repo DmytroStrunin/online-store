@@ -23,7 +23,6 @@ import java.util.List;
  */
 @Repository
 public interface ProductRepository extends CrudRepository<Product,String>{
-
     Page<Product> findAll(Pageable pageable);
     Page<Product> findAllByCategory(Category category, Pageable pageable);
 

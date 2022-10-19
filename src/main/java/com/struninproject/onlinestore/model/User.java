@@ -47,8 +47,6 @@ public class User implements UserDetails {
     private boolean active;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-    //    @Enumerated(EnumType.STRING)
-    //    private Role role;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"))

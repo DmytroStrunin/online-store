@@ -32,7 +32,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "products")
-//@ToString // FIXME: 05.10.2022
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Product {
     @Id

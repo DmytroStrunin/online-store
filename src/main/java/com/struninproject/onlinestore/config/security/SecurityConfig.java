@@ -1,6 +1,5 @@
 package com.struninproject.onlinestore.config.security;
 
-import com.struninproject.onlinestore.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import javax.sql.DataSource;
 import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -33,7 +31,6 @@ import java.sql.SQLException;
 public class SecurityConfig {
     private final DataSource dataSource;
     private final UserDetailsService userDetailsService;
-
 
     @Autowired
     public SecurityConfig(DataSource dataSource, CustomUserDetailsService userDetailsService) {
@@ -58,19 +55,13 @@ public class SecurityConfig {
     public PersistentTokenRepository getPersistentTokenRepository() throws SQLException {
         final DatabaseMetaData dbm = dataSource.getConnection().getMetaData();
         final boolean ifExistTable = dbm.getTables(null, null, "persistent_logins", null).next();
-
         JdbcTokenRepositoryImpl jdbcTokenRepositoryImpl=new JdbcTokenRepositoryImpl();
         jdbcTokenRepositoryImpl.setDataSource(dataSource);
-
         if (!ifExistTable) {
-            // Создаем таблицу при запуске, этот параметр должен быть закомментирован при втором запуске, потому что таблица была создана
             jdbcTokenRepositoryImpl.setCreateTableOnStartup(true);
         }
-
         return jdbcTokenRepositoryImpl;
     }
-
-
 
     @Bean
     public AuthenticationSuccessHandler getAuthSuccessHandler(){
@@ -81,7 +72,6 @@ public class SecurityConfig {
     public LogoutSuccessHandler getLogoutSuccessHandler(){
         return new CustomLogoutSuccessHandler();
     }
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

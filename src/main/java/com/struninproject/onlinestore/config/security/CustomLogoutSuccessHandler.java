@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * The {@code RefererRedirectionLogoutSuccessHandler} class
+ * The {@code CustomLogoutSuccessHandler} class
  *
  * @author Strunin Dmytro
  * @version 1.0

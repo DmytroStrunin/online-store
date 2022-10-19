@@ -32,9 +32,10 @@ public class Category {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     private String name;
+    //Features
 //    @ManyToOne
 //    @JoinColumn(name = "parent_category_id")
-//    private Category category;
+//    private Category parentCategory;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "features", joinColumns = @JoinColumn(name = "category_id"))
     private Set<String> features; // FIXME: 03.10.2022

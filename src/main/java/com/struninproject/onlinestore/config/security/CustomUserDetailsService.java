@@ -1,15 +1,10 @@
-package com.struninproject.onlinestore.service;
+package com.struninproject.onlinestore.config.security;
 
-import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +14,6 @@ import org.springframework.stereotype.Component;
  * @version 1.0
  */
 //https://russianblogs.com/article/4159851543/
-//@Service
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
 //    private final PasswordEncoder passwordEncoder;
