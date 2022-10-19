@@ -16,7 +16,7 @@ import java.io.IOException;
  * @version 1.0
  */
 
-public class RefererRedirectionLogoutSuccessHandler extends
+public class CustomLogoutSuccessHandler extends
         SimpleUrlLogoutSuccessHandler implements LogoutSuccessHandler {
 
     @Override
@@ -26,8 +26,14 @@ public class RefererRedirectionLogoutSuccessHandler extends
             Authentication authentication)
             throws IOException, ServletException {
 
-        final String refererUrl = request.getHeader("Referer");
-        response.sendRedirect(refererUrl);
+
+//        System.out.println(response.getStatus());
+
+        //set our response to OK status
+//        response.setStatus(HttpServletResponse.SC_OK);
+
+//        final String refererUrl = request.getHeader("Referer");
+//        response.sendRedirect(refererUrl);
         super.onLogoutSuccess(request, response, authentication);
     }
 }
