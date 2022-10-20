@@ -82,15 +82,12 @@ public class SecurityConfig {
 
                 .antMatchers("/anonymous*").anonymous()
 
-                .antMatchers("/login*", "/", "/css/**", "/user/new", "/product/p", "/product/p1").permitAll()
+                .antMatchers("/login*", "/registration", "/", "/css/**", "/user/new", "/product/p", "/product/p1").permitAll()
 
                 .anyRequest().authenticated()
 
                 .and()
                 .formLogin()
-
-                .and()
-                .rememberMe().key("remember_me").tokenValiditySeconds(86400)
 
                 .and()
                 .formLogin()
@@ -99,9 +96,9 @@ public class SecurityConfig {
                 .failureUrl("/login?error=true")
 
                 .and()
-                .rememberMe()
+                .rememberMe().key("remember_me")
                 .tokenRepository(getPersistentTokenRepository())
-                .tokenValiditySeconds(3600) // Срок действия токена - один час
+                .tokenValiditySeconds(86400)
                 .userDetailsService(userDetailsService)
 
                 .and()

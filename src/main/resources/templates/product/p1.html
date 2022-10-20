@@ -28,13 +28,20 @@
                                     th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
                             </div>
                             <div class="product-links">
-                                <a sec:authorize="isAuthenticated()" href="#"><i
+                                <button class="zoom-color border-0 me-3"
+                                        sec:authorize="isAuthenticated()"><i
                                         onclick="addCart(this.id)"
                                         th:id="${product.getId()}"
-                                        class="fas fa-shopping-cart"></i></a>
-                                <a sec:authorize="!isAuthenticated()" href="#" data-bs-toggle="modal"
-                                   data-bs-target="#exampleModal" ><i class="fas fa-shopping-cart"></i></a>
-                                <a href="#"><i class="far fa-heart"></i></a>
+                                        class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="zoom-color border-0 me-3"
+                                        sec:authorize="!isAuthenticated()"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"><i
+                                        class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="zoom-color border-0 me-3"><i
+                                        class="far fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
@@ -57,19 +64,6 @@
         <label>
             <input th:field="*{productPage.size}">
         </label>
-
-        <script sec:authorize="!isAuthenticated()">
-        const loginMod = document.getElementById('loginMod');
-        let sleep = ms => new Promise(res=>setTimeout(res,ms));
-
-        async function fx(){
-        await sleep(500);
-        loginMod.click()
-        }
-        fx();
-        </script>
-
-
     </div>
 </div>
 </body>

@@ -98,9 +98,7 @@ public class CustomAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
 
         if (authentication.isAuthenticated()) {
             final String refererUrl = request.getHeader("Referer");
-            System.out.println(refererUrl);
-            if (refererUrl.endsWith("/login") || // FIXME: 19.10.2022 need pattern
-                refererUrl.endsWith("/login?error=true")) {
+            if (refererUrl.matches("/*/login/*")) {
                 response.sendRedirect("/");
             } else {
                 response.sendRedirect(refererUrl);
