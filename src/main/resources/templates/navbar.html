@@ -43,7 +43,7 @@
 
 <nav class="container navbar fixed-top navbar-expand-lg navbar-light navbar-custom">
     <div class="container-fluid">
-        <a class="navbar-brand" th:href="@{/}" href="/">ON-Store</a>
+        <a class="navbar-brand zoom" th:href="@{/}" href="/">ON-Store</a>
         <button class="navbar-toggler" type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent"
@@ -57,7 +57,7 @@
                     <a class="nav-link" th:href="@{/product/p}">Store</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/product/p1}">Store pagin</a>
+                    <a class="nav-link" th:href="@{/product/p1}">StorePagin</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/order}">Orders</a>
@@ -77,15 +77,15 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
+                <li class="nav-item me-2">
                     <a class="nav-link" href="#" data-bs-toggle="modal"
                        data-bs-target="#modal-cart">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class='mb-lg-0 badge badge-warning'
+                        <i class="fas fa-shopping-cart zoom"></i>
+                        <span class='position-absolute badge badge-warning'
                               id='lblCartCount'></span>
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item zoom">
                     <a class="nav-link" href="#"><i
                             class="fas fa-search"></i></a>
                 </li>
@@ -94,23 +94,20 @@
                         [[${#httpServletRequest.remoteUser}]]</span>
                 </li>
                 <li sec:authorize="!isAuthenticated()">
-                    <a id="loginMod" class="nav-link" href="#"
+                    <a id="loginMod" class="nav-link zoom" href="#"
                        data-bs-toggle="modal"
                        data-bs-target="#exampleModal">
                         <i class="far fa-user"></i>
                     </a>
                 </li>
-                <li sec:authorize="isAuthenticated()" class="nav-item dropdown">
+                <li sec:authorize="isAuthenticated()"
+                    class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle"
                        data-bs-toggle="dropdown" href="#"><i
                             class="far fa-user"></i></a>
                     <ul class="dropdown-menu"
                         aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item"
-                               href="#">Регистрация</a></li>
-                        <li><a class="dropdown-item"
-                               href="#">Авторизация</a></li>
-                        <li class="navbar-form navbar-right">
+                        <li>
                             <form th:action="@{/logout}" id="logout-form"
                                   method="POST">
                                 <input type="submit" class="dropdown-item"
@@ -157,12 +154,12 @@
                 <!-- Pills navs -->
                 <ul class="nav nav-pills nav-justified mb-3" id="ex1"
                     role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li hidden class="nav-item" role="presentation">
                         <a class="nav-link active" id="tab-login"
                            data-bs-toggle="pill" href="#pills-login" role="tab"
                            aria-controls="pills-login" aria-selected="true">Login</a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li hidden class="nav-item" role="presentation">
                         <a class="nav-link" id="tab-register"
                            data-bs-toggle="pill" href="#pills-register"
                            role="tab"
@@ -257,7 +254,10 @@
 
                             <!-- Register buttons -->
                             <div class="text-center">
-                                <p>Not a member? <a href="#">Register</a></p>
+                                <p>Not a member?
+                                    <a href="#"
+                                       onclick="document.getElementById('tab-register')
+                                        .click()">Register</a></p>
                             </div>
                         </form>
                     </div>
@@ -365,7 +365,50 @@
 <!-- jQuery -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+
+<script sec:authorize="!isAuthenticated()">
+    let sleep = ms => new Promise(res => setTimeout(res, ms));
+
+    async function fx() {
+        await sleep(500);
+        getLoginForm();
+    }
+
+    fx();
+
+    function getLoginForm() {
+        const loginPage = document
+            .documentURI
+            .toString()
+            .match('/*/login/*');
+
+        const registrationPage = document
+            .documentURI
+            .toString()
+            .match('/*/registration/*');
+
+        const loginMenu = document.createElement('a');
+        loginMenu.setAttribute('data-bs-toggle', 'modal');
+        loginMenu.setAttribute('data-bs-target', '#exampleModal');
+
+        const loginMod = document.getElementById('loginMod');
+
+        if (loginPage || registrationPage) {
+            if (registrationPage) {
+                document.getElementById('tab-register')
+                    .click();
+                console.log(registrationPage);
+            }
+            loginMod.click();
+        }
+    }
+</script>
+
+
+<script sec:authorize="isAuthenticated()">
     loadCart()
 
     function addCart(id) {
@@ -505,9 +548,6 @@
         }
     }
 </script>
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
+
 </body>
 </html>
