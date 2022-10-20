@@ -41,11 +41,11 @@ public class UserController {
 
     @PostMapping("/new")
     public ModelAndView addUser(User user, ModelAndView modelAndView){
-//        repository.save(user);
         service.createUser(user);
         modelAndView.setViewName("redirect:/user");
         return modelAndView;
     }
+
     @GetMapping()
     public ModelAndView getAllUsers(ModelAndView modelAndView){
         modelAndView.addObject("users", repository.findAll());

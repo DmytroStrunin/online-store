@@ -5,9 +5,9 @@
 </head>
 <body th:include="navbar.html :: body">
 <div id="body">
+    <!--/*@thymesVar id="productPage" type="org.springframework.data.domain.Page"*/-->
+    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
     <div class="container">
-        <!--/*@thymesVar id="productPage" type="org.springframework.data.domain.Page"*/-->
-        <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
         <div class="row">
             <div class="col-lg-4 col-sm-6 mb-3"
                  th:each="product, iStat : ${productPage.content}">
@@ -48,22 +48,30 @@
                 </div>
             </div>
         </div>
-        <nav aria-label="...">
+        <!--/*@thymesVar id="pageNumbers" type="java.util.List"*/-->
+        <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
+        <nav th:if="${productPage.totalPages > 0}" aria-label="Page navigation example">
             <ul class="pagination">
-                <!--/*@thymesVar id="pageNumbers" type="java.util.List"*/-->
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
                 <li class="page-item"
-                    th:if="${productPage.totalPages > 0}"
                     th:each="pageNumber : ${pageNumbers}">
-                    <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
+
                     <a th:href="@{/product/p1(size=${productPage.size}, page=${pageNumber})}"
                        th:text="${pageNumber}"
                        th:class="${pageNumber==productPage.number + 1} ? 'active page-link':'page-link'"></a>
                 </li>
+                <li>
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <label>
-            <input th:field="*{productPage.size}">
-        </label>
+
     </div>
 </div>
 </body>

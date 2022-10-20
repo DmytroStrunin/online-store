@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
+
 /**
  * The {@code UserService} class
  *
@@ -28,6 +30,7 @@ public class UserService {
         String userEmail = user.getEmail();
         if (repository.findByEmail(userEmail) != null) return false;
         user.setActive(true);
+        user.setRoles(new HashSet<>());
         user.getRoles().add(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 //        log.info("Saving new User with email: {}", userEmail);

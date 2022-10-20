@@ -124,7 +124,7 @@
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div id="cart-dp" class="modal-content">
             <!--                        <div class="modal-header bg-secondary text-white">-->
             <!--                            <h5 class="modal-title"-->
             <!--                                id="exampleModalLabel">Корзина</h5>-->
@@ -534,7 +534,7 @@
         updateCartIcon(cartItems)
         let h4 = document.createElement('h4')
         h4.setAttribute('align', 'right')
-        h4.innerHTML = 'Total: $' + totalPrice
+        h4.innerHTML = 'Total: $' + totalPrice.toFixed(2)
         cart.appendChild(h4)
 
 

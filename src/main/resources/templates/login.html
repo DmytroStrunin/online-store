@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head th:include="navbar.html :: head">
     <title id="title">User registration</title>
 </head>
@@ -19,20 +19,6 @@
     <span class="visually-hidden">unread messages</span>
   </span>
     </button>
-
-
-
-    <script sec:authorize="isAuthenticated()">
-        const loginMod = document.getElementById('loginMod');
-        let sleep = ms => new Promise(res=>setTimeout(res,ms));
-
-        async function fx(){
-            await sleep(500);
-            loginMod.click()
-        }
-        fx();
-    </script>
-
 
 </div>
 
