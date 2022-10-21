@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4 col-sm-6 mb-3"
-                 th:each="product, iStat : ${productPage.content}">
+                 th:each="product, iStat : ${productPage}">
                 <div class="product-card">
                     <div class="product-thumb">
                         <img th:src="${(product.getImage() != null && !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
@@ -49,28 +49,49 @@
             </div>
         </div>
         <!--/*@thymesVar id="pageNumbers" type="java.util.List"*/-->
-        <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
-        <nav th:if="${productPage.totalPages > 0}" aria-label="Page navigation example">
+        <nav th:if="${productPage.getTotalPages() > 1 && productPage.getNumber() < productPage.getTotalPages()}"
+             aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
+                    <a class="page-link"
+                       th:href="@{/product/p1(size=${productPage.getSize()}, page=${productPage.getNumber()})}"
+                       th:if="${productPage.getNumber()!=0}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    <a class="page-link"
+                       th:if="${productPage.getNumber()==0}"
+                       aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item"
-                    th:each="pageNumber : ${pageNumbers}">
-
-                    <a th:href="@{/product/p1(size=${productPage.size}, page=${pageNumber})}"
+                    th:each="pageNumber : ${#numbers.sequence( 1, productPage.getTotalPages())}">
+                    <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
+                    <a th:href="@{/product/p1(size=${productPage.getSize()}, page=${pageNumber})}"
                        th:text="${pageNumber}"
-                       th:class="${pageNumber==productPage.number + 1} ? 'active page-link':'page-link'"></a>
+                       th:class="${pageNumber==productPage.getNumber()+1} ? 'active page-link':'page-link'"></a>
+
                 </li>
-                <li>
-                    <a class="page-link" href="#" aria-label="Next">
+                <li class="page-item">
+                    <a class="page-link"
+                       th:href="@{/product/p1(size=${productPage.getSize()}, page=${productPage.getNumber()+2})}"
+                       th:if="${productPage.getNumber()<productPage.getTotalPages()-1}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    <a class="page-link"
+                       th:if="${productPage.getNumber()==productPage.getTotalPages()-1}"
+                       aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
+
+<!--        <form th:action="@{/user/(filter=${filter}, size=${productPage.size}, page=${pageNumber})}" th:object="${user}" method="get">-->
+
+<!--        </form>-->
 
     </div>
 </div>

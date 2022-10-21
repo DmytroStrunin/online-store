@@ -13,7 +13,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 
 /**
  * The {@code ProductRepository} class
@@ -22,7 +21,7 @@ import java.util.List;
  * @version 1.0
  */
 @Repository
-public interface ProductRepository extends CrudRepository<Product,String>{
+public interface ProductRepository extends CrudRepository<Product,String> {
     Page<Product> findAll(Pageable pageable);
     Page<Product> findAllByCategory(Category category, Pageable pageable);
 
@@ -37,5 +36,5 @@ public interface ProductRepository extends CrudRepository<Product,String>{
             """)
     LinkedHashSet<ProductDTO> findAllProductsInUserCart(@Param("user") User user, @Param("status") Status status);
 
-    List<Product> findAll();
+//    List<Product> findAll();
 }

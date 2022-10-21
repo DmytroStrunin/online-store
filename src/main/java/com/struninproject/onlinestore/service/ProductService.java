@@ -28,40 +28,19 @@ public class ProductService {
     }
 
     public Page<Product> findAll(Pageable pageable) {
-        final Page<Product> productPage = productRepository.findAll(pageable);
-
-//        int pageSize = pageable.getPageSize();
-//        int currentPage = pageable.getPageNumber();
-//        int startItem = currentPage * pageSize;
-//        List<Book> list;
-//
-//        if (books.size() < startItem) {
-//            list = Collections.emptyList();
-//        } else {
-//            int toIndex = Math.min(startItem + pageSize, books.size());
-//            list = books.subList(startItem, toIndex);
-//        }
-//
-//        Page<Book> bookPage
-//                = new PageImpl<Book>(list, PageRequest.of(currentPage, pageSize), books.size());
-
-        return productPage;
-    }
-
-    public Page<Product> findPaginated(Pageable pageable) {
-        final List<Product> products = productRepository.findAll();
+        final Page<Product> products = productRepository.findAll(pageable);
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber();
         int startItem = currentPage * pageSize;
         List<Product> list;
 
-        if (products.size() < startItem) {
+        if (products.getTotalPages() < startItem) {
             list = Collections.emptyList();
         } else {
-            int toIndex = Math.min(startItem + pageSize, products.size());
-            list = products.subList(startItem, toIndex);
+            int toIndex = Math.min(startItem + pageSize, products.getTotalPages());
+            list = products.getContent().subList(startItem, toIndex);
         }
 
-        return new PageImpl<Product>(list, PageRequest.of(currentPage, pageSize), products.size());
+        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), products.getTotalPages());
     }
 }
