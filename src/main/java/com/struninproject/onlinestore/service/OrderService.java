@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -49,9 +48,6 @@ public class OrderService {
         return productRepository.findAllProductsInUserCart(user, Status.CART);
     }
 
-
-
-
     public void updateUserCartStatus(User user) {
         orderRepository
                 .findOrderByUserAndStatusAndProductOrdersNotNull(user, Status.CART)
@@ -68,11 +64,9 @@ public class OrderService {
                 .findById(productId)
                 .orElseThrow(IllegalArgumentException::new);
 
-
         final Order order = orderRepository
                 .findOrderByUserAndStatus(user, Status.CART)
                 .orElseGet(() -> createAndSave(user));
-
 
         final ProductOrder productOrder = productOrderService
                 .getProductOrderOrCreateIfNotExist(product, order);
@@ -112,8 +106,9 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public Optional<Order> findById(String id){
-        return orderRepository.findById(id);
+    public Order findById(String id){
+        return orderRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public Iterable<Order> findAll(){

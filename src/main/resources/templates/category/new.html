@@ -16,27 +16,11 @@
         <div id="in">
             <label>Features</label>
         </div>
-        <input type="submit" class="btn btn-primary" value="Add Category">
         <br>
+        <input type="submit" class="btn btn-sm btn-secondary" value="Add Category">
     </form>
 
-    <script>
-        myChangeFunction();
-
-        function myChangeFunction() {
-            const form = document.getElementById("in");
-            const el = document.createElement('input');
-            const br = document.createElement('br');
-            el.setAttribute('placeholder', 'Add new feature');
-            el.setAttribute('name', 'features');
-            el.addEventListener('input',
-                (e) => {
-                    myChangeFunction(e.target)
-                }, {once: true});
-            form.append(el);
-            form.append(br);
-        }
-    </script>
+    <script th:src="@{/js/categoryFields.js}"></script>
 
 </div>
 </body>

@@ -8,42 +8,29 @@
 
     <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
     <form th:method="PATCH"
-          th:action="@{/category/{id}(id=${category.getId()})}"
+          th:action="@{/category/update}"
           th:object="${category}">
+        <!--/*@thymesVar id="id" type="java.lang.String"*/-->
+        <label hidden for="id"></label>
+        <input hidden type="text" th:field="*{id}" id="id">
         <label for="name">Name</label>
         <input type="text" th:field="*{name}" id="name" placeholder="name">
         <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         <br>
         <div id="in">
             <label>Features</label>
-            <ul>
-                <li th:each="feature, iter : ${category.getFeatures}">
-                    <!--/*@thymesVar id="feature" type=""*/-->
-                    <input th:name="|features|" th:value="${feature}"/>
-                </li>
-            </ul>
+            <div th:each="feature : ${category.getFeatures}">
+                <!--/*@thymesVar id="feature" type=""*/-->
+                <label>
+                    <input th:name="|features|" th:value="${feature}">
+                </label>
+            </div>
         </div>
         <br>
-        <input type="submit" class="btn btn-primary" value="Edit Category">
+        <input type="submit" class="btn btn-sm btn-secondary" value="Edit Category">
     </form>
 
-    <script th:inline="javascript">
-        myChangeFunction();
-
-        function myChangeFunction() {
-            const form = document.getElementById("in");
-            const el = document.createElement('input');
-            const br = document.createElement('br');
-            el.setAttribute('placeholder', 'Add new feature');
-            el.setAttribute('name', 'features');
-            el.addEventListener('input',
-                (e) => {
-                    myChangeFunction(e.target)
-                }, {once: true});
-            form.append(el);
-            form.append(br);
-        }
-    </script>
+    <script th:src="@{/js/categoryFields.js}"></script>
 
 </div>
 </body>

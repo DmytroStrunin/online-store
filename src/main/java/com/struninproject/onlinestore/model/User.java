@@ -38,6 +38,7 @@ public class User implements UserDetails {
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
+    @Column(unique=true)
     private String email;
     private String password;
     private String firstName;

@@ -14,8 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
 
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("forward:/product/p");
-        registry.addViewController("/login").setViewName("forward:/product/p1");
-        registry.addViewController("/registration").setViewName("forward:/product/p1");
+        registry.addViewController("/").setViewName("forward:/product/products");
+        registry.addViewController("/login").setViewName("forward:/product/products");
+        registry.addViewController("/registration").setViewName("forward:/product/products");
     }
 }

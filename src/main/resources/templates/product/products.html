@@ -1,56 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:include="navbar.html :: head">
-    <title id="title">Products</title>
+    <title id="title">User registration</title>
 </head>
-<body class="fix-" th:include="navbar.html :: body">
+<body th:include="navbar.html :: body">
 <div id="body">
-
-        <div class="container">
-            <div class="row">
-                <!--/*@thymesVar id="products" type="java.lang.Iterable"*/-->
-                <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
-                <div class="col-lg-4 col-sm-6 mb-3" th:each="product,iter : ${products}">
-                    <div class="product-card">
-                        <div class="product-thumb">
-                            <img th:src="${(product.getImage() != null && !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
-                                 src="" alt="" id="output"
-                                 style="width: 100%; height: 15vw; object-fit: contain;">
-                        </div>
-                        <div class="product-details">
-                            <h4><a href="#"><span th:text="${product.getName()}"></span></a></h4>
-                            <span th:text="${product.getDescription()}"></span>
-                            <div class="product-bottom-details d-flex justify-content-between">
-                                <div class="product-price">
-                                    <small><span th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
-                                </div>
-                                <div class="product-links">
-                                    <button class="zoom-color border-0 me-3"><i onclick="addCart(this.id)" th:id="${product.getId()}" class="fas fa-shopping-cart"></i></button>
-                                    <button class="zoom-color border-0 me-3"><i class="far fa-heart"></i></button>
-                                </div>
+    <!--/*@thymesVar id="productPage" type="org.springframework.data.domain.Page"*/-->
+    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+    <div class="container">
+        <div class="row d-3 align-items-center mb-3">
+            <form class="d-flex justify-content-sm-end"
+                  th:action="@{/product/products}" method="GET">
+                <label class="col-form-label-sm me-1" for="sort">Sort by</label>
+                <select class="form-select-sm" id="sort" name="sort"
+                        onchange="document.getElementById('subButton').click()">
+                    <option name="sort" value="name-asc">Name ↑</option>
+                    <option name="sort" value="name-desc">Name ↓</option>
+                    <option name="sort" value="price-asc">Price ↑</option>
+                    <option name="sort" value="price-desc">Price ↓</option>
+                </select>
+                <label class="col-form-label-sm me-1 ms-3" for="category">Category</label>
+                <select class="form-select-sm" id="category" name="filter"
+                        onchange="document.getElementById('subButton').click()">
+                    <option
+                            th:text="'All'"
+                            th:value="''"
+                            th:selected="${filter.isEmpty()}?'selected'"
+                    ></option>
+                    <option
+                            th:each="category: ${categories}"
+                            th:text="${category.getName()}"
+                            th:value="${category.getName()}"
+                            th:selected="${category.getName()==filter}?'selected'"
+                    ></option>
+                </select>
+                <label class="col-form-label-sm me-1 ms-3" for="size">Number of
+                    products</label>
+                <!--/*@thymesVar id="itemsOnPage" type="java.lang.Integer"*/-->
+                <select class="form-select-sm" id="size" name="size"
+                        onchange="document.getElementById('subButton').click()"
+                        th:field="${productPage.size}">
+                    <option
+                            th:each="itemsOnPage : ${#numbers.sequence( 3, 18, 3)}"
+                            th:value="${itemsOnPage}"
+                            th:text="${itemsOnPage}"
+                    ></option>
+                </select>
+                <button id="subButton" hidden type="submit"></button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 mb-3"
+                 th:each="product, iStat : ${productPage}">
+                <div class="product-card">
+                    <div class="product-thumb">
+                        <img class="product-c" th:src="${(product.getImage() != null &&
+                        !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                             src="" alt="" id="output">
+                    </div>
+                    <div class="product-details">
+                        <h4><a href="#"><span
+                                th:text="${product.getName()}"></span></a></h4>
+                        <span th:text="${product.getDescription()}"></span>
+                        <div class="product-bottom-details d-flex justify-content-between">
+                            <div class="product-price">
+                                <small><span
+                                        th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span
+                                    th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
+                            </div>
+                            <div class="product-links">
+                                <button class="zoom-color border-0 me-3"
+                                        sec:authorize="isAuthenticated()"><i
+                                        onclick="addCart(this.id)"
+                                        th:id="${product.getId()}"
+                                        class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="zoom-color border-0 me-3"
+                                        sec:authorize="!isAuthenticated()"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal"><i
+                                        class="fas fa-shopping-cart"></i>
+                                </button>
+                                <button class="zoom-color border-0 me-3"><i
+                                        class="far fa-heart"></i></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
-    <script>
-        function addCart(id) {
-            const data={productId: id}
-            $.ajax({
-                url: "/order/add",
-                type: "POST",
-                data: data,
-                success: function(data){
-                    console.log(data);
-                },
-                dataType: 'json'
-            });
-        }
-    </script>
-
+        <!--/*@thymesVar id="pageNumbers" type="java.util.List"*/-->
+        <!--/*@thymesVar id="categories" type="Iterable"*/-->
+        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+        <!--/*@thymesVar id="filter" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="sort" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
+        <div class="fixed-bottom d-flex justify-content-center">
+            <nav th:if="${productPage.getTotalPages() gt 1 && productPage.getNumber() lt productPage.getTotalPages()}"
+                 aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li th:class="${productPage.getNumber() gt 0}?'page-item':'page-item disabled'">
+                        <a class="page-link"
+                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=1)}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">First</span>
+                        </a>
+                    </li>
+                    <li th:class="${productPage.getNumber() gt 0}?'page-item':'page-item disabled'">
+                        <a class="page-link"
+                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${productPage.getNumber()})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"
+                        th:each="pageNumber : ${#numbers.sequence( 1, productPage.getTotalPages())}">
+                        <a th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${pageNumber})}"
+                           th:text="${pageNumber}"
+                           th:class="${pageNumber==productPage.getNumber() + 1} ? 'active page-link':'page-link'"
+                           th:if="${(productPage.getNumber() gt pageNumber - 4 || pageNumber lt 6)
+                            && (productPage.getNumber() lt pageNumber + 2 || pageNumber gt productPage.getTotalPages() - 5)}">
+                        </a>
+                    </li>
+                    <li th:class="${productPage.getNumber() lt productPage.getTotalPages() - 1}?'page-item':'page-item disabled'">
+                        <a class="page-link"
+                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${productPage.getNumber() + 2})}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li th:class="${productPage.getNumber() lt productPage.getTotalPages() - 1}?'page-item':'page-item disabled'">
+                        <a class="page-link"
+                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${productPage.getTotalPages()})}"
+                           th:text="'Last '+${productPage.getTotalPages()}"
+                           aria-label="Next">
+                            <span aria-hidden="true"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <script th:src='@{/js/sortSelector.js}'></script>
 </div>
 </body>
 </html>

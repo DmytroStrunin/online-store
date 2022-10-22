@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.controller;
 
 import com.struninproject.onlinestore.model.Category;
-import com.struninproject.onlinestore.repository.CategoryRepository;
+import com.struninproject.onlinestore.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
-
 /**
  * The {@code CategoryController} class
  *
@@ -24,17 +22,12 @@ import javax.annotation.PostConstruct;
 @Controller
 @RequestMapping(path = "/category")
 public class CategoryController {
+    private final CategoryService categoryService;
 
-    private final CategoryRepository repository;
-
-
-    @PostConstruct
-    public void addProducts() {
-    }
 
     @Autowired
-    public CategoryController(CategoryRepository repository) {
-        this.repository = repository;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/new")
@@ -46,46 +39,35 @@ public class CategoryController {
 
     @PostMapping("/new")
     public ModelAndView addNewItem(Category category, ModelAndView modelAndView) {
-        category.getFeatures().remove("");
-        repository.save(category);
+        categoryService.save(category);
         modelAndView.setViewName("redirect:/category");
         return modelAndView;
     }
 
-//    @PostMapping("/new1")
-//    public ModelAndView addNewItem1(Category category, ModelAndView modelAndView) {
-//        modelAndView.setViewName("redirect:/category/new");
-//        return modelAndView;
-//    }
 
     @GetMapping
     public ModelAndView getAllItems(ModelAndView modelAndView) {
-        modelAndView.addObject("categories", repository.findAll());
+        modelAndView.addObject("categories", categoryService.findAll());
         modelAndView.setViewName("category/all");
         return modelAndView;
     }
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("category", repository.findById(id)
-                .orElseThrow(IllegalArgumentException::new));
+        modelAndView.addObject("category", categoryService.findById(id));
         modelAndView.setViewName("category/edit");
         return modelAndView;
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("category") Category category, @PathVariable("id") String id) {
-        category.getFeatures().remove("");
-        repository.findById(id);
-        if (repository.existsById(id)) {
-            repository.save(category);
-        }
+    @PatchMapping("/update")
+    public String update(@ModelAttribute("category") Category category) {
+        categoryService.update(category);
         return "redirect:/category";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String id) {
-        repository.deleteById(id);
+        categoryService.deleteById(id);
         return "redirect:/category";
     }
 }

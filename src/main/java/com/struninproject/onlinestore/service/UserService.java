@@ -37,4 +37,23 @@ public class UserService {
         repository.save(user);
         return true;
     }
+
+    public Iterable<User> findAll() {
+        return repository.findAll();
+    }
+
+    public User findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void update(User user) {
+        if (repository.existsById(user.getId())){
+            repository.save(user);
+        }
+    }
+
+    public void deleteById(String id) {
+        repository.deleteById(id);
+    }
 }

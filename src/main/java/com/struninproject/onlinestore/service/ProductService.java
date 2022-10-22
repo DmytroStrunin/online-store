@@ -4,13 +4,8 @@ import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
-import java.util.List;
 
 /**
  * The {@code ProductService} class
@@ -21,26 +16,46 @@ import java.util.List;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          CategoryService categoryService) {
         this.productRepository = productRepository;
+        this.categoryService = categoryService;
     }
 
-    public Page<Product> findAll(Pageable pageable) {
-        final Page<Product> products = productRepository.findAll(pageable);
-        int pageSize = pageable.getPageSize();
-        int currentPage = pageable.getPageNumber();
-        int startItem = currentPage * pageSize;
-        List<Product> list;
+    public void save(Product product) {
+        productRepository.save(product);
+    }
 
-        if (products.getTotalPages() < startItem) {
-            list = Collections.emptyList();
+    public Iterable<Product> findAll() {
+        return productRepository.findAll();
+    }
+
+    public Page<Product> findAllPages(Pageable pageable, String filter) {
+        if (filter != null && !filter.isEmpty()) {
+            return productRepository.findAllByCategory(categoryService.findByName(filter), pageable);
         } else {
-            int toIndex = Math.min(startItem + pageSize, products.getTotalPages());
-            list = products.getContent().subList(startItem, toIndex);
+            return productRepository.findAll(pageable);
         }
-
-        return new PageImpl<>(list, PageRequest.of(currentPage, pageSize), products.getTotalPages());
     }
+
+    public Product findById(String id) {
+        return productRepository.findById(id)
+                .orElseThrow(IllegalArgumentException::new);
+    }
+
+    public void update(Product product) {
+        if (productRepository.existsById(product.getId())) {
+            productRepository.save(product);
+        }
+    }
+
+    public void deleteById(String id) {
+        productRepository.deleteById(id);
+    }
+
+
+
 }

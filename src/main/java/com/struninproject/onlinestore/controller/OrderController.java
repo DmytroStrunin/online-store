@@ -54,14 +54,16 @@ public class OrderController {
 
     @PostMapping("/add")
     public @ResponseBody
-    Set<ProductDTO> addCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
+    Set<ProductDTO> addCart(@AuthenticationPrincipal User user,
+                            @RequestParam String productId) {
         orderService.addProductInCart(user, productId);
         return orderService.getUserCart(user);
     }
 
     @PostMapping("/del")
     public @ResponseBody
-    Set<ProductDTO> delCart(@AuthenticationPrincipal User user, @RequestParam String productId) {
+    Set<ProductDTO> delCart(@AuthenticationPrincipal User user,
+                            @RequestParam String productId) {
         orderService.removeProductInCart(user, productId);
         return orderService.getUserCart(user);
     }
@@ -87,15 +89,15 @@ public class OrderController {
     }
 
     @GetMapping("/{id}/edit")
-    public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("orders", orderService.findById(id)
-                .orElseThrow(IllegalArgumentException::new));
+    public ModelAndView edit(ModelAndView modelAndView,
+                             @PathVariable("id") String id) {
+        modelAndView.addObject("orders", orderService.findById(id));
         modelAndView.setViewName("order/edit");
         return modelAndView;
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("order") Order order, @PathVariable("id") String id) {
+    @PatchMapping("/update")
+    public String update(@ModelAttribute("order") Order order) {
         orderService.update(order);
         return "redirect:/order";
     }

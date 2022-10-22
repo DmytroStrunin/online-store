@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.controller;
 
 import com.struninproject.onlinestore.model.Manufacturer;
-import com.struninproject.onlinestore.repository.ManufacturerRepository;
+import com.struninproject.onlinestore.service.ManufacturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.PostConstruct;
-
 /**
  * The {@code ManufacturerController} class
  *
@@ -24,16 +22,11 @@ import javax.annotation.PostConstruct;
 @Controller
 @RequestMapping(path = "/manufacturer")
 public class ManufacturerController {
-    private final ManufacturerRepository repository;
-
-
-    @PostConstruct
-    public void addProducts() {
-    }
+    private final ManufacturerService manufacturerService;
 
     @Autowired
-    public ManufacturerController(ManufacturerRepository repository) {
-        this.repository = repository;
+    public ManufacturerController(ManufacturerService manufacturerService) {
+        this.manufacturerService = manufacturerService;
     }
 
     @GetMapping("/new")
@@ -45,37 +38,34 @@ public class ManufacturerController {
 
     @PostMapping("/new")
     public ModelAndView addNewItem(Manufacturer manufacturer, ModelAndView modelAndView) {
-        repository.save(manufacturer);
+        manufacturerService.save(manufacturer);
         modelAndView.setViewName("redirect:/manufacturer");
         return modelAndView;
     }
 
     @GetMapping
     public ModelAndView getAllItems(ModelAndView modelAndView) {
-        modelAndView.addObject("manufacturers", repository.findAll());
+        modelAndView.addObject("manufacturers", manufacturerService.findAll());
         modelAndView.setViewName("manufacturer/all");
         return modelAndView;
     }
 
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
-        modelAndView.addObject("manufacturer", repository.findById(id).get());// FIXME: 03.10.2022
+        modelAndView.addObject("manufacturer", manufacturerService.findById(id));
         modelAndView.setViewName("manufacturer/edit");
         return modelAndView;
     }
 
-    @PatchMapping("/{id}")
-    public String update(@ModelAttribute("manufacturer") Manufacturer manufacturer, @PathVariable("id") String id) {
-        repository.findById(id);
-        if (repository.existsById(id)) {
-            repository.save(manufacturer);
-        }
+    @PatchMapping("/update")
+    public String update(@ModelAttribute("manufacturer") Manufacturer manufacturer) {
+        manufacturerService.update(manufacturer);
         return "redirect:/manufacturer";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") String id) {
-        repository.deleteById(id);
+        manufacturerService.deleteById(id);
         return "redirect:/manufacturer";
     }
 }
