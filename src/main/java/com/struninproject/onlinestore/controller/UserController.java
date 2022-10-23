@@ -4,6 +4,7 @@ import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * The {@code UserController} class
@@ -37,7 +40,22 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public ModelAndView addUser(User user, ModelAndView modelAndView){
+    public ModelAndView addUser(@Valid User user, BindingResult result, ModelAndView modelAndView){
+        if (result.hasErrors()) {
+            modelAndView.setViewName("login");
+            return modelAndView;
+        }
+        userService.createUser(user);
+        modelAndView.setViewName("redirect:/user");
+        return modelAndView;
+    }
+
+    @PostMapping("/registration")
+    public ModelAndView registrationUser(@Valid User user, BindingResult result, ModelAndView modelAndView){
+        if (result.hasErrors()) {
+            modelAndView.setViewName("login");
+            return modelAndView;
+        }
         userService.createUser(user);
         modelAndView.setViewName("redirect:/user");
         return modelAndView;

@@ -54,7 +54,7 @@ public class OrderController {
 
     @PostMapping("/add")
     public @ResponseBody
-    Set<ProductDTO> addCart(@AuthenticationPrincipal User user,
+    Set<ProductDTO> addItemToCart(@AuthenticationPrincipal User user,
                             @RequestParam String productId) {
         orderService.addProductInCart(user, productId);
         return orderService.getUserCart(user);
@@ -62,7 +62,7 @@ public class OrderController {
 
     @PostMapping("/del")
     public @ResponseBody
-    Set<ProductDTO> delCart(@AuthenticationPrincipal User user,
+    Set<ProductDTO> delItemFromCart(@AuthenticationPrincipal User user,
                             @RequestParam String productId) {
         orderService.removeProductInCart(user, productId);
         return orderService.getUserCart(user);
@@ -70,14 +70,14 @@ public class OrderController {
 
     @GetMapping("/buy")
     public @ResponseBody
-    Set<ProductDTO> buyCart(@AuthenticationPrincipal User user) {
+    Set<ProductDTO> buyItemsInCart(@AuthenticationPrincipal User user) {
         orderService.updateUserCartStatus(user);
         return orderService.getUserCart(user);
     }
 
     @GetMapping("/load")
     public @ResponseBody
-    Set<ProductDTO> loadCart(@AuthenticationPrincipal User user) {
+    Set<ProductDTO> loadItemsFromCart(@AuthenticationPrincipal User user) {
         return orderService.getUserCart(user);
     }
 

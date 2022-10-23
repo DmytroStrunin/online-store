@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.controller;
 
 import com.struninproject.onlinestore.model.Product;
-import com.struninproject.onlinestore.repository.ProductRepository;
+import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.service.CategoryService;
 import com.struninproject.onlinestore.service.ManufacturerService;
 import com.struninproject.onlinestore.service.ProductService;
@@ -35,8 +35,7 @@ public class ProductController {
     private final ManufacturerService manufacturerService;
 
     @Autowired
-    public ProductController(ProductRepository productRepository,
-                             ProductService productService,
+    public ProductController(ProductService productService,
                              CategoryService categoryService,
                              ManufacturerService manufacturerService) {
         this.productService = productService;
@@ -54,7 +53,8 @@ public class ProductController {
     }
 
     @PostMapping("/new")
-    public ModelAndView addUser(Product product, ModelAndView modelAndView) {
+    public ModelAndView addUser(Product product,
+                                ModelAndView modelAndView) {
         productService.save(product);
         modelAndView.setViewName("redirect:/product/all");
         return modelAndView;
@@ -79,6 +79,7 @@ public class ProductController {
                 pageSize,
                 Sort.by(Sort.Direction.fromString(sortValue[1]), sortValue[0]));
         final Page<Product> productPage= productService.findAllPages(pageable, filter);
+        modelAndView.addObject("user", new User());// FIXME: 24.10.2022
         modelAndView.addObject("categories", categoryService.findAll());
         modelAndView.addObject("sort", sort);
         modelAndView.addObject("filter", filter);
@@ -88,7 +89,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/edit")
-    public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
+    public ModelAndView edit(ModelAndView modelAndView,
+                             @PathVariable("id") String id) {
         modelAndView.addObject("product", productService.findById(id));
         modelAndView.addObject("manufacturers", manufacturerService.findAll());
         modelAndView.setViewName("product/edit");

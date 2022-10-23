@@ -50,7 +50,7 @@
             </form>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-3"
+            <div class="col-lg-4 col-sm-6 mb-3 d-flex align-items-stretch"
                  th:each="product, iStat : ${productPage}">
                 <div class="product-card">
                     <div class="product-thumb">
@@ -63,7 +63,7 @@
                                 th:text="${product.getName()}"></span></a></h4>
                         <span th:text="${product.getDescription()}"></span>
                         <div class="product-bottom-details d-flex justify-content-between">
-                            <div class="product-price">
+                                <div class="product-price">
                                 <small><span
                                         th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span
                                     th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>

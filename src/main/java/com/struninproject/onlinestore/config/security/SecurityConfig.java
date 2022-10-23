@@ -82,7 +82,15 @@ public class SecurityConfig {
 
                 .antMatchers("/anonymous*").anonymous()
 
-                .antMatchers("/login*", "/registration", "/", "/css/**", "/js/**", "/user/new", "/product/products").permitAll()
+                .antMatchers(
+                        "/login*",
+                        "/registration",
+                        "/",
+                        "/css/**",
+                        "/js/**",
+                        "/user/registration",
+                        "/product/products"
+                ).permitAll()
 
                 .anyRequest().authenticated()
 

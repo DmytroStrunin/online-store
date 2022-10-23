@@ -76,10 +76,16 @@
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item me-2">
                     <a class="nav-link" href="#" data-bs-toggle="modal"
+                       sec:authorize="isAuthenticated()"
                        data-bs-target="#modal-cart">
                         <i class="fas fa-shopping-cart zoom"></i>
                         <span class='position-absolute badge badge-warning'
                               id='lblCartCount'></span>
+                    </a>
+                    <a class="nav-link" href="#" data-bs-toggle="modal"
+                       sec:authorize="!isAuthenticated()"
+                       data-bs-target="#exampleModal">
+                        <i class="fas fa-shopping-cart zoom"></i>
                     </a>
                 </li>
                 <li class="nav-item zoom">
@@ -122,13 +128,10 @@
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div id="cart-dp" class="modal-content">
-            <!--                        <div class="modal-header bg-secondary text-white">-->
-            <!--                            <h5 class="modal-title"-->
-            <!--                                id="exampleModalLabel">Корзина</h5>-->
-            <!--                            <button type="button" class="btn-close"-->
-            <!--                                    data-bs-dismiss="modal"-->
-            <!--                                    aria-label="Close"></button>-->
-            <!--                        </div>-->
+                                    <div class="modal-header bg-secondary text-white">
+                                        <h5 class="modal-title"
+                                            id="exampleModalLabel">Cart</h5>
+                                    </div>
             <div id="cart" class="modal-body">
             </div>
             <div class="modal-footer">
@@ -142,21 +145,22 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1"
+<div sec:authorize="!isAuthenticated()" class="modal fade" id="exampleModal"
+     tabindex="-1"
      aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div id="login-dp" class="modal-content">
             <div class="modal-body">
                 <!-- Pills navs -->
                 <!-- Pills navs -->
-                <ul class="nav nav-pills nav-justified mb-3" id="ex1"
+                <ul hidden class="nav nav-pills nav-justified mb-3" id="ex1"
                     role="tablist">
-                    <li hidden class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link active" id="tab-login"
                            data-bs-toggle="pill" href="#pills-login" role="tab"
                            aria-controls="pills-login" aria-selected="true">Login</a>
                     </li>
-                    <li hidden class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation">
                         <a class="nav-link" id="tab-register"
                            data-bs-toggle="pill" href="#pills-register"
                            role="tab"
@@ -169,64 +173,68 @@
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login"
                          role="tabpanel" aria-labelledby="tab-login">
-                        <form class="form" role="form"
+                        <form class="formLogin" role="form"
                               method="post"
                               th:action="@{/login}"
                               accept-charset="UTF-8"
                               id="login-nav">
                             <div class="text-center mb-3">
                                 <p>Sign in with:</p>
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-facebook-f"></i>
-                                </button>
+<!--                                future-->
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-facebook-f"></i>-->
+<!--                                </button>-->
 
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-google"></i>
-                                </button>
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-google"></i>-->
+<!--                                </button>-->
 
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-twitter"></i>-->
+<!--                                </button>-->
 
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-github"></i>
-                                </button>
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-github"></i>-->
+<!--                                </button>-->
                             </div>
 
-                            <p class="text-center">or:</p>
+<!--                            <p class="text-center">or:</p>-->
 
-                            <div th:if="${param.error}">
-                                Invalid username and password.
-                            </div>
-                            <div th:if="${param.logout}">
-                                You have been logged out.
-                            </div>
                             <!-- Email input -->
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-1">
                                 <input type="email" id="loginName"
                                        name="username"
-                                       class="form-control"/>
-                                <label class="form-label" for="loginName">Email
-                                    or username</label>
+                                       th:class="${param.error}?'form-control is-invalid':'form-control'"
+                                       aria-describedby="validationLogin"
+                                       required>
+                                <label class="form-label"
+                                       for="loginName">Email</label>
                             </div>
 
                             <!-- Password input -->
-                            <div class="form-outline mb-4">
+                            <div class="form-outline mb-1">
                                 <input type="password" id="loginPassword"
                                        name="password"
-                                       class="form-control"/>
+                                       th:class="${param.error}?'form-control is-invalid':'form-control'"
+                                       aria-describedby="validationLogin"
+                                       required>
                                 <label class="form-label" for="loginPassword">Password</label>
+                                <div th:if="${param.error}" id="validationLogin"
+                                     class="d-flex invalid-feedback justify-content-center">
+                                    <h5>Invalid username or password</h5>
+                                </div>
                             </div>
 
+
                             <!-- 2 column grid layout -->
-                            <div class="row mb-4">
+                            <div class="row mb-3">
                                 <div class="col-md-6 d-flex justify-content-center">
                                     <!-- Checkbox -->
-                                    <div class="form-check mb-3 mb-md-0">
+                                    <div class="form-check mb-1 mb-md-0">
                                         <input class="form-check-input"
                                                type="checkbox"
                                                name="remember-me"
@@ -237,6 +245,7 @@
                                     </div>
                                 </div>
 
+
                                 <div class="col-md-6 d-flex justify-content-center">
                                     <!-- Simple link -->
                                     <a href="#">Forgot password?</a>
@@ -245,7 +254,7 @@
 
                             <!-- Submit button -->
                             <button type="submit"
-                                    class="btn btn-primary btn-block mb-4">Sign
+                                    class="btn btn-primary btn-block mb-1">Sign
                                 in
                             </button>
 
@@ -260,89 +269,174 @@
                     </div>
                     <div class="tab-pane fade" id="pills-register"
                          role="tabpanel" aria-labelledby="tab-register">
-                        <form>
-                            <div class="text-center mb-3">
+                        <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
+                        <form class="needs-validation" action="#"
+                              th:action="@{/user/registration}"
+                              th:object="${user}" method="POST"
+                              oninput='passwordRepeat.setCustomValidity(password.value !== passwordRepeat.value ? "Passwords do not match." : "")'>
+
+                            <div class="text-center mb-1">
                                 <p>Sign up with:</p>
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-facebook-f"></i>
-                                </button>
+<!--                                future-->
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-facebook-f"></i>-->
+<!--                                </button>-->
 
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-google"></i>
-                                </button>
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-google"></i>-->
+<!--                                </button>-->
 
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-twitter"></i>
-                                </button>
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-twitter"></i>-->
+<!--                                </button>-->
 
-                                <button type="button"
-                                        class="btn btn-link btn-floating mx-1">
-                                    <i class="fab fa-github"></i>
-                                </button>
+<!--                                <button type="button"-->
+<!--                                        class="btn btn-link btn-floating mx-1">-->
+<!--                                    <i class="fab fa-github"></i>-->
+<!--                                </button>-->
                             </div>
 
-                            <p class="text-center">or:</p>
+<!--                            <p class="text-center">or:</p>-->
 
-                            <!-- Name input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" id="registerName"
-                                       class="form-control"/>
-                                <label class="form-label" for="registerName">Name</label>
+                            <div class="form-outline mb-1">
+
+
+                                <!--/*@thymesVar id="firstName" type="java.lang.String"*/-->
+                                <input th:class="${#fields.hasErrors('firstName')}?'form-control is-invalid':'form-control'"
+                                       type="text"
+                                       th:field="*{firstName}"
+                                       id="firstName" required>
+                                <div th:if="${#fields.hasErrors('firstName')}"
+                                     class="invalid-feedback">
+                                    <span th:errors="*{firstName}"></span>
+                                </div>
+                                <label for="firstName">First name</label>
+
+
+
+                            </div>
+                            <div class="form-outline mb-1">
+                                <!--/*@thymesVar id="lastName" type="java.lang.String"*/-->
+                                <input th:class="${#fields.hasErrors('lastName')}?'form-control is-invalid':'form-control'"
+                                       type="text"
+                                       th:field="*{lastName}"
+                                       id="lastName" required>
+                                <div th:if="${#fields.hasErrors('lastName')}"
+                                     class="invalid-feedback">
+                                    <span th:errors="*{lastName}"></span>
+                                </div>
+                                <label for="lastName">Last name</label>
+                            </div>
+                            <div class="form-outline mb-1">
+                                <!--/*@thymesVar id="age" type="java.math.BigDecimal"*/-->
+                                <input th:class="${#fields.hasErrors('age')}?'form-control is-invalid':'form-control'"
+                                       type="number"
+                                       th:field="*{age}" id="age" required>
+                                <div th:if="${#fields.hasErrors('age')}"
+                                     class="invalid-feedback">
+                                    <span th:errors="*{age}"></span>
+                                </div>
+                                <label for="age">Age</label>
+                            </div>
+                            <div class="form-outline mb-1">
+                                <!--/*@thymesVar id="gender" type="com.struninproject.onlinestore.model.enums.Gender"*/-->
+                                <select th:class="${#fields.hasErrors('gender')}?'form-control is-invalid':'form-control'"
+                                        th:field="*{gender}" id="gender"
+                                        required>
+                                    <option value=""></option>
+                                    <option th:each="gender : ${T(com.struninproject.onlinestore.model.enums.Gender).values()}"
+                                            th:value="${gender}"
+                                            th:text="${gender.getValue()}"></option>
+                                </select>
+                                <div th:if="${#fields.hasErrors('gender')}"
+                                     class="invalid-feedback">
+                                    <span th:errors="*{gender}"></span>
+                                </div>
+                                <label for="gender">Gender</label>
+                            </div>
+                            <div class="form-outline mb-1">
+                                <!--/*@thymesVar id="email" type="java.lang.String"*/-->
+                                <input th:class="${#fields.hasErrors('email')}?'form-control is-invalid':'form-control'"
+                                       type="email"
+                                       th:field="*{email}"
+                                       id="email" required>
+                                <div th:if="${#fields.hasErrors('email')}"
+                                     class="invalid-feedback">
+                                    <span th:errors="*{email}"></span>
+                                </div>
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="form-outline mb-1">
+                                <!--/*@thymesVar id="password" type="java.lang.String"*/-->
+                                <input th:class="${#fields.hasErrors('password')}?'form-control is-invalid':'form-control'"
+                                       type="password"
+                                       id="validationPassword" minlength="8"
+                                       th:field="*{password}"
+                                       name="password" placeholder="Password"
+                                       value="" required>
+                                <div th:if="${#fields.hasErrors('password')}"
+                                     class="invalid-feedback">
+                                    <span th:errors="*{password}"></span>
+                                </div>
+                                <label for="validationPassword">Password</label>
+                                <div class="progress">
+                                    <div id="progressbar"
+                                         class="progress-bar progress-bar-striped progress-bar-animated"
+                                         role="progressbar"
+                                         aria-valuenow="50" aria-valuemin="0"
+                                         aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <small id="passwordHelpBlock"
+                                       class="form-text text-muted">
+                                    Your password must be 8-20 characters long,
+                                    must contain special characters "!@#$%&*_?",
+                                    numbers, lower and upper letters only.
+                                </small>
+
+                                <div id="feedbackin" class="valid-feedback">
+                                    Strong Password!
+                                </div>
+                                <div id="feedbackirn" class="invalid-feedback">
+                                    Atlead 8 characters,
+                                    Number, special character
+                                    Caplital Letter and Small letters
+                                </div>
                             </div>
 
-                            <!-- Username input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" id="registerUsername"
-                                       class="form-control"/>
-                                <label class="form-label"
-                                       for="registerUsername">Username</label>
-                            </div>
 
-                            <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="email" id="registerEmail"
-                                       class="form-control"/>
-                                <label class="form-label" for="registerEmail">Email</label>
-                            </div>
-
-                            <!-- Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password" id="registerPassword"
-                                       class="form-control"/>
-                                <label class="form-label"
-                                       for="registerPassword">Password</label>
-                            </div>
-
-                            <!-- Repeat Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password"
-                                       id="registerRepeatPassword"
-                                       class="form-control"/>
-                                <label class="form-label"
-                                       for="registerRepeatPassword">Repeat
+                            <div class="form-outline mb-2">
+                                <input class="form-control"
+                                       type="password"
+                                       name="passwordRepeat"
+                                       id="passwordRepeat" required>
+                                <label for="passwordRepeat">Repeat
                                     password</label>
-                            </div>
 
-                            <!-- Checkbox -->
-                            <div class="form-check d-flex justify-content-center mb-4">
-                                <input class="form-check-input me-2"
-                                       type="checkbox" value=""
-                                       id="registerCheck" checked
-                                       aria-describedby="registerCheckHelpText"/>
-                                <label class="form-check-label"
-                                       for="registerCheck">
-                                    I have read and agree to the terms
-                                </label>
+                                <div class="form-check d-flex justify-content-center mb-3">
+                                    <input class="form-check-input me-2"
+                                           type="checkbox" value=""
+                                           id="registerCheck" checked
+                                           aria-describedby="registerCheckHelpText"
+                                           required>
+                                    <label class="form-check-label"
+                                           for="registerCheck">
+                                        I have read and agree to the terms
+                                    </label>
+                                </div>
+                                <input type="submit"
+                                       class="btn btn-primary mb2"
+                                       value="Sign up">
+                                <div class="text-center">
+                                    <p>Have account?
+                                        <a href="#"
+                                           onclick="document.getElementById('tab-login')
+                                        .click()">Sign in</a></p>
+                                </div>
                             </div>
-
-                            <!-- Submit button -->
-                            <button type="submit"
-                                    class="btn btn-primary btn-block mb-3">Sign
-                                in
-                            </button>
                         </form>
                     </div>
                 </div>
@@ -369,6 +463,9 @@
 <script sec:authorize="!isAuthenticated()" th:src='@{/js/login.js}'></script>
 
 <script sec:authorize="isAuthenticated()" th:src='@{/js/cart.js}'></script>
+
+<script  th:src='@{/js/passwordValidator.js}'></script>
+
 
 </body>
 </html>

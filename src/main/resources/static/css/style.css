@@ -25,3 +25,11 @@
 .product-c{
     width: 100%; height: 15vw; object-fit: contain;
 }
+
+.progress{
+    height: 5px;
+}
+
+.progressbar{
+    width: 10%;
+}

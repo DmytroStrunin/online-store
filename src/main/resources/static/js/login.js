@@ -11,12 +11,12 @@ function getLoginForm() {
     const loginPage = document
         .documentURI
         .toString()
-        .match('/*/login/*');
+        .match('.*/login.*');
 
     const registrationPage = document
         .documentURI
         .toString()
-        .match('/*/registration/*');
+        .match('.*/registration.*');
 
     const loginMenu = document.createElement('a');
     loginMenu.setAttribute('data-bs-toggle', 'modal');
