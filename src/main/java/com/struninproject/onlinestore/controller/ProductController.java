@@ -76,7 +76,6 @@ public class ProductController {
             @RequestParam(required = false, defaultValue = "1", name = "page") int pageNumber,
             @RequestParam(required = false, defaultValue = "6", name = "size") int pageSize,
             ModelAndView modelAndView) {
-        System.out.println(filter);
         final String[] sortValue = sort.split("-");
         final Pageable pageable = PageRequest.of(pageNumber - 1,
                 pageSize,
