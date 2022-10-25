@@ -8,7 +8,7 @@
     <!--/*@thymesVar id="productPage" type="org.springframework.data.domain.Page"*/-->
     <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
     <div class="container">
-        <div class="row d-3 align-items-center mb-3">
+        <div class="row mb-3">
             <form class="d-flex justify-content-sm-end"
                   th:action="@{/product/products}" method="GET">
                 <label class="col-form-label-sm me-1" for="sort">Sort by</label>
@@ -19,7 +19,8 @@
                     <option value="price-asc">Price ↑</option>
                     <option value="price-desc">Price ↓</option>
                 </select>
-                <label class="col-form-label-sm me-1 ms-3" for="filter">Category</label>
+                <label class="col-form-label-sm me-1 ms-3"
+                       for="filter">Category</label>
                 <select class="form-select-sm" id="filter" name="filter"
                         onchange="document.getElementById('subButton').click()">
                     <option value="" selected="selected">All</option>
@@ -46,42 +47,43 @@
             </form>
         </div>
         <div class="row">
-            <div class="row">
-                <div class="col-lg-4 col-sm-6 mb-3 d-flex align-items-stretch"
-                     th:each="product, iStat : ${productPage}">
-                    <div class="product-card d-flex flex-column">
-                        <div class="product-thumb">
-                            <img class="product-c" th:src="${(product.getImage() != null &&
+            <div class="col-lg-4 col-auto col-sm-6 mb-3 d-grid align-self-auto"
+                 th:each="product, iStat : ${productPage}">
+                <div class="product-card d-flex flex-column">
+                    <div class="product-thumb">
+                        <a href="#">
+                        <img class="product-c" th:src="${(product.getImage() != null &&
                         !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
-                                 src="" alt="" id="output">
+                             src="" alt="" id="output">
+                        </a>
+                    </div>
+                    <div class="product-details d-grid flex-column">
+                        <h4><a href="#"><p
+                                th:text="${product.getName()}"></p></a></h4>
+                        <span class="mb-auto"
+                              th:text="${product.getDescription()}"></span>
+                    </div>
+                    <div class="product-bottom-details d-flex justify-content-between mt-auto">
+                        <div class="product-price">
+                            <small><span
+                                    th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span
+                                th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
                         </div>
-                        <div class="product-details d-flex flex-column">
-                            <h4><a href="#"><p
-                                    th:text="${product.getName()}"></p></a></h4>
-                            <span class="mb-auto" th:text="${product.getDescription()}"></span>
-                        </div>
-                        <div class="product-bottom-details d-flex justify-content-between mt-auto">
-                            <div class="product-price">
-                                <small><span
-                                        th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span
-                                    th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
-                            </div>
-                            <div class="product-links">
-                                <button class="zoom-color border-0"
-                                        sec:authorize="isAuthenticated()"><i
-                                        onclick="addCart(this.id)"
-                                        th:id="${product.getId()}"
-                                        class="fas fa-shopping-cart"></i>
-                                </button>
-                                <button class="zoom-color border-0"
-                                        sec:authorize="!isAuthenticated()"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"><i
-                                        class="fas fa-shopping-cart"></i>
-                                </button>
-                                <button class="zoom-color border-0"><i
-                                        class="far fa-heart"></i></button>
-                            </div>
+                        <div class="product-links">
+                            <button class="zoom-color border-0"
+                                    sec:authorize="isAuthenticated()"><i
+                                    onclick="addCart(this.id)"
+                                    th:id="${product.getId()}"
+                                    class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="zoom-color border-0"
+                                    sec:authorize="!isAuthenticated()"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal"><i
+                                    class="fas fa-shopping-cart"></i>
+                            </button>
+                            <button class="zoom-color border-0"><i
+                                    class="far fa-heart"></i></button>
                         </div>
                     </div>
                 </div>
