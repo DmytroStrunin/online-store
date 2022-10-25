@@ -24,8 +24,7 @@
                 <select class="form-select-sm" id="filter" name="filter"
                         onchange="document.getElementById('subButton').click()">
                     <option value="" selected="selected">All</option>
-                    <option
-                            th:each="category: ${categories}"
+                    <option th:each="category: ${categories}"
                             th:text="${category.getName()}"
                             th:value="${category.getName()}"
                             th:selected="${category.getName()==filter}?'selected'"
@@ -51,14 +50,14 @@
                  th:each="product, iStat : ${productPage}">
                 <div class="product-card d-flex flex-column">
                     <div class="product-thumb">
-                        <a href="#">
+                        <a href="#" th:href="@{/product/{id}(id=${product.getId()})}">
                         <img class="product-c" th:src="${(product.getImage() != null &&
                         !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
                              src="" alt="" id="output">
                         </a>
                     </div>
                     <div class="product-details d-grid flex-column">
-                        <h4><a href="#"><p
+                        <h4><a href="#" th:href="@{/product/{id}(id=${product.getId()})}"><p
                                 th:text="${product.getName()}"></p></a></h4>
                         <span class="mb-auto"
                               th:text="${product.getDescription()}"></span>

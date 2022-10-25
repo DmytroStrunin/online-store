@@ -88,6 +88,14 @@ public class ProductController {
         return modelAndView;
     }
 
+    @GetMapping("/{id}")
+    public ModelAndView getProduct(ModelAndView modelAndView,
+                             @PathVariable("id") String id) {
+        modelAndView.addObject("product", productService.findById(id));
+        modelAndView.setViewName("product/product");
+        return modelAndView;
+    }
+
     @GetMapping("/{id}/edit")
     public ModelAndView edit(ModelAndView modelAndView,
                              @PathVariable("id") String id) {

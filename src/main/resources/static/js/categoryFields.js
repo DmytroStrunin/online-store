@@ -8,7 +8,7 @@ function addField() {
     el.setAttribute('name', 'features');
     el.addEventListener('input',
         (e) => {
-            addField(e.target)
+            addField(e.target);
         }, {once: true});
     form.appendChild(el);
     form.appendChild(br);

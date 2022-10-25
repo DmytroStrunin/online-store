@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:include="navbar.html :: head">
+    <title id="title">Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+          crossorigin="anonymous">
+</head>
+<body th:include="navbar.html :: body">
+<div id="body">
+    <div class="container align-content-center mt-5">
+        <div class="row mb-4">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <img class="p-img" alt=""
+                     src="https://content.rozetka.com.ua/goods/images/big/30872664.jpg"/>
+            </div>
+            <div class="col-6">
+                <!-- Datos del vendedor y titulo del producto -->
+                <h3>Samsung Galaxy S4 I337 16GB 4G LTE Unlocked GSM Android Cell
+                    Phone</h3>
+                <h6><small>Category:</small></h6>
+                <h6><small>Manufacturer:</small></h6>
+                <h6><small>Price:</small></h6>
+
+                <!-- Precios -->
+                <div class="d-flex flex-column">
+                    <div class="col product-price">
+                        <h3>
+                            <small><span>$12.99</span></small><span>$10.99</span>
+                        </h3>
+                        <!--                        <h3><span-->
+                        <!--                                th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></h3><span-->
+                        <!--                            th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>-->
+                    </div>
+                    <div>
+                        <button class="btn btn-secondary me-1" type="button">
+                            <span class="fa fa-cart-plus"></span>Add to cart
+                        </button>
+                        <button class="btn btn-secondary" type="button"><span
+                                class="fa fa-heart"></span></button>
+                    </div>
+                </div>
+                <h6><small>Description:</small></h6>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <div style="width:100%;border-top:1px solid silver">
+                    <small>
+                        <ul>
+                            <li>Super AMOLED capacitive touchscreen display with
+                                16M
+                                colors
+                            </li>
+                            <li>Available on GSM, AT T, T-Mobile and other
+                                carriers
+                            </li>
+                            <li>Compatible with GSM 850 / 900 / 1800; HSDPA 850
+                                /
+                                1900 / 2100 LTE; 700 MHz Class 17 / 1700 / 2100
+                                networks
+                            </li>
+                            <li>MicroUSB and USB connectivity</li>
+                            <li>Interfaces with Wi-Fi 802.11 a/b/g/n/ac, dual
+                                band
+                                and Bluetooth
+                            </li>
+                            <li>Wi-Fi hotspot to keep other devices online when
+                                a
+                                connection is not available
+                            </li>
+                            <li>SMS, MMS, email, Push Mail, IM and RSS messaging
+                            </li>
+                            <li>Front-facing camera features autofocus, an LED
+                                flash, dual video call capability and a sharp
+                                4128 x
+                                3096 pixel picture
+                            </li>
+                            <li>Features 16 GB memory and 2 GB RAM</li>
+                            <li>Upgradeable Jelly Bean v4.2.2 to Jelly Bean v4.3
+                                Android OS
+                            </li>
+                            <li>17 hours of talk time, 350 hours standby time on
+                                one
+                                charge
+                            </li>
+                            <li>Available in white or black</li>
+                            <li>Model I337</li>
+                            <li>Package includes phone, charger, battery and
+                                user
+                                manual
+                            </li>
+                            <li>Phone is 5.38 inches high x 2.75 inches wide x
+                                0.13
+                                inches deep and weighs a mere 4.59 oz
+                            </li>
+                        </ul>
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -36,3 +36,7 @@
 .p-img{
     max-width:100%;
 }
+
+.modal-body a {
+    text-decoration: none;
+}
