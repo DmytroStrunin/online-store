@@ -17,6 +17,11 @@
     color: rgb(237, 110, 115);
 }
 
+.zoom-color-1:hover {
+    transform: scale(1.1);
+    color: rgb(237, 110, 115);
+}
+
 .zoom:hover {
     transform: scale(1.15);
 }
@@ -39,4 +44,19 @@
 
 .modal-body a {
     text-decoration: none;
+}
+
+.image-manufacturer{
+    width: 100%;
+    height: 25px;
+    object-fit: contain;
+}
+
+.image-manufacturer-product{
+    max-width: 100%;
+    height: 25px;
+    display: block;
+}
+.gray {
+    color: rgba(76, 76, 76, 0.84);
 }

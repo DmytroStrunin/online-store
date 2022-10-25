@@ -29,9 +29,10 @@
         <div class="form-group">
             <label for="input_img">Image</label>
             <div>
-                <img th:src="${(manufacturer.getImage() != null && !#strings.isEmpty(manufacturer.getImage())) ? manufacturer.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                <img class="image-manufacturer"
+                     th:src="${(manufacturer.getImage() != null && !#strings.isEmpty(manufacturer.getImage())) ? manufacturer.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
                      src="" alt="" id="output"
-                     style="width: 100px; height: 100%; object-fit: contain;">
+                     >
             </div>
             <input type="file" id="input_img"
                    onchange="fileChange()" accept="image/*">
