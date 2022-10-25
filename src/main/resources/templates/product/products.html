@@ -14,19 +14,15 @@
                 <label class="col-form-label-sm me-1" for="sort">Sort by</label>
                 <select class="form-select-sm" id="sort" name="sort"
                         onchange="document.getElementById('subButton').click()">
-                    <option name="sort" value="name-asc">Name ↑</option>
-                    <option name="sort" value="name-desc">Name ↓</option>
-                    <option name="sort" value="price-asc">Price ↑</option>
-                    <option name="sort" value="price-desc">Price ↓</option>
+                    <option value="name-asc">Name ↑</option>
+                    <option value="name-desc">Name ↓</option>
+                    <option value="price-asc">Price ↑</option>
+                    <option value="price-desc">Price ↓</option>
                 </select>
-                <label class="col-form-label-sm me-1 ms-3" for="category">Category</label>
-                <select class="form-select-sm" id="category" name="filter"
+                <label class="col-form-label-sm me-1 ms-3" for="filter">Category</label>
+                <select class="form-select-sm" id="filter" name="filter"
                         onchange="document.getElementById('subButton').click()">
-                    <option
-                            th:text="'All'"
-                            th:value="''"
-                            th:selected="${filter.isEmpty()}?'selected'"
-                    ></option>
+                    <option value="" selected="selected">All</option>
                     <option
                             th:each="category: ${categories}"
                             th:text="${category.getName()}"
@@ -50,38 +46,40 @@
             </form>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-sm-6 mb-3 d-flex align-items-stretch"
-                 th:each="product, iStat : ${productPage}">
-                <div class="product-card">
-                    <div class="product-thumb">
-                        <img class="product-c" th:src="${(product.getImage() != null &&
+            <div class="row">
+                <div class="col-lg-4 col-sm-6 mb-3 d-flex align-items-stretch"
+                     th:each="product, iStat : ${productPage}">
+                    <div class="product-card d-flex flex-column">
+                        <div class="product-thumb">
+                            <img class="product-c" th:src="${(product.getImage() != null &&
                         !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
-                             src="" alt="" id="output">
-                    </div>
-                    <div class="product-details">
-                        <h4><a href="#"><span
-                                th:text="${product.getName()}"></span></a></h4>
-                        <span th:text="${product.getDescription()}"></span>
-                        <div class="product-bottom-details d-flex justify-content-between">
-                                <div class="product-price">
+                                 src="" alt="" id="output">
+                        </div>
+                        <div class="product-details d-flex flex-column">
+                            <h4><a href="#"><p
+                                    th:text="${product.getName()}"></p></a></h4>
+                            <span class="mb-auto" th:text="${product.getDescription()}"></span>
+                        </div>
+                        <div class="product-bottom-details d-flex justify-content-between mt-auto">
+                            <div class="product-price">
                                 <small><span
                                         th:text="${product.getPrice()}?${'$'+product.getPrice()*11/10}"></span></small><span
                                     th:text="${product.getPrice()}?${'$'+product.getPrice()}"></span>
                             </div>
                             <div class="product-links">
-                                <button class="zoom-color border-0 me-3"
+                                <button class="zoom-color border-0"
                                         sec:authorize="isAuthenticated()"><i
                                         onclick="addCart(this.id)"
                                         th:id="${product.getId()}"
                                         class="fas fa-shopping-cart"></i>
                                 </button>
-                                <button class="zoom-color border-0 me-3"
+                                <button class="zoom-color border-0"
                                         sec:authorize="!isAuthenticated()"
                                         data-bs-toggle="modal"
                                         data-bs-target="#exampleModal"><i
                                         class="fas fa-shopping-cart"></i>
                                 </button>
-                                <button class="zoom-color border-0 me-3"><i
+                                <button class="zoom-color border-0"><i
                                         class="far fa-heart"></i></button>
                             </div>
                         </div>
@@ -141,7 +139,7 @@
             </nav>
         </div>
     </div>
-    <script th:src='@{/js/sortSelector.js}'></script>
+    <script th:src='@{/js/selector.js}'></script>
 </div>
 </body>
 </html>

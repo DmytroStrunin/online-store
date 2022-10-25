@@ -16,5 +16,6 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/product/products");
         registry.addViewController("/login").setViewName("forward:/product/products");
+        registry.addViewController("/p").setViewName("/product");
     }
 }

@@ -1,9 +1,14 @@
 const select = document.getElementById('sort');
+const filter = document.getElementById('filter');
 for (const selectElement of select) {
-    updateSortSelect(selectElement);
+    updateSelect(selectElement);
 }
 
-function updateSortSelect(el) {
+for (const selectElement of filter) {
+    updateSelect(selectElement);
+}
+
+function updateSelect(el) {
     const sort = document
         .documentURI
         .toString()

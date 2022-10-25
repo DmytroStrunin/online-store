@@ -69,11 +69,14 @@ public class ProductController {
 
     @GetMapping("/products")
     public ModelAndView getPageProducts(
-            ModelAndView modelAndView,
+            @ModelAttribute
             @RequestParam(required = false, defaultValue = "name-asc") String sort,
+            @ModelAttribute
             @RequestParam(required = false, defaultValue = "") String filter,
             @RequestParam(required = false, defaultValue = "1", name = "page") int pageNumber,
-            @RequestParam(required = false, defaultValue = "6", name = "size") int pageSize) {
+            @RequestParam(required = false, defaultValue = "6", name = "size") int pageSize,
+            ModelAndView modelAndView) {
+        System.out.println(filter);
         final String[] sortValue = sort.split("-");
         final Pageable pageable = PageRequest.of(pageNumber - 1,
                 pageSize,
@@ -81,8 +84,6 @@ public class ProductController {
         final Page<Product> productPage= productService.findAllPages(pageable, filter);
         modelAndView.addObject("user", new User());// FIXME: 24.10.2022
         modelAndView.addObject("categories", categoryService.findAll());
-        modelAndView.addObject("sort", sort);
-        modelAndView.addObject("filter", filter);
         modelAndView.addObject("productPage", productPage);
         modelAndView.setViewName("product/products");
         return modelAndView;
