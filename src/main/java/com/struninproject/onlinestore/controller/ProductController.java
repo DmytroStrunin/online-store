@@ -92,6 +92,7 @@ public class ProductController {
     public ModelAndView getProduct(ModelAndView modelAndView,
                              @PathVariable("id") String id) {
         modelAndView.addObject("product", productService.findById(id));
+        modelAndView.addObject("user", new User());// FIXME: 24.10.2022
         modelAndView.setViewName("product/product");
         return modelAndView;
     }

@@ -33,6 +33,7 @@ public interface ProductRepository extends CrudRepository<Product,String> {
             WHERE u = :user
             AND o.status = :status
             GROUP BY p.name, p.id, po.quantity
+            ORDER BY p.name
             """)
     LinkedHashSet<ProductDTO> findAllProductsInUserCart(@Param("user") User user, @Param("status") Status status);
 

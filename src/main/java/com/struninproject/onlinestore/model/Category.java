@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
-import java.util.Set;
+import java.util.List;
 
 /**
  * The {@code Category} class
@@ -32,11 +32,11 @@ public class Category {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
     private String name;
-    //Features
+    //Feature
 //    @ManyToOne
-//    @JoinColumn(name = "parent_category_id")
-//    private Category parentCategory;
+//    @JoinColumn(name = "child_category_id")
+//    private Category childCategory;
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "features", joinColumns = @JoinColumn(name = "category_id"))
-    private Set<String> features; // FIXME: 03.10.2022
+    private List<String> features;
 }
