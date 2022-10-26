@@ -47,7 +47,8 @@
             <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
             <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
             <label for="category">Category</label>
-            <select onchange="myChangeFunction(this.value)" class="form-control"
+            <select onchange="myChangeFunction()"
+                    class="form-control"
                     th:field="*{category}" id="category">
                 <option th:each="category : ${categories}"
                         th:value="${category.getId()}"
@@ -70,11 +71,15 @@
             <!--        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <br>
-        <input class="btn btn-sm btn-secondary" type="submit" value="Add product">
+        <input class="btn btn-sm btn-secondary" type="submit"
+               value="Add product">
     </form>
 
     <script th:inline="javascript">
-        function myChangeFunction(value) {
+        myChangeFunction();
+
+        function myChangeFunction() {
+            let value = document.getElementById('category').value;
             const categories = /*[[${categories}]]*/ {};
             const elementById = document.getElementById('in');
             if (elementById) {
