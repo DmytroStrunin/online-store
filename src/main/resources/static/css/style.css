@@ -26,37 +26,66 @@
     transform: scale(1.15);
 }
 
-.product-c{
-    width: 100%; height: 15vw; object-fit: contain;
+.product-c {
+    width: 100%;
+    height: 15vw;
+    object-fit: contain;
 }
 
-.progress{
+.progress {
     height: 5px;
 }
 
-.progressbar{
+.progressbar {
     width: 10%;
 }
 
-.p-img{
-    max-width:100%;
+.p-img {
+    max-width: 100%;
 }
 
 .modal-body a {
     text-decoration: none;
 }
 
-.image-manufacturer{
+.image-manufacturer {
     width: 100%;
     height: 25px;
     object-fit: contain;
 }
 
-.image-manufacturer-product{
+.image-manufacturer-product {
     max-width: 100%;
     height: 25px;
     display: block;
 }
+
 .gray {
     color: rgba(91, 91, 91, 0.84);
+}
+
+.image-1 {
+    width: 300px;
+    height: 100%;
+    object-fit: contain;
+"
+}
+
+.table-1 {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.table-2 {
+    width: 30%;
+    height: 30px;
+}
+
+.table-3 {
+    width: 70%;
+    height: 30px;
+}
+
+.border-my{
+    width:100%;border-top:1px solid silver
 }

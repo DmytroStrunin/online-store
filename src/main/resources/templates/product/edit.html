@@ -55,22 +55,25 @@
                    id="category" placeholder="category">
             <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
-        <!--/*@thymesVar id="specifications" type="java.util.Map"*/-->
-        <!--/*@thymesVar id="spec" type="java.util.Map.Entry"*/-->
-        <div th:each="spec : *{specifications}" class="form-group">
+        <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
+        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+        <div th:each="feature : *{category.features}" class="form-group">
             <input type="hidden" name="value"
-                   th:value="${spec.key}"/>
-            <label for="key" th:text="${spec.key}"></label>
-            <input id="key" class="form-control" type="text"
-                   name="value"
-                   th:field="*{specifications[__${spec.key}__]}"/>
+                   th:value="${feature}"/>
+            <label for="key1" th:text="${feature}"></label>
+            <input id="key1" class="form-control" type="text"
+                   th:name="'specifications[' + ${feature} + ']'"
+                   th:value="${product.getSpecifications().get(feature)}"/>
         </div>
         <div class="form-group">
             <label for="input_img">Image</label>
             <div>
-                <img th:src="${(product.getImage() != null && !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                <img th:src="${(product.getImage()
+                != null && !#strings.isEmpty(product.getImage()))
+                ? product.getImage()
+                : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
                      src="" alt="" id="output"
-                     style="width: 300px; height: 100%; object-fit: contain;">
+                     class="image-1">
             </div>
             <input type="file" id="input_img"
                    onchange="fileChange()" accept="image/*">
@@ -79,7 +82,8 @@
             <!--        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <br>
-        <input type="submit" class="btn btn-sm btn-secondary" value="Edit Product">
+        <input type="submit" class="btn btn-sm btn-secondary"
+               value="Edit Product">
     </form>
 
     <script th:src="@{/js/uploadImage.js}"></script>

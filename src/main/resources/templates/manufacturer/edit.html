@@ -32,7 +32,7 @@
                 <img class="image-manufacturer"
                      th:src="${(manufacturer.getImage() != null && !#strings.isEmpty(manufacturer.getImage())) ? manufacturer.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
                      src="" alt="" id="output"
-                     >
+                >
             </div>
             <input type="file" id="input_img"
                    onchange="fileChange()" accept="image/*">
@@ -41,7 +41,8 @@
             <!--        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
         <br>
-        <input class="btn btn-sm btn-secondary" type="submit" value="Edit manufacturer">
+        <input class="btn btn-sm btn-secondary" type="submit"
+               value="Edit manufacturer">
     </form>
 
     <script th:src="@{/js/uploadImage.js}"></script>

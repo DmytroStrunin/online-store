@@ -24,7 +24,6 @@
                     <th>Gender</th>
                     <th>Role</th>
                     <th>Email</th>
-                    <th>Password</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -45,7 +44,6 @@
                             th:text="${role}?${role.getValue()}"></li>
                     </td>
                     <td th:text="${user.getEmail()}"></td>
-                    <td th:text="${user.getPassword()}"></td>
                     <td>
                         <form th:method="GET"
                               th:action="@{/user/{id}/edit(id=${user.getId()})}">

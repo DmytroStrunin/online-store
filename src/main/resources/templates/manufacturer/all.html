@@ -41,14 +41,16 @@
                     <td>
                         <form th:method="GET"
                               th:action="@{/manufacturer/{id}/edit(id=${manufacturer.getId()})}">
-                            <input class="btn btn-secondary btn-sm" type="submit"
+                            <input class="btn btn-secondary btn-sm"
+                                   type="submit"
                                    value="Edit"/>
                         </form>
                     </td>
                     <td>
                         <form th:method="DELETE"
                               th:action="@{/manufacturer/{id}(id=${manufacturer.getId()})}">
-                            <input class="btn btn-secondary btn-sm" type="submit"
+                            <input class="btn btn-secondary btn-sm"
+                                   type="submit"
                                    value="Delete"/>
                         </form>
                     </td>

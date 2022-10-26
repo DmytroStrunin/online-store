@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:include="navbar.html :: head">
-    <title id="title">User registration</title>
+    <title id="title">ON-Store</title>
 </head>
 <body th:include="navbar.html :: body">
 <div id="body">
@@ -50,15 +50,18 @@
                  th:each="product, iStat : ${productPage}">
                 <div class="product-card d-flex flex-column">
                     <div class="product-thumb">
-                        <a href="#" th:href="@{/product/{id}(id=${product.getId()})}">
-                        <img class="product-c" th:src="${(product.getImage() != null &&
+                        <a href="#"
+                           th:href="@{/product/{id}(id=${product.getId()})}">
+                            <img class="product-c" th:src="${(product.getImage() != null &&
                         !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
-                             src="" alt="" id="output">
+                                 src="" alt="" id="output">
                         </a>
                     </div>
                     <div class="product-details d-grid flex-column">
-                        <h4><a href="#" th:href="@{/product/{id}(id=${product.getId()})}"><p
-                                th:text="${product.getName()}"></p></a></h4>
+                        <h4><a href="#"
+                               th:href="@{/product/{id}(id=${product.getId()})}">
+                            <p
+                                    th:text="${product.getName()}"></p></a></h4>
                         <span class="mb-auto"
                               th:text="${product.getDescription()}"></span>
                     </div>
