@@ -5,22 +5,27 @@
 </head>
 <body th:include="navbar.html :: body">
 <div id="body">
-
-    <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-    <form action="#" th:action="@{/category/new}" th:object="${category}"
-          method="POST">
-        <label for="name">Name</label>
-        <input type="text" th:field="*{name}" id="name" placeholder="name">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        <br>
-        <div id="in">
-            <label>Features</label>
+    <div class="container align-content-center mt-5">
+        <div class="row mb-4 d-flex justify-content-center">
+            <div class="col-5">
+                <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+                <form action="#" th:action="@{/category/new}"
+                      th:object="${category}"
+                      method="POST">
+                    <label for="name">Name</label>
+                    <input class="form-control mb-3"
+                           type="text" th:field="*{name}" id="name">
+                    <div id="in">
+                        <label>Features</label>
+                    </div>
+                    <div class="d-grid justify-content-end mt-4">
+                    <input type="submit" class="btn btn-sm btn-secondary"
+                           value="Add Category">
+                    </div>
+                </form>
+            </div>
         </div>
-        <br>
-        <input type="submit" class="btn btn-sm btn-secondary"
-               value="Add Category">
-    </form>
-
+    </div>
     <script th:src="@{/js/categoryFields.js}"></script>
 
 </div>

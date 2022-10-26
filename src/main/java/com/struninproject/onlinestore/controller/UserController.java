@@ -40,7 +40,9 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public ModelAndView addUser(@Valid User user, BindingResult result, ModelAndView modelAndView){
+    public ModelAndView addUser(@Valid User user,
+                                BindingResult result,
+                                ModelAndView modelAndView){
         if (result.hasErrors()) {
             modelAndView.setViewName("login");
             return modelAndView;

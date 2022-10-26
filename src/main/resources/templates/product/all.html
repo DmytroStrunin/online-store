@@ -36,7 +36,9 @@
                     <td th:text="${product.getName()}"></td>
                     <td th:text="${product.getPrice()}"></td>
                     <td>
-                        <img th:src="${(product.getImage() != null && !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                        <img th:src="${(product.getImage()
+                        != null && !#strings.isEmpty(product.getImage())) ? product.getImage()
+                        : '/images/image-not-found.png'}"
                              src="" alt="" id="output"
                              class="image-1">
                     </td>

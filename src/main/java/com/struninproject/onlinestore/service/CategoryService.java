@@ -21,7 +21,7 @@ public class CategoryService {
     }
 
     public void save(Category category) {
-        category.getFeatures().remove("");
+        category.getFeatures().removeIf(String::isBlank);
         categoryRepository.save(category);
     }
 
@@ -35,7 +35,7 @@ public class CategoryService {
     }
 
     public void update(Category category) {
-        category.getFeatures().remove("");
+        category.getFeatures().removeIf(String::isBlank);
         if (categoryRepository.existsById(category.getId())) {
             categoryRepository.save(category);
         }

@@ -5,86 +5,98 @@
 </head>
 <body th:include="navbar.html :: body">
 <div id="body">
-
-    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
-    <form th:method="PATCH" th:action="@{/product/update}"
-          th:object="${product}">
-        <!--/*@thymesVar id="id" type="java.lang.String"*/-->
-        <label hidden for="id"></label>
-        <input hidden type="text" th:field="*{id}" id="id">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input class="form-control" type="text" th:field="*{name}" id="name"
-                   placeholder="name">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <div class="form-group">
-            <!--/*@thymesVar id="price" type="java.math.BigDecimal"*/-->
-            <label for="price">Price</label>
-            <input class="form-control" type="text" th:field="*{price}"
-                   id="price"
-                   placeholder="price">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <div class="form-group">
-            <!--/*@thymesVar id="description" type="java.lang.String"*/-->
-            <label for="description">Description</label>
-            <input class="form-control" type="text" th:field="*{description}"
-                   id="description"
-                   placeholder="description">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <div class="form-group">
-            <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
-            <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
-            <label for="manufacturer">Manufacturer</label>
-            <select class="form-control" th:field="*{manufacturer}"
-                    id="manufacturer">
-                <option th:each="manufacturer : ${manufacturers}"
-                        th:value="${manufacturer.getId()}"
-                        th:text="${manufacturer.getName()}"></option>
-            </select>
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <div id="out" class="form-group">
-            <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
-            <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-            <label for="category">Category: <b
-                    th:text="*{category.getName()}"></b></label>
-            <input type="hidden" class="form-control" th:field="*{category}"
-                   id="category" placeholder="category">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
-        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-        <div th:each="feature : *{category.features}" class="form-group">
-            <input type="hidden" name="value"
-                   th:value="${feature}"/>
-            <label for="key1" th:text="${feature}"></label>
-            <input id="key1" class="form-control" type="text"
-                   th:name="'specifications[' + ${feature} + ']'"
-                   th:value="${product.getSpecifications().get(feature)}"/>
-        </div>
-        <div class="form-group">
-            <label for="input_img">Image</label>
-            <div>
-                <img th:src="${(product.getImage()
-                != null && !#strings.isEmpty(product.getImage()))
-                ? product.getImage()
-                : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
-                     src="" alt="" id="output"
-                     class="image-1">
+    <div class="container align-content-center mt-5">
+        <div class="row mb-4 d-flex justify-content-center">
+            <div class="col-6">
+                <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+                <form th:method="PATCH" th:action="@{/product/update}"
+                      th:object="${product}">
+                    <!--/*@thymesVar id="id" type="java.lang.String"*/-->
+                    <label hidden for="id"></label>
+                    <input hidden type="text" th:field="*{id}" id="id">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text"
+                               th:field="*{name}" id="name">
+                    </div>
+                    <div class="form-group">
+                        <!--/*@thymesVar id="price" type="java.math.BigDecimal"*/-->
+                        <label for="price">Price</label>
+                        <input class="form-control" type="number"
+                               th:field="*{price}"
+                               id="price">
+                    </div>
+                    <div class="form-group">
+                        <!--/*@thymesVar id="description" type="java.lang.String"*/-->
+                        <label for="description">Description</label>
+                        <textarea class="form-control" type="text"
+                                  th:field="*{description}"
+                                  id="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
+                        <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                        <label for="manufacturer">Manufacturer</label>
+                        <select class="form-control mb-4"
+                                th:field="*{manufacturer}"
+                                id="manufacturer">
+                            <option value=""></option>
+                            <option th:if="${manufacturers}"
+                                    th:each="manufacturer : ${manufacturers}"
+                                    th:value="${manufacturer.getId()}"
+                                    th:text="${manufacturer.getName()}"></option>
+                        </select>
+                    </div>
+                    <div id="out" class="form-group">
+                        <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
+                        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+                        <label class="mb-4" for="category">Category:
+                            <b th:text="*{category}
+                                        ? *{category.getName()}
+                                        : 'none'">
+                            </b>
+                        </label>
+                        <input type="hidden" class="form-control"
+                               th:field="*{category}"
+                               id="category">
+                    </div>
+                    <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
+                    <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+                    <div th:if="*{category}" class="mb-4">
+                        <div th:each="feature : *{category.features}"
+                             class="form-group">
+                            <input type="hidden" name="value"
+                                   th:value="${feature}"/>
+                            <label for="key1" th:text="${feature}"></label>
+                            <input id="key1" class="form-control" type="text"
+                                   th:name="'specifications[' + ${feature} + ']'"
+                                   th:value="${product.getSpecifications().get(feature)}"/>
+                        </div>
+                    </div>
+                    <div class="form-group d-grid justify-content-center">
+                        <label for="input_img">Image</label>
+                        <div>
+                            <img th:src="${(product.getImage()
+                                != null && !#strings.isEmpty(product.getImage()))
+                                ? product.getImage()
+                                : '/images/image-not-found.png'}"
+                                 src="" alt="" id="output"
+                                 class="image-1">
+                        </div>
+                        <input class="form-control mt-2" type="file"
+                               id="input_img"
+                               onchange="fileChange()" accept="image/*">
+                        <!--/*@thymesVar id="image" type="java.lang.String"*/-->
+                        <input type="hidden" id="image" th:field="*{image}">
+                    </div>
+                    <div class="d-grid justify-content-end mt-4">
+                        <input type="submit" class="btn btn-sm btn-secondary"
+                               value="Edit Product">
+                    </div>
+                </form>
             </div>
-            <input type="file" id="input_img"
-                   onchange="fileChange()" accept="image/*">
-            <!--/*@thymesVar id="image" type="java.lang.String"*/-->
-            <input type="hidden" id="image" th:field="*{image}">
-            <!--        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
-        <br>
-        <input type="submit" class="btn btn-sm btn-secondary"
-               value="Edit Product">
-    </form>
+    </div>
 
     <script th:src="@{/js/uploadImage.js}"></script>
 

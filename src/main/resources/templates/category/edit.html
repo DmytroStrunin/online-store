@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head th:include="navbar.html :: head">
-    <title id="title">All manufacturers</title>
+    <title id="title">Edit category</title>
 </head>
 <body th:include="navbar.html :: body">
 <div id="body">
-
-    <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-    <form th:method="PATCH"
-          th:action="@{/category/update}"
-          th:object="${category}">
-        <!--/*@thymesVar id="id" type="java.lang.String"*/-->
-        <label hidden for="id"></label>
-        <input hidden type="text" th:field="*{id}" id="id">
-        <label for="name">Name</label>
-        <input type="text" th:field="*{name}" id="name" placeholder="name">
-        <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        <br>
-        <div id="in">
-            <label>Features</label>
-            <div th:each="feature : ${category.getFeatures}">
-                <!--/*@thymesVar id="feature" type=""*/-->
-                <label>
-                    <input th:name="|features|" th:value="${feature}">
-                </label>
+    <div class="container align-content-center mt-5">
+        <div class="row mb-4 d-flex justify-content-center">
+            <div class="col-5">
+                <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+                <form th:method="PATCH"
+                      th:action="@{/category/update}"
+                      th:object="${category}">
+                    <!--/*@thymesVar id="id" type="java.lang.String"*/-->
+                    <label hidden for="id"></label>
+                    <input hidden type="text" th:field="*{id}" id="id">
+                    <label for="name">Name</label>
+                    <input class="form-control mb-3"
+                           type="text" th:field="*{name}" id="name">
+                    <div id="in">
+                        <label>Features</label>
+                        <div>
+                            <!--/*@thymesVar id="feature" type=""*/-->
+                            <input class="form-control mt-1"
+                                   th:each="feature : ${category.getFeatures}"
+                                   th:name="|features|"
+                                   th:value="${feature}">
+                        </div>
+                    </div>
+                    <div class="d-grid justify-content-end mt-4">
+                        <input type="submit" class="btn btn-sm btn-secondary"
+                               value="Edit Category">
+                    </div>
+                </form>
             </div>
         </div>
-        <br>
-        <input type="submit" class="btn btn-sm btn-secondary"
-               value="Edit Category">
-    </form>
-
+    </div>
     <script th:src="@{/js/categoryFields.js}"></script>
 
 </div>

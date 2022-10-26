@@ -5,45 +5,53 @@
 </head>
 <body th:include="navbar.html :: body">
 <div id="body">
-
-    <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
-    <form th:method="PATCH"
-          th:action="@{/manufacturer/update}"
-          th:object="${manufacturer}">
-        <!--/*@thymesVar id="id" type="java.lang.String"*/-->
-        <label hidden for="id"></label>
-        <input hidden type="text" th:field="*{id}" id="id">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input class="form-control" type="text" th:field="*{name}" id="name"
-                   placeholder="name">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <div class="form-group">
-            <label for="country">Country</label>
-            <!--/*@thymesVar id="country" type="java.lang.String"*/-->
-            <input class="form-control" type="text" th:field="*{country}"
-                   id="country" placeholder="country">
-            <!--    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
-        </div>
-        <div class="form-group">
-            <label for="input_img">Image</label>
-            <div>
-                <img class="image-manufacturer"
-                     th:src="${(manufacturer.getImage() != null && !#strings.isEmpty(manufacturer.getImage())) ? manufacturer.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
-                     src="" alt="" id="output"
-                >
+    <div class="container align-content-center mt-5">
+        <div class="row mb-4 d-flex justify-content-center">
+            <div class="col-4">
+                <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                <form th:method="PATCH"
+                      th:action="@{/manufacturer/update}"
+                      th:object="${manufacturer}">
+                    <!--/*@thymesVar id="id" type="java.lang.String"*/-->
+                    <label hidden for="id"></label>
+                    <input hidden type="text" th:field="*{id}" id="id">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" type="text"
+                               th:field="*{name}" id="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <!--/*@thymesVar id="country" type="java.lang.String"*/-->
+                        <input class="form-control" type="text"
+                               th:field="*{country}"
+                               id="country">
+                    </div>
+                    <div class="form-group mt-2 d-grid justify-content-center">
+                        <label for="input_img">Image</label>
+                        <div>
+                            <img class="image-manufacturer"
+                                 th:src="${(manufacturer.getImage()
+                                != null && !#strings.isEmpty(manufacturer.getImage()))
+                                ? manufacturer.getImage()
+                                : '/images/image-not-found.png'}"
+                                 src="" alt="" id="output"
+                            >
+                        </div>
+                        <input class="form-control mt-2"
+                               type="file" id="input_img"
+                               onchange="fileChange()" accept="image/*">
+                        <!--/*@thymesVar id="image" type="java.lang.String"*/-->
+                        <input type="hidden" id="image" th:field="*{image}">
+                    </div>
+                    <div class="d-grid justify-content-end mt-4">
+                        <input class="btn btn-sm btn-secondary" type="submit"
+                               value="Edit manufacturer">
+                    </div>
+                </form>
             </div>
-            <input type="file" id="input_img"
-                   onchange="fileChange()" accept="image/*">
-            <!--/*@thymesVar id="image" type="java.lang.String"*/-->
-            <input type="hidden" id="image" th:field="*{image}">
-            <!--        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>-->
         </div>
-        <br>
-        <input class="btn btn-sm btn-secondary" type="submit"
-               value="Edit manufacturer">
-    </form>
+    </div>
 
     <script th:src="@{/js/uploadImage.js}"></script>
 

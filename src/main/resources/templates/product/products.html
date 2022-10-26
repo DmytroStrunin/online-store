@@ -12,16 +12,16 @@
             <form class="d-flex justify-content-sm-end"
                   th:action="@{/product/products}" method="GET">
                 <label class="col-form-label-sm me-1" for="sort">Sort by</label>
-                <select class="form-select-sm" id="sort" name="sort"
+                <select class="form-select-sm small-select" id="sort" name="sort"
                         onchange="document.getElementById('subButton').click()">
                     <option value="name-asc">Name ↑</option>
                     <option value="name-desc">Name ↓</option>
                     <option value="price-asc">Price ↑</option>
                     <option value="price-desc">Price ↓</option>
                 </select>
-                <label class="col-form-label-sm me-1 ms-3"
+                <label class="col-form-label-sm me-1 ms-2"
                        for="filter">Category</label>
-                <select class="form-select-sm" id="filter" name="filter"
+                <select class="form-select-sm small-select" id="filter" name="filter"
                         onchange="document.getElementById('subButton').click()">
                     <option value="" selected="selected">All</option>
                     <option th:each="category: ${categories}"
@@ -30,10 +30,9 @@
                             th:selected="${category.getName()==filter}?'selected'"
                     ></option>
                 </select>
-                <label class="col-form-label-sm me-1 ms-3" for="size">Number of
-                    products</label>
+                <label class="col-form-label-sm me-1 ms-2" for="size">Products</label>
                 <!--/*@thymesVar id="itemsOnPage" type="java.lang.Integer"*/-->
-                <select class="form-select-sm" id="size" name="size"
+                <select class="form-select-sm small-select" id="size" name="size"
                         onchange="document.getElementById('subButton').click()"
                         th:field="${productPage.size}">
                     <option
@@ -52,8 +51,11 @@
                     <div class="product-thumb">
                         <a href="#"
                            th:href="@{/product/{id}(id=${product.getId()})}">
-                            <img class="product-c" th:src="${(product.getImage() != null &&
-                        !#strings.isEmpty(product.getImage())) ? product.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                            <img class="product-c"
+                                 th:src="${(product.getImage() != null
+                                 && !#strings.isEmpty(product.getImage()))
+                                 ? product.getImage()
+                                 : '/images/image-not-found.png'}"
                                  src="" alt="" id="output">
                         </a>
                     </div>
@@ -100,7 +102,7 @@
         <div class="fixed-bottom d-flex justify-content-center">
             <nav th:if="${productPage.getTotalPages() gt 1 && productPage.getNumber() lt productPage.getTotalPages()}"
                  aria-label="Page navigation example">
-                <ul class="pagination">
+                <ul class="pagination pagination-my">
                     <li th:class="${productPage.getNumber() gt 0}?'page-item':'page-item disabled'">
                         <a class="page-link"
                            th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=1)}"

@@ -12,28 +12,31 @@
                 <img class="p-img" alt="" src=""
                      th:src="${product.getImage()
                      != null && !#strings.isEmpty(product.getImage()) ? product.getImage()
-                     : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"/>
+                     : '/images/image-not-found.png'}"/>
             </div>
             <div class="col-6 d-flex flex-column">
                 <h3 th:text="${product.getName()}"></h3>
                 <h6 class="mt-2"><small>Category:</small><b><span
                         class="gray ms-1"
-                        th:text="${product.getCategory().getName()}">
+                        th:text="${product.getCategory()}
+                                    ? ${product.getCategory().getName()}">
                                 </span></b>
                 </h6>
                 <h6 class="mt-2"><small>Manufacturer:</small><b><span
                         class="gray ms-1"
-                        th:text="${product.getManufacturer().getName()}"></span></b>
+                        th:text="${product.getManufacturer()}
+                                    ? ${product.getManufacturer().getName()}"></span></b>
                     <div class="mt-3 w-25">
                         <img class="image-manufacturer" alt="" src=""
-                             th:src="${product.getManufacturer().getImage()
-                             != null && !#strings.isEmpty(product.getManufacturer().getImage()) ? product.getManufacturer().getImage()
-                             : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"/>
+                             th:src="${product.getManufacturer()
+                                        != null && !#strings.isEmpty(product.getManufacturer().getImage()) ? product.getManufacturer().getImage()
+                                        : '/images/image-not-found.png'}"/>
                     </div>
                 </h6>
                 <h6 class="mt-2 mb-4"><small>Country:</small><b><span
                         class="gray ms-1"
-                        th:text="${product.getManufacturer().getCountry()}"></span></b>
+                        th:text="${product.getManufacturer()}
+                                    ? ${product.getManufacturer().getCountry()}"></span></b>
                 </h6>
 
                 <h6 class="mt-auto"><small>Description: </small>
@@ -81,13 +84,15 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
-                <div class="border-my">
+                <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
+                <div th:if="${product.getCategory() != null
+                                && product.getSpecifications() != null}"
+                     class="border-my">
                     <h6 class="mt-2"><small>Specification: </small>
                     </h6>
                     <small>
                         <table class="table-1 mt-3">
                             <tbody>
-                            <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
                             <tr class="mt-3"
                                 th:each="feature : ${product.category.features}">
                                 <td class="table-2" th:text="${feature}"></td>
