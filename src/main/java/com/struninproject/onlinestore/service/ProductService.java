@@ -33,12 +33,14 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Page<Product> findAllPages(Pageable pageable, String filter) {
-        if (filter != null && !filter.isEmpty()) {
-            return productRepository.findAllByCategory(categoryService.findByName(filter), pageable);
-        } else {
-            return productRepository.findAll(pageable);
-        }
+    public Page<Product> findAllPages(Pageable pageable, String[] filters) {
+        final String categoryName = filters[0];
+        final String manufacturerName = filters[1];
+        return productRepository
+                .findAllByCategory_NameContainsIgnoreCaseAndManufacturer_NameContainsIgnoreCase(
+                        categoryName,
+                        manufacturerName,
+                        pageable);
     }
 
     public Product findById(String id) {
@@ -55,7 +57,6 @@ public class ProductService {
     public void deleteById(String id) {
         productRepository.deleteById(id);
     }
-
 
 
 }

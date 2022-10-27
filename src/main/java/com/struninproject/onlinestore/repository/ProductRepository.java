@@ -1,7 +1,6 @@
 package com.struninproject.onlinestore.repository;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
-import com.struninproject.onlinestore.model.Category;
 import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.model.enums.Status;
@@ -22,8 +21,8 @@ import java.util.LinkedHashSet;
  */
 @Repository
 public interface ProductRepository extends CrudRepository<Product,String> {
-    Page<Product> findAll(Pageable pageable);
-    Page<Product> findAllByCategory(Category category, Pageable pageable);
+
+    Page<Product> findAllByCategory_NameContainsIgnoreCaseAndManufacturer_NameContainsIgnoreCase(String categoryName, String manufacturerName, Pageable pageable);
 
     @Query("""
             SELECT new com.struninproject.onlinestore.dto.ProductDTO(p.id, p.name, p.price, p.image, po.quantity) FROM Order o
@@ -36,6 +35,4 @@ public interface ProductRepository extends CrudRepository<Product,String> {
             ORDER BY p.name
             """)
     LinkedHashSet<ProductDTO> findAllProductsInUserCart(@Param("user") User user, @Param("status") Status status);
-
-//    List<Product> findAll();
 }

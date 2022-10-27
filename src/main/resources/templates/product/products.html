@@ -7,6 +7,7 @@
 <div id="body">
     <!--/*@thymesVar id="productPage" type="org.springframework.data.domain.Page"*/-->
     <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+    <!--/*@thymesVar id="filters" type="java.util.ArrayList"*/-->
     <div class="container">
         <div class="row mb-3">
             <form class="d-flex justify-content-sm-end"
@@ -20,14 +21,28 @@
                     <option value="price-desc">Price ↓</option>
                 </select>
                 <label class="col-form-label-sm me-1 ms-2"
-                       for="filter">Category</label>
-                <select class="form-select-sm small-select" id="filter" name="filter"
+                       for="filter-category">Category</label>
+                <select class="form-select-sm small-select" id="filter-category" name="filter"
                         onchange="document.getElementById('subButton').click()">
                     <option value="" selected="selected">All</option>
                     <option th:each="category: ${categories}"
                             th:text="${category.getName()}"
-                            th:value="${category.getName()}"
-                            th:selected="${category.getName()==filter}?'selected'"
+                            th:value="${category.getName().toLowerCase()}"
+                            th:selected="${filters[0].equals(category.getName().toLowerCase())}?'selected'"
+                    ></option>
+                </select>
+
+                <label class="col-form-label-sm me-1 ms-2"
+                       for="filter-manufacturer">Manufacturer</label>
+                <select class="form-select-sm small-select" id="filter-manufacturer" name="filter"
+                        onchange="document.getElementById('subButton').click()">
+                    <option value="" selected="selected">All</option>
+                    <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
+                    <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                    <option th:each="manufacturer: ${manufacturers}"
+                            th:text="${manufacturer.getName()}"
+                            th:value="${manufacturer.getName().toLowerCase()}"
+                            th:selected="${filters[1].equals(manufacturer.getName().toLowerCase())}?'selected'"
                     ></option>
                 </select>
                 <label class="col-form-label-sm me-1 ms-2" for="size">Products</label>
@@ -96,7 +111,6 @@
         <!--/*@thymesVar id="pageNumbers" type="java.util.List"*/-->
         <!--/*@thymesVar id="categories" type="Iterable"*/-->
         <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-        <!--/*@thymesVar id="filter" type="java.lang.String"*/-->
         <!--/*@thymesVar id="sort" type="java.lang.String"*/-->
         <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
         <div class="fixed-bottom d-flex justify-content-center">
@@ -105,21 +119,21 @@
                 <ul class="pagination pagination-my">
                     <li th:class="${productPage.getNumber() gt 0}?'page-item':'page-item disabled'">
                         <a class="page-link"
-                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=1)}"
+                           th:href="@{/product/products(sort=${sort}, filter=${filters[0]}, filter=${filters[1]}, size=${productPage.getSize()}, page=1)}"
                            aria-label="Previous">
                             <span aria-hidden="true">First</span>
                         </a>
                     </li>
                     <li th:class="${productPage.getNumber() gt 0}?'page-item':'page-item disabled'">
                         <a class="page-link"
-                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${productPage.getNumber()})}"
+                           th:href="@{/product/products(sort=${sort}, filter=${filters[0]}, filter=${filters[1]}, size=${productPage.getSize()}, page=${productPage.getNumber()})}"
                            aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
                     <li class="page-item"
                         th:each="pageNumber : ${#numbers.sequence( 1, productPage.getTotalPages())}">
-                        <a th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${pageNumber})}"
+                        <a th:href="@{/product/products(sort=${sort}, filter=${filters[0]}, filter=${filters[1]}, size=${productPage.getSize()}, page=${pageNumber})}"
                            th:text="${pageNumber}"
                            th:class="${pageNumber==productPage.getNumber() + 1} ? 'active page-link':'page-link'"
                            th:if="${(productPage.getNumber() gt pageNumber - 4 || pageNumber lt 6)
@@ -128,14 +142,14 @@
                     </li>
                     <li th:class="${productPage.getNumber() lt productPage.getTotalPages() - 1}?'page-item':'page-item disabled'">
                         <a class="page-link"
-                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${productPage.getNumber() + 2})}"
+                           th:href="@{/product/products(sort=${sort}, filter=${filters[0]}, filter=${filters[1]}, size=${productPage.getSize()}, page=${productPage.getNumber() + 2})}"
                            aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
                     <li th:class="${productPage.getNumber() lt productPage.getTotalPages() - 1}?'page-item':'page-item disabled'">
                         <a class="page-link"
-                           th:href="@{/product/products(sort=${sort}, filter=${filter}, size=${productPage.getSize()}, page=${productPage.getTotalPages()})}"
+                           th:href="@{/product/products(sort=${sort}, filter=${filters[0]}, filter=${filters[1]}, size=${productPage.getSize()}, page=${productPage.getTotalPages()})}"
                            th:text="'Last '+${productPage.getTotalPages()}"
                            aria-label="Next">
                             <span aria-hidden="true"></span>

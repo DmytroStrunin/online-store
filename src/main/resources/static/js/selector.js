@@ -1,11 +1,6 @@
 const sortSelector = document.getElementById('sort');
-const filterSelector = document.getElementById('filter');
 
 for (const selectElement of sortSelector) {
-    updateSelect(selectElement);
-}
-
-for (const selectElement of filterSelector) {
     updateSelect(selectElement);
 }
 
