@@ -53,6 +53,13 @@ body.modal-open[style] {
     height: 50px;
 }
 
+@media only screen and (max-width : 991px) {
+    .navbar-collapse {
+        background-color: #eee;
+    }
+}
+
+
 .navbar-nav .dropdown-menu {
     right: 0;
     left: auto;

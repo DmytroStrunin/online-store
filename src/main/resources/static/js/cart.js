@@ -98,22 +98,23 @@ function updateCart(data) {
         aName.innerText = product.name;
         tdName.appendChild(aName);
         if (product.price) {
-            tdPrice.innerText = '$' + product.price;
+            tdPrice.innerText = '$' + product.price.toFixed(2);
         }
         const div = document.createElement('div');
-        div.setAttribute('class', 'product-links');
+        div.setAttribute('class', 'product-links d-flex justify-content-center');
         let i = document.createElement('i');
-        i.setAttribute('class', 'fa fa-plus');
+        i.setAttribute('class', 'fa fa-plus p-icon');
         i.setAttribute('id', product.id);
         i.onclick = function () {
             addCart(product.id);
         }
         div.appendChild(i);
         const b = document.createElement('b');
+        b.setAttribute('class', 'me-1 ms-1')
         b.innerText = product.quantity;
         div.appendChild(b);
         i = document.createElement('i');
-        i.setAttribute('class', 'fa fa-minus');
+        i.setAttribute('class', 'fa fa-minus p-icon');
         i.setAttribute('id', product.id);
         i.onclick = function () {
             removeCart(product.id);
