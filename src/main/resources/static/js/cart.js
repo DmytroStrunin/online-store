@@ -4,7 +4,7 @@ function addCart(id) {
     const data = {productId: id};
     $.ajax({
         url: "/order/add",
-        type: "PUT",
+        type: "PATCH",
         data: data,
         dataType: 'json',
         success: function (data) {
@@ -18,7 +18,7 @@ function removeCart(id) {
     const data = {productId: id};
     $.ajax({
         url: "/order/del",
-        type: "PUT",
+        type: "PATCH",
         data: data,
         dataType: 'json',
         success: function (data) {
@@ -44,7 +44,7 @@ function loadCart() {
 function buyCart() {
     $.ajax({
         url: "/order/buy",
-        type: "PUT",
+        type: "PATCH",
         data: '',
         dataType: 'json',
         success: function (data) {
