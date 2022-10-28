@@ -33,10 +33,6 @@ public class UserService extends AbstractService<User, UserRepository> {
     }
 
     public User save(User user) {
-        final String userEmail = user.getEmail();
-        if (repository.findByEmail(userEmail) != null){
-            return null;
-        }
         user.setActive(true);
         user.setRoles(new HashSet<>());
         user.getRoles().add(Role.USER);
@@ -44,5 +40,13 @@ public class UserService extends AbstractService<User, UserRepository> {
 //        log.info("Saving new User with email: {}", userEmail);
         repository.save(user);
         return user;
+    }
+
+    public String validateIfExistUser(User user) {
+        String message = "";
+        if (repository.findByEmail(user.getEmail()) != null) {
+            message=String.format("User with email: %s already exists.", user.getEmail());
+        }
+        return message;
     }
 }

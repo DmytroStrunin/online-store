@@ -3,6 +3,7 @@ package com.struninproject.onlinestore.service.impl;
 import com.struninproject.onlinestore.model.AbstractEntity;
 import com.struninproject.onlinestore.repository.CommonRepository;
 import com.struninproject.onlinestore.service.CommonService;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The {@code AbstractService} class
@@ -10,6 +11,7 @@ import com.struninproject.onlinestore.service.CommonService;
  * @author Strunin Dmytro
  * @version 1.0
  */
+@Slf4j
 public abstract class AbstractService<E extends AbstractEntity, R extends CommonRepository<E>>
         implements CommonService<E> {
 

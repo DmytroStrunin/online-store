@@ -3,7 +3,7 @@ loadCart()
 function addCart(id) {
     const data = {productId: id};
     $.ajax({
-        url: "/order/add",
+        url: "/order/cart/add",
         type: "PATCH",
         data: data,
         dataType: 'json',
@@ -17,7 +17,7 @@ function addCart(id) {
 function removeCart(id) {
     const data = {productId: id};
     $.ajax({
-        url: "/order/del",
+        url: "/order/cart/del",
         type: "PATCH",
         data: data,
         dataType: 'json',
@@ -30,7 +30,7 @@ function removeCart(id) {
 
 function loadCart() {
     $.ajax({
-        url: "/order/load",
+        url: "/order/cart/load",
         type: "GET",
         data: '',
         dataType: 'json',
@@ -43,7 +43,7 @@ function loadCart() {
 
 function buyCart() {
     $.ajax({
-        url: "/order/buy",
+        url: "/order/cart/buy",
         type: "PATCH",
         data: '',
         dataType: 'json',

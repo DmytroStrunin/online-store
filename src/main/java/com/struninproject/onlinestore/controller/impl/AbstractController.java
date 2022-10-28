@@ -30,7 +30,7 @@ public abstract class AbstractController<E extends AbstractEntity,
     }
 
     @GetMapping("/new")
-    public ModelAndView showsNewForm(ModelAndView modelAndView) {
+    public ModelAndView showsNewFormPage(ModelAndView modelAndView) {
         modelAndView.addObject("data", service.create());
         modelAndView.setViewName(String.format("%s/new",
                 e.getClass()
@@ -40,8 +40,8 @@ public abstract class AbstractController<E extends AbstractEntity,
     }
 
     @PostMapping("/new")
-    public ModelAndView addNew(E entity,
-                               ModelAndView modelAndView) {
+    public ModelAndView createNew(E entity,
+                                  ModelAndView modelAndView) {
         service.save(entity);
         modelAndView.setViewName(String.format("redirect:/%s/all",
                 e.getClass()
@@ -51,7 +51,7 @@ public abstract class AbstractController<E extends AbstractEntity,
     }
 
     @GetMapping("/all")
-    public ModelAndView showAll(ModelAndView modelAndView) {
+    public ModelAndView showAllPage(ModelAndView modelAndView) {
         modelAndView.addObject("data", service.findAll());
         modelAndView.setViewName(String.format("%s/all",
                 e.getClass()
@@ -62,7 +62,7 @@ public abstract class AbstractController<E extends AbstractEntity,
 
 
     @GetMapping("/{id}/edit")
-    public ModelAndView edit(ModelAndView modelAndView, @PathVariable("id") String id) {
+    public ModelAndView showEditPage(ModelAndView modelAndView, @PathVariable("id") String id) {
         modelAndView.addObject("data", service.findById(id));
         modelAndView.setViewName(String.format("%s/edit",
                 e.getClass()

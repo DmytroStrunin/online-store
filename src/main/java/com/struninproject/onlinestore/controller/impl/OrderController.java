@@ -30,27 +30,27 @@ public class OrderController extends AbstractController <Order, OrderService> {
         super(service);
     }
 
-    @PatchMapping("/add")
+    @PatchMapping("/cart/add")
     public @ResponseBody
     Set<ProductDTO> addItemToCart(@AuthenticationPrincipal User user,
                                   @RequestParam String productId) {
         return service.addProductInCart(user, productId);
     }
 
-    @PatchMapping("/del")
+    @PatchMapping("/cart/del")
     public @ResponseBody
     Set<ProductDTO> delItemFromCart(@AuthenticationPrincipal User user,
                                     @RequestParam String productId) {
-        return service.removeProductInCart(user, productId);
+        return service.removeProductFromCart(user, productId);
     }
 
-    @PatchMapping("/buy")
+    @PatchMapping("/cart/buy")
     public @ResponseBody
     Set<ProductDTO> buyItemsInCart(@AuthenticationPrincipal User user) {
         return service.updateUserCartStatus(user);
     }
 
-    @GetMapping("/load")
+    @GetMapping("/cart/load")
     public @ResponseBody
     Set<ProductDTO> loadItemsFromCart(@AuthenticationPrincipal User user) {
         return service.getUserCart(user);

@@ -30,4 +30,15 @@ public interface OrderRepository extends CommonRepository<Order> {
             WHERE o = :order
             """)
     BigDecimal getOrderTotalPrice(@Param("order") Order order);
+
+    @Query("""
+            SELECT o FROM Order o
+            JOIN ProductOrder po ON po.order.id = o.id
+            JOIN Product p ON p.id = po.product.id
+            JOIN User u ON u.id = o.user.id
+            WHERE o.status = 'CART'
+            AND u = :user
+            AND po.product.id = :productId
+            """)
+    Optional<Order> findOrderWithStatusCard(@Param("user") User user, @Param("productId") String productId);
 }

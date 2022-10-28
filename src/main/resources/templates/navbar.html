@@ -63,7 +63,8 @@
                     <a class="nav-link" th:href="@{/user/all}">Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/category/all}">Categories</a>
+                    <a class="nav-link"
+                       th:href="@{/category/all}">Categories</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
@@ -358,13 +359,17 @@
                             </div>
                             <div class="form-outline mb-1">
                                 <!--/*@thymesVar id="email" type="java.lang.String"*/-->
-                                <input th:class="${#fields.hasErrors('email')}?'form-control is-invalid':'form-control'"
+                                <input th:class="${#fields.hasErrors('email')
+                                                    || #fields.hasErrors('global')}
+                                                    ?'form-control is-invalid':'form-control'"
                                        type="email"
                                        th:field="*{email}"
                                        id="email" required>
-                                <div th:if="${#fields.hasErrors('email')}"
+                                <div th:if="${#fields.hasErrors('email')
+                                                || #fields.hasErrors('global')}"
                                      class="invalid-feedback">
                                     <span th:errors="*{email}"></span>
+                                    <span th:each="err : ${#fields.errors('global')}" th:text="${err}"></span>
                                 </div>
                                 <label for="email">Email</label>
                             </div>

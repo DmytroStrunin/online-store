@@ -37,8 +37,8 @@ public class ProductController extends AbstractController<Product, ProductServic
 
     @GetMapping("/new")
     @Override
-    public ModelAndView showsNewForm(ModelAndView modelAndView) {
-        modelAndView.addObject("data", new Product());
+    public ModelAndView showsNewFormPage(ModelAndView modelAndView) {
+        modelAndView.addObject("data", service.create());
         modelAndView.addObject("manufacturers", manufacturerService.findAll());
         modelAndView.addObject("categories", categoryService.findAll());
         modelAndView.setViewName("product/new");
@@ -54,7 +54,7 @@ public class ProductController extends AbstractController<Product, ProductServic
             ModelAndView modelAndView) {
         final Page<Product> productPage =
                 service.findAllPages(sort, filters, pageNumber, pageSize);
-        modelAndView.addObject("user", new User());                                        // FIXME: 24.10.2022
+        modelAndView.addObject("user", new User());
         modelAndView.addObject("categories", categoryService.findAll());
         modelAndView.addObject("manufacturers", manufacturerService.findAll());
         modelAndView.addObject("sort", sort);
@@ -67,7 +67,7 @@ public class ProductController extends AbstractController<Product, ProductServic
     @GetMapping("/{id}")
     public ModelAndView getProduct(ModelAndView modelAndView,
                                    @PathVariable("id") String id) {
-        modelAndView.addObject("user", new User());                                       // FIXME: 24.10.2022
+        modelAndView.addObject("user", new User());
         modelAndView.addObject("product", service.findById(id));
         modelAndView.setViewName("product/product");
         return modelAndView;
@@ -75,7 +75,7 @@ public class ProductController extends AbstractController<Product, ProductServic
 
     @GetMapping("/{id}/edit")
     @Override
-    public ModelAndView edit(ModelAndView modelAndView,@PathVariable("id") String id) {
+    public ModelAndView showEditPage(ModelAndView modelAndView, @PathVariable("id") String id) {
         modelAndView.addObject("product", service.findById(id));
         modelAndView.addObject("manufacturers", manufacturerService.findAll());
         modelAndView.setViewName("product/edit");

@@ -1,6 +1,9 @@
 package com.struninproject.onlinestore.service.impl;
 
+import com.struninproject.onlinestore.dto.ProductDTO;
 import com.struninproject.onlinestore.model.Product;
+import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.enums.Status;
 import com.struninproject.onlinestore.repository.impl.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.Set;
 
 /**
  * The {@code ProductService} class
@@ -40,5 +45,9 @@ public class ProductService extends AbstractService<Product, ProductRepository> 
                         categoryName,
                         manufacturerName,
                         pageable);
+    }
+
+    public Set<ProductDTO> findAllProductsInUserCart(User user) {
+        return repository.findAllProductsInUserCart(user, Status.CART);
     }
 }
