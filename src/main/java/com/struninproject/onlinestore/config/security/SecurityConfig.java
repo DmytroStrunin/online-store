@@ -77,7 +77,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-//                .csrf().disable()// FIXME: 15.10.2022
+                .csrf().disable()
 
                 .authorizeRequests()
 

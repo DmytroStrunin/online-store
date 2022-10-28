@@ -30,11 +30,11 @@ import java.util.Set;
 public class Order extends AbstractEntity {
     private LocalDateTime created;
     private BigDecimal totalPrice;
-    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)// FIXME: 08.10.2022
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
     @Enumerated(EnumType.STRING)
     Status status;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private Set<ProductOrder> productOrders;
 }

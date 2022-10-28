@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,21 +31,21 @@ public class OrderController extends AbstractController <Order, OrderService> {
         super(service);
     }
 
-    @PatchMapping("/cart/add")
+    @PostMapping("/cart/add")
     public @ResponseBody
     Set<ProductDTO> addItemToCart(@AuthenticationPrincipal User user,
                                   @RequestParam String productId) {
         return service.addProductInCart(user, productId);
     }
 
-    @PatchMapping("/cart/del")
+    @PutMapping("/cart/del")
     public @ResponseBody
     Set<ProductDTO> delItemFromCart(@AuthenticationPrincipal User user,
                                     @RequestParam String productId) {
         return service.removeProductFromCart(user, productId);
     }
 
-    @PatchMapping("/cart/buy")
+    @PutMapping("/cart/buy")
     public @ResponseBody
     Set<ProductDTO> buyItemsInCart(@AuthenticationPrincipal User user) {
         return service.updateUserCartStatus(user);
