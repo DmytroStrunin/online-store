@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.service.impl;
 
-import com.struninproject.onlinestore.model.AbstractEntity;
+import com.struninproject.onlinestore.model.entity.AbstractEntity;
 import com.struninproject.onlinestore.repository.CommonRepository;
 import com.struninproject.onlinestore.service.CommonService;
 import lombok.extern.slf4j.Slf4j;

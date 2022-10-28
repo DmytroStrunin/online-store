@@ -6,7 +6,7 @@
 <body th:include="navbar.html :: body">
 <div id="body">
 
-    <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.Order"*/-->
+    <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.entity.Order"*/-->
     <form th:method="PATCH" th:action="@{/order/update}"
           th:object="${data}">
         <!--/*@thymesVar id="id" type="java.lang.String"*/-->

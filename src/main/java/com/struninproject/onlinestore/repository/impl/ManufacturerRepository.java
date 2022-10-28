@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.repository.impl;
 
-import com.struninproject.onlinestore.model.Manufacturer;
+import com.struninproject.onlinestore.model.entity.Manufacturer;
 import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.stereotype.Repository;
 

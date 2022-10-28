@@ -30,7 +30,7 @@
                 </thead>
                 <tbody>
                 <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
-                <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+                <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.entity.Product"*/-->
                 <tr th:each="product : ${data}">
                     <td th:text="${product.getId()}"></td>
                     <td th:text="${product.getName()}"></td>

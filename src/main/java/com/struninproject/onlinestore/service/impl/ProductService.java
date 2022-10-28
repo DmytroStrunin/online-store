@@ -1,10 +1,11 @@
 package com.struninproject.onlinestore.service.impl;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
-import com.struninproject.onlinestore.model.Product;
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.Product;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.model.enums.Status;
 import com.struninproject.onlinestore.repository.impl.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,7 @@ import java.util.Set;
  * @author Strunin Dmytro
  * @version 1.0
  */
+@Slf4j
 @Service
 public class ProductService extends AbstractService<Product, ProductRepository> {
 

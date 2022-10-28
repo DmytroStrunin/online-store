@@ -1,11 +1,12 @@
 package com.struninproject.onlinestore.service.impl;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
-import com.struninproject.onlinestore.model.Order;
-import com.struninproject.onlinestore.model.ProductOrder;
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.Order;
+import com.struninproject.onlinestore.model.entity.ProductOrder;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.model.enums.Status;
 import com.struninproject.onlinestore.repository.impl.OrderRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.Set;
  * @author Strunin Dmytro
  * @version 1.0
  */
+@Slf4j
 @Service
 public class OrderService extends AbstractService<Order, OrderRepository> {
     private final ProductService productService;
@@ -49,6 +51,10 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
         order.setUser(user);
         order.setStatus(Status.CART);
         order.setProductOrders(productOrders);
+        log.info("Saving new Order with User email: {} status: {} product: {} "
+                , user.getEmail()
+                , order.getStatus(),
+                productOrder.getProduct());
         return repository.save(order);
     }
 
@@ -59,6 +65,9 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
                     o.setCreated(LocalDateTime.now());
                     o.setStatus(Status.IN_PROGRESS);
                     o.setTotalPrice(repository.getOrderTotalPrice(o));
+                    log.info("Saving new Order with User email: {} status: {}"
+                            , user.getEmail()
+                            , o.getStatus());
                     repository.save(o);
                 });
         return getUserCart(user);
@@ -94,13 +103,13 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
                     o.getProductOrders().stream()
                             .filter(po -> po.getProduct().getId().equals(productId))
                             .findAny()
-                            .ifPresent(po -> deleteProductFromCart(o, po));
+                            .ifPresent(po -> removeFromOrder(o, po));
                     repository.save(o);
                 });
         return getUserCart(user);
     }
 
-    public void deleteProductFromCart(Order order, ProductOrder productOrder) {
+    public void removeFromOrder(Order order, ProductOrder productOrder) {
         int quantity = productOrder.getQuantity();
         if (quantity > 1) {
             productOrder.setQuantity(--quantity);

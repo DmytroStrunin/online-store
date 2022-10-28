@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.repository.impl;
 
-import com.struninproject.onlinestore.model.Order;
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.Order;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.model.enums.Status;
 import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.data.jpa.repository.Query;

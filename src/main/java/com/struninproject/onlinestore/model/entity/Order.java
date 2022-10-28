@@ -1,4 +1,4 @@
-package com.struninproject.onlinestore.model;
+package com.struninproject.onlinestore.model.entity;
 
 import com.struninproject.onlinestore.model.enums.Status;
 import lombok.Getter;

@@ -56,23 +56,26 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/product/products}">Store</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/order/all}">Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/user/all}">Users</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                       th:href="@{/category/all}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link"
-                       th:href="@{/manufacturer/all}">Manufacturers</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/product/all}">Products</a>
-                </li>
+<!--                <div sec:authorize="hasRole('ADMIN')">-->
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/order/all}">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/category/all}">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/manufacturer/all}">Manufacturers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                           th:href="@{/product/all}">Products</a>
+                    </li>
+                    <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                        <a class="nav-link" th:href="@{/user/all}">Users</a>
+                    </li>
+<!--                </div>-->
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item me-2">
@@ -270,7 +273,7 @@
                     </div>
                     <div class="tab-pane fade" id="pills-register"
                          role="tabpanel" aria-labelledby="tab-register">
-                        <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
+                        <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.entity.User"*/-->
                         <form class="needs-validation" action="#"
                               th:action="@{/user/registration}"
                               th:object="${user}" method="POST"
@@ -369,7 +372,8 @@
                                                 || #fields.hasErrors('global')}"
                                      class="invalid-feedback">
                                     <span th:errors="*{email}"></span>
-                                    <span th:each="err : ${#fields.errors('global')}" th:text="${err}"></span>
+                                    <span th:each="err : ${#fields.errors('global')}"
+                                          th:text="${err}"></span>
                                 </div>
                                 <label for="email">Email</label>
                             </div>

@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.repository;
 
-import com.struninproject.onlinestore.model.AbstractEntity;
+import com.struninproject.onlinestore.model.entity.AbstractEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

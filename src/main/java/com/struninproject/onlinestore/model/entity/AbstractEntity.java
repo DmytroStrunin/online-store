@@ -1,4 +1,4 @@
-package com.struninproject.onlinestore.model;
+package com.struninproject.onlinestore.model.entity;
 
 import lombok.Getter;
 import lombok.Setter;

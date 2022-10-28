@@ -1,8 +1,8 @@
 package com.struninproject.onlinestore.repository.impl;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
-import com.struninproject.onlinestore.model.Product;
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.Product;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.model.enums.Status;
 import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.data.domain.Page;

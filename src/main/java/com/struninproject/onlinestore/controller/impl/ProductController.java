@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.controller.impl;
 
-import com.struninproject.onlinestore.model.Product;
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.Product;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.service.impl.CategoryService;
 import com.struninproject.onlinestore.service.impl.ManufacturerService;
 import com.struninproject.onlinestore.service.impl.ProductService;

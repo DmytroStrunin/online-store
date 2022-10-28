@@ -26,7 +26,7 @@
                 </thead>
                 <tbody>
                 <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
-                <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.Category"*/-->
+                <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.entity.Category"*/-->
                 <tr th:each="item: ${data}">
                     <td th:text="${item.getId()}"></td>
                     <td th:text="${item.getName()}"></td>

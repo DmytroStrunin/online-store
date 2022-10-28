@@ -29,13 +29,13 @@
                     </thead>
                     <tbody>
                     <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
-                    <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.Order"*/-->
+                    <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.entity.Order"*/-->
                     <tr th:each="item : ${data}">
                         <td th:text="${item.getId()}"></td>
                         <td th:text="${item.getUser().getEmail()}"></td>
                         <td th:text="${item.getCreated()}?${''+item.getCreated()}"></td>
                         <td th:text="${item.getTotalPrice()}?${'$'+item.getTotalPrice()}"></td>
-                        <!--/*@thymesVar id="productOrder" type="com.struninproject.onlinestore.model.ProductOrder"*/-->
+                        <!--/*@thymesVar id="productOrder" type="com.struninproject.onlinestore.model.entity.ProductOrder"*/-->
                         <td>
                             <table>
                                 <tbody>

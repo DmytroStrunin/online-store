@@ -8,7 +8,7 @@
     <div class="container align-content-center mt-5">
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-6">
-                <!--    /*@thymesVar id="data" type="com.struninproject.onlinestore.model.Product"*/-->
+                <!--    /*@thymesVar id="data" type="com.struninproject.onlinestore.model.entity.Product"*/-->
                 <form action="#" th:action="@{/product/new}"
                       th:object="${data}"
                       method="POST">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
-                        <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                        <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.entity.Manufacturer"*/-->
                         <label for="manufacturer">Manufacturer</label>
                         <select class="form-control" th:field="*{manufacturer}"
                                 id="manufacturer">
@@ -45,7 +45,7 @@
                     </div>
                     <div id="out" class="form-group">
                         <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
-                        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+                        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.entity.Category"*/-->
                         <label for="category">Category</label>
                         <select onchange="myChangeFunction()"
                                 class="form-control mb-4"

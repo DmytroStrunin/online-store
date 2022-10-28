@@ -1,7 +1,7 @@
 package com.struninproject.onlinestore.controller.impl;
 
 import com.struninproject.onlinestore.controller.CommonController;
-import com.struninproject.onlinestore.model.AbstractEntity;
+import com.struninproject.onlinestore.model.entity.AbstractEntity;
 import com.struninproject.onlinestore.service.CommonService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

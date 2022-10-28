@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.service;
 
-import com.struninproject.onlinestore.model.AbstractEntity;
+import com.struninproject.onlinestore.model.entity.AbstractEntity;
 
 /**
  * The {@code CommonService} class

@@ -6,7 +6,7 @@
 <body th:include="navbar.html :: body">
 <div id="body">
     <!--/*@thymesVar id="productPage" type="org.springframework.data.domain.Page"*/-->
-    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.Product"*/-->
+    <!--/*@thymesVar id="product" type="com.struninproject.onlinestore.model.entity.Product"*/-->
     <!--/*@thymesVar id="filters" type="java.util.ArrayList"*/-->
     <div class="container">
         <div class="row mb-3">
@@ -38,7 +38,7 @@
                         onchange="document.getElementById('subButton').click()">
                     <option value="" selected="selected">All</option>
                     <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
-                    <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                    <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.entity.Manufacturer"*/-->
                     <option th:each="manufacturer: ${manufacturers}"
                             th:text="${manufacturer.getName()}"
                             th:value="${manufacturer.getName().toLowerCase()}"
@@ -110,7 +110,7 @@
         </div>
         <!--/*@thymesVar id="pageNumbers" type="java.util.List"*/-->
         <!--/*@thymesVar id="categories" type="Iterable"*/-->
-        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+        <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.entity.Category"*/-->
         <!--/*@thymesVar id="sort" type="java.lang.String"*/-->
         <!--/*@thymesVar id="pageNumber" type="java.lang.Integer"*/-->
         <div class="fixed-bottom d-flex justify-content-center">

@@ -1,5 +1,6 @@
 package com.struninproject.onlinestore.config.security;
 
+import com.struninproject.onlinestore.model.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -76,7 +77,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()// FIXME: 15.10.2022
+//                .csrf().disable()// FIXME: 15.10.2022
 
                 .authorizeRequests()
 
@@ -92,6 +93,28 @@ public class SecurityConfig {
                         "/user/registration",
                         "/product/products"
                 ).permitAll()
+
+//                .antMatchers(
+//                        "/login*",
+//                        "/registration",
+//                        "/",
+//                        "/images/**",
+//                        "/css/**",
+//                        "/js/**",
+//                        "/user/registration",
+//                        "/product/*"
+//                ).authenticated()
+
+                .antMatchers("user/edit", "user/new").hasAnyAuthority(Role.ADMIN.name())
+//
+//                .antMatchers("/manufacturer/*/edit",
+//                             "/products/*/edit",
+//                             "/category/*/edit"
+//
+//
+//
+//
+//                ).hasAnyAuthority(Role.MANAGER.name())
 
                 .anyRequest().authenticated()
 

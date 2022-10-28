@@ -26,12 +26,6 @@ public class CustomLogoutSuccessHandler extends
             Authentication authentication)
             throws IOException, ServletException {
 
-
-//        System.out.println(response.getStatus());
-
-        //set our response to OK status
-//        response.setStatus(HttpServletResponse.SC_OK);
-
 //        final String refererUrl = request.getHeader("Referer");
 //        response.sendRedirect(refererUrl);
         super.onLogoutSuccess(request, response, authentication);

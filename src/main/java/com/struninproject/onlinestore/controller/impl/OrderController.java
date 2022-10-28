@@ -1,8 +1,8 @@
 package com.struninproject.onlinestore.controller.impl;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
-import com.struninproject.onlinestore.model.Order;
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.Order;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.service.impl.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

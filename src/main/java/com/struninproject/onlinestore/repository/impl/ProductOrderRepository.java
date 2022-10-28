@@ -1,8 +1,8 @@
 package com.struninproject.onlinestore.repository.impl;
 
-import com.struninproject.onlinestore.model.Order;
-import com.struninproject.onlinestore.model.Product;
-import com.struninproject.onlinestore.model.ProductOrder;
+import com.struninproject.onlinestore.model.entity.Order;
+import com.struninproject.onlinestore.model.entity.Product;
+import com.struninproject.onlinestore.model.entity.ProductOrder;
 import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.controller.impl;
 
-import com.struninproject.onlinestore.model.User;
+import com.struninproject.onlinestore.model.entity.User;
 import com.struninproject.onlinestore.service.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
