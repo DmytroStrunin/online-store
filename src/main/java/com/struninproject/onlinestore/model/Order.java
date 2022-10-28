@@ -3,16 +3,12 @@ package com.struninproject.onlinestore.model;
 import com.struninproject.onlinestore.model.enums.Status;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -31,12 +27,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
-    @Column(name = "order_id")
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+public class Order extends AbstractEntity {
     private LocalDateTime created;
     private BigDecimal totalPrice;
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)// FIXME: 08.10.2022

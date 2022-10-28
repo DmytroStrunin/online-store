@@ -10,7 +10,7 @@
         <div class="row"></div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
             <button class="btn btn-secondary btn-sm"
-                    onclick="document.location='manufacturer/new'">Add
+                    onclick="document.location='/manufacturer/new'">Add
                 manufacturer
             </button>
         </div>
@@ -27,20 +27,23 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="manufacturers" type="java.lang.Iterable"*/-->
-                <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
-                <tr th:each="manufacturer,iter : ${manufacturers}">
-                    <td th:text="${manufacturer.getId()}"></td>
-                    <td th:text="${manufacturer.getName()}"></td>
-                    <td th:text="${manufacturer.getCountry()}"></td>
+                <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
+                <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                <tr th:each="item : ${data}">
+                    <td th:text="${item.getId()}"></td>
+                    <td th:text="${item.getName()}"></td>
+                    <td th:text="${item.getCountry()}"></td>
                     <td>
                         <img class="image-manufacturer"
-                             th:src="${(manufacturer.getImage() != null && !#strings.isEmpty(manufacturer.getImage())) ? manufacturer.getImage() : 'https://i.ibb.co/nQKknXZ/image-not-found.jpg'}"
+                             th:src="${(item.getImage() != null
+                                        && !#strings.isEmpty(item.getImage()))
+                                        ? item.getImage()
+                                        : '/images/image-not-found.png'}"
                              src="" alt="" id="output">
                     </td>
                     <td>
                         <form th:method="GET"
-                              th:action="@{/manufacturer/{id}/edit(id=${manufacturer.getId()})}">
+                              th:action="@{/manufacturer/{id}/edit(id=${item.getId()})}">
                             <input class="btn btn-secondary btn-sm"
                                    type="submit"
                                    value="Edit"/>
@@ -48,7 +51,7 @@
                     </td>
                     <td>
                         <form th:method="DELETE"
-                              th:action="@{/manufacturer/{id}(id=${manufacturer.getId()})}">
+                              th:action="@{/manufacturer/{id}(id=${item.getId()})}">
                             <input class="btn btn-secondary btn-sm"
                                    type="submit"
                                    value="Delete"/>

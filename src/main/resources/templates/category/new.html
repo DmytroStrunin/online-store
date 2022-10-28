@@ -8,9 +8,9 @@
     <div class="container align-content-center mt-5">
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-5">
-                <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
+                <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.Category"*/-->
                 <form action="#" th:action="@{/category/new}"
-                      th:object="${category}"
+                      th:object="${data}"
                       method="POST">
                     <label for="name">Name</label>
                     <input class="form-control mb-3"

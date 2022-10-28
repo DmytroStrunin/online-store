@@ -2,15 +2,12 @@ package com.struninproject.onlinestore.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
@@ -33,12 +30,7 @@ import java.util.Set;
 @Entity
 @Table(name = "products")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Product {
-    @Id
-    @Column(name = "product_id")
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+public class Product extends AbstractEntity {
     private String name;
     private BigDecimal price;
     private String image;
@@ -54,7 +46,7 @@ public class Product {
     @ElementCollection
     @CollectionTable(name = "specifications",
             joinColumns = {@JoinColumn(name = "product_id"
-                    , referencedColumnName = "product_id"
+                    , referencedColumnName = "id"
             )})
     @MapKeyColumn(name = "feature")
     @Column(name = "value")

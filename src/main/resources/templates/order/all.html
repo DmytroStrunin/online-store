@@ -28,18 +28,18 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <!--/*@thymesVar id="orders" type="java.lang.Iterable"*/-->
-                    <!--/*@thymesVar id="order" type="com.struninproject.onlinestore.model.Order"*/-->
-                    <tr th:each="order,iter : ${orders}">
-                        <td th:text="${order.getId()}"></td>
-                        <td th:text="${order.getUser().getEmail()}"></td>
-                        <td th:text="${order.getCreated()}?${''+order.getCreated()}"></td>
-                        <td th:text="${order.getTotalPrice()}?${'$'+order.getTotalPrice()}"></td>
+                    <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
+                    <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.Order"*/-->
+                    <tr th:each="item : ${data}">
+                        <td th:text="${item.getId()}"></td>
+                        <td th:text="${item.getUser().getEmail()}"></td>
+                        <td th:text="${item.getCreated()}?${''+item.getCreated()}"></td>
+                        <td th:text="${item.getTotalPrice()}?${'$'+item.getTotalPrice()}"></td>
                         <!--/*@thymesVar id="productOrder" type="com.struninproject.onlinestore.model.ProductOrder"*/-->
                         <td>
                             <table>
                                 <tbody>
-                                <tr th:each="productOrder: ${order.getProductOrders()}">
+                                <tr th:each="productOrder: ${item.getProductOrders()}">
                                     <td class="w-25"
                                         th:text="${productOrder.getQuantity()}"></td>
                                     <td th:text="${productOrder.getProduct().getName()}"></td>
@@ -47,17 +47,17 @@
                                 </tbody>
                             </table>
                         </td>
-                        <td th:text="${order.getStatus().getValue()}"></td>
+                        <td th:text="${item.getStatus().getValue()}"></td>
                         <td>
                             <form th:method="GET"
-                                  th:action="@{/order/{id}/edit(id=${order.getId()})}">
+                                  th:action="@{/order/{id}/edit(id=${item.getId()})}">
                                 <input class="btn btn-secondary btn-sm"
                                        type="submit" value="Edit"/>
                             </form>
                         </td>
                         <td>
                             <form th:method="DELETE"
-                                  th:action="@{/order/{id}(id=${order.getId()})}">
+                                  th:action="@{/order/{id}(id=${item.getId()})}">
                                 <input class="btn btn-secondary btn-sm"
                                        type="submit" value="Delete"/>
                             </form>

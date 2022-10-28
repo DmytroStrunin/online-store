@@ -1,7 +1,7 @@
-package com.struninproject.onlinestore.repository;
+package com.struninproject.onlinestore.repository.impl;
 
 import com.struninproject.onlinestore.model.User;
-import org.springframework.data.repository.CrudRepository;
+import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  */
 @Repository
-public interface UserRepository extends CrudRepository<User,String> {
+public interface UserRepository extends CommonRepository<User> {
+
     User findByEmail(String email);
 }

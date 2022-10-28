@@ -8,9 +8,9 @@
     <div class="container align-content-center mt-5">
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-4">
-                <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
+                <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.User"*/-->
                 <form th:method="PATCH" th:action="@{/user/update}"
-                      th:object="${user}">
+                      th:object="${data}">
                     <!--/*@thymesVar id="id" type="java.lang.String"*/-->
                     <label hidden for="id"></label>
                     <input hidden type="text" th:field="*{id}" id="id">

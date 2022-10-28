@@ -1,9 +1,9 @@
-package com.struninproject.onlinestore.service;
+package com.struninproject.onlinestore.service.impl;
 
 import com.struninproject.onlinestore.model.Order;
 import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.model.ProductOrder;
-import com.struninproject.onlinestore.repository.ProductOrderRepository;
+import com.struninproject.onlinestore.repository.impl.ProductOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +14,29 @@ import org.springframework.stereotype.Service;
  * @version 1.0
  */
 @Service
-public class ProductOrderService {
-    private final ProductOrderRepository productOrderRepository;
+public class ProductOrderService extends AbstractService<ProductOrder, ProductOrderRepository> {
 
     @Autowired
-    public ProductOrderService(ProductOrderRepository productOrderRepository) {
-        this.productOrderRepository=productOrderRepository;
+    public ProductOrderService(ProductOrderRepository repository) {
+        super(repository);
+    }
+
+    @Override
+    public ProductOrder create() {
+        return new ProductOrder();
     }
 
     public ProductOrder createAndSave(){
-        return productOrderRepository.save(new ProductOrder());
+        return repository.save(create());
     }
 
     public ProductOrder getProductOrderOrCreateIfNotExist(Product product, Order order){
-        final ProductOrder productOrder = productOrderRepository
+        final ProductOrder productOrder = repository
                 .findProductOrderByOrderAndProduct(order, product)
                 .orElseGet(this::createAndSave);
         productOrder.setOrder(order);
         productOrder.setProduct(product);
-        productOrderRepository.save(productOrder);
+        repository.save(productOrder);
         return productOrder;
     }
 }

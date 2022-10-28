@@ -9,8 +9,8 @@
     <div class="container align-content-center mt-5">
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-4">
-                <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
-                <form action="#" th:action="@{/user/new}" th:object="${user}"
+                <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.User"*/-->
+                <form action="#" th:action="@{/user/new}" th:object="${data}"
                       method="POST">
                     <div class="form-group">
                         <label for="firstName">First name</label>
@@ -30,7 +30,7 @@
                         <label for="age">Age</label>
                         <!--/*@thymesVar id="age" type="java.math.BigDecimal"*/-->
                         <input class="form-control" type="number"
-                               th:name="*{age}" id="age">
+                               name="age" id="age">
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>

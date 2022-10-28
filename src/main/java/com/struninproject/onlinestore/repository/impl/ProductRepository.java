@@ -1,13 +1,13 @@
-package com.struninproject.onlinestore.repository;
+package com.struninproject.onlinestore.repository.impl;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
 import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.model.enums.Status;
+import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +20,7 @@ import java.util.LinkedHashSet;
  * @version 1.0
  */
 @Repository
-public interface ProductRepository extends CrudRepository<Product,String> {
+public interface ProductRepository extends CommonRepository<Product> {
 
     Page<Product> findAllByCategory_NameContainsIgnoreCaseAndManufacturer_NameContainsIgnoreCase(String categoryName, String manufacturerName, Pageable pageable);
 

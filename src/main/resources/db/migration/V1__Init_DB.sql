@@ -1,8 +1,8 @@
 create table categories
 (
-    category_id varchar(255) not null,
+    id varchar(255) not null,
     name        varchar(255),
-    primary key (category_id)
+    primary key (id)
 );
 
 create table features
@@ -13,42 +13,42 @@ create table features
 
 create table manufacturers
 (
-    manufacturer_id varchar(255) not null,
+    id varchar(255) not null,
     country         varchar(255),
     image           varchar(255),
     name            varchar(255),
-    primary key (manufacturer_id)
+    primary key (id)
 );
 
 create table orders
 (
-    order_id    varchar(255) not null,
+    id    varchar(255) not null,
     created     timestamp,
     status varchar(255),
     total_price numeric(19, 2),
     user_id     varchar(255),
-    primary key (order_id)
+    primary key (id)
 );
 
 create table product_order
 (
-    product_order_id varchar(255) not null,
+    id varchar(255) not null,
     quantity            int4         not null,
     order_id         varchar(255),
     product_id       varchar(255),
-    primary key (product_order_id)
+    primary key (id)
 );
 
 create table products
 (
-    product_id      varchar(255) not null,
+    id      varchar(255) not null,
     description     varchar(255),
     image           varchar(255),
     name            varchar(255),
     price           numeric(19, 2),
     category_id     varchar(255),
     manufacturer_id varchar(255),
-    primary key (product_id)
+    primary key (id)
 );
 
 create table specifications
@@ -67,7 +67,7 @@ create table user_role
 
 create table users
 (
-    user_id    varchar(255) not null,
+    id    varchar(255) not null,
     active     boolean      not null,
     age        int4         not null,
     email      varchar(255),
@@ -75,7 +75,7 @@ create table users
     gender     varchar(255),
     last_name  varchar(255),
     password   varchar(255),
-    primary key (user_id)
+    primary key (id)
 );
 
 alter table if exists features

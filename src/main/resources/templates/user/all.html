@@ -10,7 +10,7 @@
         <div class="row"></div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
             <button class="btn btn-secondary btn-sm"
-                    onclick="document.location='user/new'">Add user
+                    onclick="document.location='/user/new'">Add user
             </button>
         </div>
         <div class="col-md-12">
@@ -29,31 +29,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="users" type="java.lang.Iterable"*/-->
-                <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.User"*/-->
-                <tr th:each="user,iter : ${users}">
-                    <td th:text="${user.getId()}"></td>
-                    <td th:text="${user.getFirstName()}"></td>
-                    <td th:text="${user.getLastName()}"></td>
-                    <td th:text="${user.getAge()}"></td>
-                    <td th:text="${user.getGender()}?${user.getGender().getValue()}"></td>
+                <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
+                <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.User"*/-->
+                <tr th:each="item : ${data}">
+                    <td th:text="${item.getId()}"></td>
+                    <td th:text="${item.getFirstName()}"></td>
+                    <td th:text="${item.getLastName()}"></td>
+                    <td th:text="${item.getAge()}"></td>
+                    <td th:text="${item.getGender()}?${item.getGender().getValue()}"></td>
                     <td>
                         <!--/*@thymesVar id="role" type="com.struninproject.onlinestore.model.enums.Role"*/-->
                         <li class="list-group-item"
-                            th:each="role: ${user.getRoles()}"
+                            th:each="role: ${item.getRoles()}"
                             th:text="${role}?${role.getValue()}"></li>
                     </td>
-                    <td th:text="${user.getEmail()}"></td>
+                    <td th:text="${item.getEmail()}"></td>
                     <td>
                         <form th:method="GET"
-                              th:action="@{/user/{id}/edit(id=${user.getId()})}">
+                              th:action="@{/user/{id}/edit(id=${item.getId()})}">
                             <input class="btn btn-secondary btn-sm"
                                    type="submit" value="Edit"/>
                         </form>
                     </td>
                     <td>
                         <form th:method="DELETE"
-                              th:action="@{/user/{id}(id=${user.getId()})}">
+                              th:action="@{/user/{id}(id=${item.getId()})}">
                             <input class="btn btn-secondary btn-sm"
                                    type="submit" value="Delete"/>
                         </form>

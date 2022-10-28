@@ -1,4 +1,4 @@
-package com.struninproject.onlinestore.service;
+package com.struninproject.onlinestore.service.impl;
 
 import com.struninproject.onlinestore.dto.ProductDTO;
 import com.struninproject.onlinestore.model.Order;
@@ -6,8 +6,8 @@ import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.model.ProductOrder;
 import com.struninproject.onlinestore.model.User;
 import com.struninproject.onlinestore.model.enums.Status;
-import com.struninproject.onlinestore.repository.OrderRepository;
-import com.struninproject.onlinestore.repository.ProductRepository;
+import com.struninproject.onlinestore.repository.impl.OrderRepository;
+import com.struninproject.onlinestore.repository.impl.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,49 +22,50 @@ import java.util.Set;
  * @version 1.0
  */
 @Service
-public class OrderService {
-    private final OrderRepository orderRepository;
+public class OrderService extends AbstractService<Order, OrderRepository> {
     private final ProductRepository productRepository;
     private final ProductOrderService productOrderService;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository,
+    public OrderService(OrderRepository repository,
                         ProductRepository productRepository,
                         ProductOrderService productOrderService) {
-        this.orderRepository = orderRepository;
+        super(repository);
         this.productRepository = productRepository;
         this.productOrderService = productOrderService;
     }
 
+    @Override
+    public Order create() {
+        return new Order();
+    }
+
     public Order createAndSave(User user) {
-        final Order order = new Order();
+        final Order order = create();
         order.setUser(user);
         order.setStatus(Status.CART);
         order.setProductOrders(new HashSet<>());
-        return orderRepository.save(order);
+        return repository.save(order);
     }
 
-    public Set<ProductDTO> getUserCart(User user) {
-        return productRepository.findAllProductsInUserCart(user, Status.CART);
-    }
-
-    public void updateUserCartStatus(User user) {
-        orderRepository
+    public Set<ProductDTO> updateUserCartStatus(User user) {
+        repository
                 .findOrderByUserAndStatusAndProductOrdersNotNull(user, Status.CART)
                 .ifPresent((o) -> {
                     o.setCreated(LocalDateTime.now());
                     o.setStatus(Status.IN_PROGRESS);
-                    o.setTotalPrice(orderRepository.getOrderTotalPrice(o));
-                    orderRepository.save(o);
+                    o.setTotalPrice(repository.getOrderTotalPrice(o));
+                    repository.save(o);
                 });
+        return getUserCart(user);
     }
 
-    public void addProductInCart(User user, String productId) {
+    public Set<ProductDTO> addProductInCart(User user, String productId) {
         final Product product = productRepository
                 .findById(productId)
                 .orElseThrow(IllegalArgumentException::new);
 
-        final Order order = orderRepository
+        final Order order = repository
                 .findOrderByUserAndStatus(user, Status.CART)
                 .orElseGet(() -> createAndSave(user));
 
@@ -74,15 +75,17 @@ public class OrderService {
         int quantity = productOrder.getQuantity();
         productOrder.setQuantity(++quantity);
 
-        orderRepository.save(order);
+        repository.save(order);
+
+        return getUserCart(user);
     }
 
-    public void removeProductInCart(User user, String productId) {
+    public Set<ProductDTO> removeProductInCart(User user, String productId) {
         final Product product = productRepository
                 .findById(productId)
                 .orElseThrow(IllegalArgumentException::new);  // FIXME: 15.10.2022
 
-        final Order order = orderRepository
+        final Order order = repository
                 .findOrderByUserAndStatus(user, Status.CART)
                 .orElseGet(() -> createAndSave(user));
 
@@ -103,26 +106,12 @@ public class OrderService {
             order.getProductOrders().remove(productOrder);
         }
 
-        orderRepository.save(order);
+        repository.save(order);
+
+        return getUserCart(user);
     }
 
-    public Order findById(String id){
-        return orderRepository.findById(id)
-                .orElseThrow(IllegalArgumentException::new);
-    }
-
-    public Iterable<Order> findAll(){
-       return orderRepository.findAll();
-    }
-
-
-    public void update(Order order){
-        if (orderRepository.existsById(order.getId())) {
-            orderRepository.save(order);
-        }
-    }
-
-    public void deleteById(String id){
-        orderRepository.deleteById(id);
+    public Set<ProductDTO> getUserCart(User user) {
+        return productRepository.findAllProductsInUserCart(user, Status.CART);
     }
 }

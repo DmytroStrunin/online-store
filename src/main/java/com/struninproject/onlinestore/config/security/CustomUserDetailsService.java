@@ -1,6 +1,6 @@
 package com.struninproject.onlinestore.config.security;
 
-import com.struninproject.onlinestore.repository.UserRepository;
+import com.struninproject.onlinestore.repository.impl.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -2,8 +2,6 @@ package com.struninproject.onlinestore.service;
 
 import com.struninproject.onlinestore.model.AbstractEntity;
 
-import java.util.Optional;
-
 /**
  * The {@code CommonService} class
  *
@@ -12,6 +10,15 @@ import java.util.Optional;
  */
 public interface CommonService<E extends AbstractEntity> {
 
-    Optional<E> save(E entity);
-//какое-то количество нужных нам методов
+    E save(E entity);
+
+    Iterable<E> findAll();
+
+    E findById(String id);
+
+    void update(E entity);
+
+    void deleteById(String id);
+
+    E create();
 }

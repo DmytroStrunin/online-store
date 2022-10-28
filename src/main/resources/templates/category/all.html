@@ -10,7 +10,7 @@
         <div class="row"></div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-2">
             <button class="btn btn-secondary btn-sm"
-                    onclick="document.location='category/new'"> Add category
+                    onclick="document.location='/category/new'"> Add category
             </button>
         </div>
         <div class="col-md-12">
@@ -25,27 +25,27 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="categories" type="java.lang.Iterable"*/-->
-                <!--/*@thymesVar id="category" type="com.struninproject.onlinestore.model.Category"*/-->
-                <tr th:each="category: ${categories}">
-                    <td th:text="${category.getId()}"></td>
-                    <td th:text="${category.getName()}"></td>
+                <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
+                <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.Category"*/-->
+                <tr th:each="item: ${data}">
+                    <td th:text="${item.getId()}"></td>
+                    <td th:text="${item.getName()}"></td>
                     <td>
                         <!--/*@thymesVar id="feature" type="java.lang.String"*/-->
                         <li class="list-group-item"
-                            th:each="feature: ${category.getFeatures()}"
+                            th:each="feature: ${item.getFeatures()}"
                             th:text="${feature}"></li>
                     </td>
                     <td>
                         <form th:method="GET"
-                              th:action="@{/category/{id}/edit(id=${category.getId()})}">
+                              th:action="@{/category/{id}/edit(id=${item.getId()})}">
                             <input class="btn btn-secondary btn-sm"
                                    type="submit" value="Edit"/>
                         </form>
                     </td>
                     <td>
                         <form th:method="DELETE"
-                              th:action="@{/category/{id}(id=${category.getId()})}">
+                              th:action="@{/category/{id}(id=${item.getId()})}">
                             <input class="btn btn-secondary btn-sm"
                                    type="submit" value="Delete"/>
                         </form>

@@ -2,12 +2,8 @@ package com.struninproject.onlinestore.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -20,12 +16,7 @@ import javax.persistence.Table;
 @Setter
 @Entity
 @Table(name = "manufacturers")
-public class Manufacturer {
-    @Id
-    @Column(name = "manufacturer_id")
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private String id;
+public class Manufacturer extends AbstractEntity {
     private String name;
     private String country;
     private String image;

@@ -1,7 +1,7 @@
-package com.struninproject.onlinestore.repository;
+package com.struninproject.onlinestore.repository.impl;
 
 import com.struninproject.onlinestore.model.Manufacturer;
-import org.springframework.data.repository.CrudRepository;
+import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  */
 @Repository
-public interface ManufacturerRepository extends CrudRepository<Manufacturer, String> {
+public interface ManufacturerRepository extends CommonRepository<Manufacturer> {
+
 }

@@ -1,9 +1,9 @@
-package com.struninproject.onlinestore.repository;
+package com.struninproject.onlinestore.repository.impl;
 
 import com.struninproject.onlinestore.model.Order;
 import com.struninproject.onlinestore.model.Product;
 import com.struninproject.onlinestore.model.ProductOrder;
-import org.springframework.data.repository.CrudRepository;
+import com.struninproject.onlinestore.repository.CommonRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -15,6 +15,7 @@ import java.util.Optional;
  * @version 1.0
  */
 @Repository
-public interface ProductOrderRepository extends CrudRepository<ProductOrder,String> {
+public interface ProductOrderRepository extends CommonRepository<ProductOrder> {
+
     Optional<ProductOrder> findProductOrderByOrderAndProduct(Order order, Product product);
 }

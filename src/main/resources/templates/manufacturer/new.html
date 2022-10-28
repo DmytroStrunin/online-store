@@ -8,9 +8,9 @@
     <div class="container align-content-center mt-5">
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-4">
-                <!--/*@thymesVar id="manufacturer" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
+                <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.Manufacturer"*/-->
                 <form action="#" th:action="@{/manufacturer/new}"
-                      th:object="${manufacturer}"
+                      th:object="${data}"
                       method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -29,9 +29,9 @@
                         <label for="input_img">Image</label>
                         <div>
                             <img class="image-manufacturer"
-                                 th:src="${(manufacturer.getImage()
-                                                != null && !#strings.isEmpty(manufacturer.getImage()))
-                                                ? manufacturer.getImage()
+                                 th:src="${(data.getImage()
+                                                != null && !#strings.isEmpty(data.getImage()))
+                                                ? data.getImage()
                                                 : '/images/image-not-found.png'}"
                                  src="" alt="" id="output">
                         </div>

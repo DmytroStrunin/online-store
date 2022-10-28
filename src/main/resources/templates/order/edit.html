@@ -6,9 +6,9 @@
 <body th:include="navbar.html :: body">
 <div id="body">
 
-    <!--/*@thymesVar id="order" type="com.struninproject.onlinestore.model.Order"*/-->
+    <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.Order"*/-->
     <form th:method="PATCH" th:action="@{/order/update}"
-          th:object="${order}">
+          th:object="${data}">
         <!--/*@thymesVar id="id" type="java.lang.String"*/-->
         <label hidden for="id"></label>
         <input hidden type="text" th:field="*{id}" id="id">
