@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
 <head th:include="navbar.html :: head">
     <title id="title">All orders</title>
 </head>
@@ -23,14 +24,17 @@
                         <th>Total price</th>
                         <th>Products</th>
                         <th>Status</th>
-                        <th></th>
-                        <th></th>
+                        <th sec:authorize=" hasAnyAuthority('ADMIN','MANAGER')"></th>
+                        <th sec:authorize=" hasAnyAuthority('ADMIN','MANAGER')"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <!--/*@thymesVar id="data" type="java.lang.Iterable"*/-->
                     <!--/*@thymesVar id="item" type="com.struninproject.onlinestore.model.entity.Order"*/-->
-                    <tr th:each="item : ${data}">
+                    <tr th:each="item : ${data}"
+                        th:if="${#authorization.expression('hasAnyAuthority(''ADMIN'',''MANAGER'')')
+                        ||(#authentication.getName() == item.getUser().getEmail()
+                                    && item.getStatus().toString() != 'CART')}">
                         <td th:text="${item.getId()}"></td>
                         <td th:text="${item.getUser().getEmail()}"></td>
                         <td th:text="${item.getCreated()}?${''+item.getCreated()}"></td>
@@ -48,14 +52,14 @@
                             </table>
                         </td>
                         <td th:text="${item.getStatus().getValue()}"></td>
-                        <td>
+                        <td sec:authorize=" hasAnyAuthority('ADMIN','MANAGER')">
                             <form th:method="GET"
                                   th:action="@{/order/{id}/edit(id=${item.getId()})}">
                                 <input class="btn btn-secondary btn-sm"
                                        type="submit" value="Edit"/>
                             </form>
                         </td>
-                        <td>
+                        <td sec:authorize=" hasAnyAuthority('ADMIN','MANAGER') ">
                             <form th:method="DELETE"
                                   th:action="@{/order/{id}(id=${item.getId()})}">
                                 <input class="btn btn-secondary btn-sm"

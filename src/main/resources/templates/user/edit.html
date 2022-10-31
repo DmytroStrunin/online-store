@@ -62,16 +62,23 @@
                                th:field="*{email}"
                                id="email">
                     </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <!--/*@thymesVar id="password" type="java.lang.String"*/-->
-                        <input class="form-control" type="text"
-                               th:field="*{password}"
-                               id="password">
-                    </div>
                     <div class="d-grid justify-content-end mt-4">
                     <input type="submit" class="btn btn-sm btn-secondary"
                            value="Edit User">
+                    </div>
+                    <div>
+                        <label for="active"></label>
+                        <!--/*@thymesVar id="active" type="java.lang.Boolean"*/-->
+                        <input hidden type="text"
+                               th:field="*{active}"
+                               id="active">
+                    </div>
+                    <div>
+                        <label for="password"></label>
+                        <!--/*@thymesVar id="password" type="java.lang.String"*/-->
+                        <input hidden type="text"
+                               th:field="*{password}"
+                               id="password">
                     </div>
                 </form>
             </div>
