@@ -6,9 +6,9 @@ import com.struninproject.onlinestore.service.CommonService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -71,7 +71,7 @@ public abstract class AbstractController<E extends AbstractEntity,
         return modelAndView;
     }
 
-    @PatchMapping("/update")
+    @PutMapping("/update")
     public String update(@ModelAttribute("category") E entity) {
         service.update(entity);
         return String.format("redirect:/%s/all",

@@ -64,7 +64,7 @@ public class ProductController extends AbstractController<Product, ProductServic
         return modelAndView;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/p{id}")
     public ModelAndView getProduct(ModelAndView modelAndView,
                                    @PathVariable("id") String id) {
         modelAndView.addObject("user", new User());

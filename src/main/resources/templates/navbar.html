@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <head th:fragment="head">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -274,6 +275,7 @@
                             </div>
                         </form>
                     </div>
+                    <!--/*@thymesVar id="#fields" type="org.thymeleaf.spring5.expression.Fields"*/-->
                     <div class="tab-pane fade" id="pills-register"
                          role="tabpanel" aria-labelledby="tab-register">
                         <!--/*@thymesVar id="user" type="com.struninproject.onlinestore.model.entity.User"*/-->
@@ -309,8 +311,6 @@
                             <!--                            <p class="text-center">or:</p>-->
 
                             <div class="form-outline mb-1">
-
-
                                 <!--/*@thymesVar id="firstName" type="java.lang.String"*/-->
                                 <input th:class="${#fields.hasErrors('firstName')}?'form-control is-invalid':'form-control'"
                                        type="text"

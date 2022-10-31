@@ -65,7 +65,7 @@
                 <div class="product-card d-flex flex-column">
                     <div class="product-thumb">
                         <a href="#"
-                           th:href="@{/product/{id}(id=${product.getId()})}">
+                           th:href="@{/product/p{id}(id=${product.getId()})}">
                             <img class="product-c"
                                  th:src="${(product.getImage() != null
                                  && !#strings.isEmpty(product.getImage()))
@@ -76,7 +76,7 @@
                     </div>
                     <div class="product-details d-grid flex-column">
                         <h4><a href="#"
-                               th:href="@{/product/{id}(id=${product.getId()})}">
+                               th:href="@{/product/p{id}(id=${product.getId()})}">
                             <p
                                     th:text="${product.getName()}"></p></a></h4>
                         <span class="mb-auto"

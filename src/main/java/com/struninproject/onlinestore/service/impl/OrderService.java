@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -43,7 +44,7 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
     public Order createAndSaveWithStatusCart(User user, String productId) {
         final Order order = create();
         final ProductOrder productOrder = productOrderService.create();
-        final Set<ProductOrder> productOrders = new HashSet<>();
+        final List<ProductOrder> productOrders = new ArrayList<>();
         productOrder.setOrder(order);
         productOrder.setProduct(productService.findById(productId));
         productOrder.setQuantity(1);
@@ -54,7 +55,7 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
         log.info("Saving new Order with User email: {} status: {} product: {} "
                 , user.getEmail()
                 , order.getStatus(),
-                productOrder.getProduct());
+                productOrder.getProduct().getId());
         return repository.save(order);
     }
 

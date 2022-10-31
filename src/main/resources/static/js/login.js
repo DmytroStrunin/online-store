@@ -28,7 +28,7 @@ function getLoginForm() {
         if (registrationPage) {
             document.getElementById('tab-register')
                 .click();
-            console.log(registrationPage);
+            // console.log(registrationPage);
         }
         loginMod.click();
     }

@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 /**
  * The {@code Order} class
@@ -36,5 +36,5 @@ public class Order extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     Status status;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<ProductOrder> productOrders;
+    private List<ProductOrder> productOrders;
 }

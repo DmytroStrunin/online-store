@@ -30,7 +30,7 @@
                         <label for="age">Age</label>
                         <!--/*@thymesVar id="age" type="java.math.BigDecimal"*/-->
                         <input class="form-control" type="number"
-                               name="age" id="age">
+                               th:field="*{age}" id="age">
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>

@@ -9,7 +9,7 @@
         <div class="row mb-4 d-flex justify-content-center">
             <div class="col-5">
                 <!--/*@thymesVar id="data" type="com.struninproject.onlinestore.model.entity.Category"*/-->
-                <form th:method="PATCH"
+                <form th:method="PUT"
                       th:action="@{/category/update}"
                       th:object="${data}">
                     <!--/*@thymesVar id="id" type="java.lang.String"*/-->

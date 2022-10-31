@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -41,9 +41,7 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-//        return new SCryptPasswordEncoder();
-//        return new BCryptPasswordEncoder(8); // FIXME: 03.10.2022
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder(8);
     }
 
     @Bean
@@ -81,40 +79,30 @@ public class SecurityConfig {
 
                 .authorizeRequests()
 
-                .antMatchers("/anonymous*").anonymous()
-
                 .antMatchers(
-                        "/login*",
-                        "/registration",
-                        "/",
-                        "/images/**",
-                        "/css/**",
-                        "/js/**",
-                        "/user/registration",
-                        "/product/products"
+                                "/images/**",
+                                "/css/**",
+                                "/js/**",
+                                "/",
+                                "/login*",
+                                "/registration",
+                                "/user/registration",
+                                "/product/products",
+                                "/product/p*"
                 ).permitAll()
 
-//                .antMatchers(
-//                        "/login*",
-//                        "/registration",
-//                        "/",
-//                        "/images/**",
-//                        "/css/**",
-//                        "/js/**",
-//                        "/user/registration",
-//                        "/product/*"
-//                ).authenticated()
+                .antMatchers(
+                                "/order/cart/*",
+                                "/order/all"
+                ).authenticated()
 
-                .antMatchers("user/edit", "user/new").hasAnyAuthority(Role.ADMIN.name())
-//
-//                .antMatchers("/manufacturer/*/edit",
-//                             "/products/*/edit",
-//                             "/category/*/edit"
-//
-//
-//
-//
-//                ).hasAnyAuthority(Role.MANAGER.name())
+                .antMatchers(   "/product/**",
+                                "/manufacturer/**",
+                                "/category/**",
+                                "/order/**"
+                ).hasAnyAuthority(Role.MANAGER.name(), Role.ADMIN.name())
+
+                .antMatchers("/user/**").hasAnyAuthority(Role.ADMIN.name())
 
                 .anyRequest().authenticated()
 
