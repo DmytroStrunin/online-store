@@ -40,5 +40,5 @@ public interface OrderRepository extends CommonRepository<Order> {
             AND u = :user
             AND po.product.id = :productId
             """)
-    Optional<Order> findOrderWithStatusCard(@Param("user") User user, @Param("productId") String productId);
+    Optional<Order> findOrderWithStatusCart(@Param("user") User user, @Param("productId") String productId);
 }

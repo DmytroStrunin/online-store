@@ -84,7 +84,7 @@ function updateCart(data) {
         tdPrice = document.createElement('td');
         tdQuantity = document.createElement('td');
         aIm = document.createElement("a");
-        aIm.setAttribute('href', '/product/' + product.id);
+        aIm.setAttribute('href', '/product/p' + product.id);
         img = document.createElement('img');
         if (product.image) {
             img.setAttribute('src', product.image);
@@ -94,7 +94,7 @@ function updateCart(data) {
         aIm.appendChild(img);
         tdIm.appendChild(aIm);
         aName = document.createElement('a');
-        aName.setAttribute('href', '/product/' + product.id);
+        aName.setAttribute('href', '/product/p' + product.id);
         aName.innerText = product.name;
         tdName.appendChild(aName);
         if (product.price) {

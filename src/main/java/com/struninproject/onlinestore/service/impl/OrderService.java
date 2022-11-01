@@ -43,11 +43,10 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
 
     public Order createAndSaveWithStatusCart(User user, String productId) {
         final Order order = create();
-        final ProductOrder productOrder = productOrderService.create();
         final List<ProductOrder> productOrders = new ArrayList<>();
-        productOrder.setOrder(order);
-        productOrder.setProduct(productService.findById(productId));
-        productOrder.setQuantity(1);
+        final ProductOrder productOrder =
+                productOrderService
+                        .create(order, productService.findById(productId));
         productOrders.add(productOrder);
         order.setUser(user);
         order.setStatus(Status.CART);
@@ -62,59 +61,59 @@ public class OrderService extends AbstractService<Order, OrderRepository> {
     public Set<ProductDTO> updateUserCartStatus(User user) {
         repository
                 .findOrderByUserAndStatusAndProductOrdersNotNull(user, Status.CART)
-                .ifPresent((o) -> {
-                    o.setCreated(LocalDateTime.now());
-                    o.setStatus(Status.IN_PROGRESS);
-                    o.setTotalPrice(repository.getOrderTotalPrice(o));
-                    log.info("Saving new Order with User email: {} status: {}"
-                            , user.getEmail()
-                            , o.getStatus());
-                    repository.save(o);
-                });
+                .ifPresent(
+                        order -> {
+                            order.setCreated(LocalDateTime.now());
+                            order.setStatus(Status.IN_PROGRESS);
+                            order.setTotalPrice(repository.getOrderTotalPrice(order));
+                            log.info("Saving new Order with User email: {} status: {}"
+                                    , user.getEmail()
+                                    , order.getStatus());
+                            repository.save(order);
+                        });
         return getUserCart(user);
     }
 
     public Set<ProductDTO> addProductInCart(User user, String productId) {
         repository.findOrderByUserAndStatus(user, Status.CART)
                 .ifPresentOrElse(
-                        o -> o.getProductOrders().stream()
+                        order -> order.getProductOrders().stream()
                                 .filter(po -> po.getProduct().getId().equals(productId))
                                 .findAny()
-                                .ifPresentOrElse(po -> {
-                                    int quantity = po.getQuantity();
-                                    po.setQuantity(++quantity);
-                                    repository.save(o);
-                                },() -> {
-                                    final ProductOrder productOrder = productOrderService.create();
-                                    productOrder.setOrder(o);
-                                    productOrder.setProduct(productService.findById(productId));
-                                    productOrder.setQuantity(1);
-                                    productOrderService.save(productOrder);
-                                    o.getProductOrders().add(productOrder);
-                                    repository.save(o);
-                                })
-                        ,
+                                .ifPresentOrElse(
+                                        po -> {
+                                            int quantity = po.getQuantity();
+                                            po.setQuantity(++quantity);
+                                            repository.save(order);
+                                        }, () -> {
+                                            final ProductOrder productOrder =
+                                                    productOrderService.create(
+                                                            order,
+                                                            productService.findById(productId));
+                                            order.getProductOrders().add(productOrder);
+                                            repository.save(order);
+                                        }),
                         () -> createAndSaveWithStatusCart(user, productId));
         return getUserCart(user);
     }
 
     public Set<ProductDTO> removeProductFromCart(User user, String productId) {
-        repository.findOrderWithStatusCard(user, productId).ifPresent(
-                (o) -> {
-                    o.getProductOrders().stream()
-                            .filter(po -> po.getProduct().getId().equals(productId))
-                            .findAny()
-                            .ifPresent(po -> removeFromOrder(o, po));
-                    repository.save(o);
-                });
+        repository.findOrderWithStatusCart(user, productId)
+                .ifPresent(
+                        order -> {
+                            order.getProductOrders().stream()
+                                    .filter(po -> po.getProduct().getId().equals(productId))
+                                    .findAny()
+                                    .ifPresent(po -> removeFromOrder(order, po));
+                            repository.save(order);
+                        });
         return getUserCart(user);
     }
 
-    public void removeFromOrder(Order order, ProductOrder productOrder) {
+    private void removeFromOrder(Order order, ProductOrder productOrder) {
         int quantity = productOrder.getQuantity();
         if (quantity > 1) {
             productOrder.setQuantity(--quantity);
-            order.getProductOrders().add(productOrder);
         } else {
             order.getProductOrders().remove(productOrder);
         }

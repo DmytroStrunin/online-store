@@ -10,6 +10,8 @@ import com.struninproject.onlinestore.model.entity.AbstractEntity;
  */
 public interface CommonService<E extends AbstractEntity> {
 
+    E create();
+
     E save(E entity);
 
     Iterable<E> findAll();
@@ -19,6 +21,4 @@ public interface CommonService<E extends AbstractEntity> {
     void update(E entity);
 
     void deleteById(String id);
-
-    E create();
 }
